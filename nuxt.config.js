@@ -1,0 +1,46 @@
+module.exports = {
+  /*
+  ** Headers of the page
+  */
+  head: {
+    title: 'nuxjs',
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: '大众分析的数据利器'},
+      {hid: 'description', name: 'keyswords', content: '猫评手,maopingshou,数据,评论分析,从评论看新闻'}
+    ],
+    link: [
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+    ]
+  },
+  css: [
+    { src: 'bulma-stylus', lang: 'stylus' },
+    { src: '~/assets/stylus/index.styl', lang: 'stylus' }
+  ],
+  /*
+  ** Customize the progress bar color
+  */
+  loading: {color: '#3B8070'},
+  /*
+  ** Build configuration
+  */
+  build: {
+    /*
+    ** Run ESLint on save
+    */
+    extend (config, ctx) {
+      if (ctx.dev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
+  },
+  router: {
+    middleware: 'stats'
+  }
+}
