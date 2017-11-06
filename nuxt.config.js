@@ -15,13 +15,21 @@ module.exports = {
     ]
   },
   css: [
-    { src: 'bulma-stylus', lang: 'stylus' },
-    { src: '~/assets/stylus/index.styl', lang: 'stylus' }
+    {src: 'bulma-stylus', lang: 'stylus'},
+    {src: '~/assets/stylus/index.styl', lang: 'stylus'},
+    {src: 'material-design-icons/iconfont/material-icons.css'}
   ],
+  render: {
+    bundleRenderer: {
+      shouldPreload: (file, type) => {
+        return ['script', 'style', 'font'].includes(type)
+      }
+    }
+  },
   /*
   ** Customize the progress bar color
   */
-  loading: {color: '#3B8070'},
+  loading: '~/components/Loading/loading.vue',
   /*
   ** Build configuration
   */

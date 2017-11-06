@@ -16,6 +16,7 @@
     "axios": "^0.17.0",
     "bulma": "^0.6.0",
     "bulma-stylus": "^0.4.0",
+    "material-design-icons": "^3.0.1",
     "nuxt": "^1.0.0-rc11",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",

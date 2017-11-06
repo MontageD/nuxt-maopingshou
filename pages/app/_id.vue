@@ -10,15 +10,15 @@
             <img src="~assets/img/logo3.png">
           </a>
           <div class="name"><p>
-            NIUCO
+            MAOPING
           </p>
             <p>
-              纽扣数据
+              猫评手
             </p></div>
         </header>
         <section class="search-bar">
           <input type="text" placeholder="中国有嘻哈"/>
-          <span title="点击搜索" class="icon-Search"></span>
+          <i title="点击搜索" class="material-icons searchIcon" ref="searchIcon">search</i>
         </section>
       </section>
       <section class="avatar">
@@ -34,11 +34,18 @@
         </div>
       </section>
     </section>
+
+    <keep-alive>
+      <mains></mains>
+    </keep-alive>
+
+
     <div class="title"></div>
   </div>
 </template>
 <script>
   //  import axios from 'axios'
+  import mains from '~/components/main/main'
   export default {
     data () {
       return {
@@ -58,6 +65,9 @@
         }
         this.$refs.switchShrink.style['transform'] = `rotate(${this.rotate}deg)`
       }
+    },
+    components: {
+      mains
     }
   }
 </script>
@@ -65,8 +75,10 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   $switch-background = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAeUlEQVRIS+2UwQ2AIBRDHxu4iY6gm+lkOoIj6AaOwM1o8lEaErh8jqS06UtDoMIJFTLwEImyhWsEVsnlLZ6A7XllhXTAUBCyA9dfSIG//dTXJSFthkud8ALMX9WaNZF454i9SQ6lW5P6u3rB5QQOdV0+4SQxn7AwPoiRdQoaQM/fOQAAAABJRU5ErkJggg=='
 
+
+
   section
-    border-bottom: 1px solid #e6e9ed
+    /*border-bottom: 1px solid #e6e9ed*/
     justify-content: space-between
     -webkit-box-pack: justify
     .leftside-top
@@ -94,7 +106,7 @@
     .search-bar
       position: relative
       margin-left: 20px
-      span
+      i
         position: absolute
         right: 0
         width: 40px
@@ -103,6 +115,9 @@
         cursor: pointer
         text-align: center
         transition: all .25s
+      .searchIcon:hover
+        color: #fff
+        background-color: #e2455b
       input
         background: #fff
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12)
@@ -149,7 +164,7 @@
   .logo-header
     position: relative
     height: 100px
-    border-bottom: 1px solid #e6e9ed
+    /*border-bottom: 1px solid #e6e9ed*/
     display: flex
     align-items: center
     justify-content: center
@@ -201,5 +216,7 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, .2)
     display: none
     animation: fadeIn .3s
+
+
 </style>
 

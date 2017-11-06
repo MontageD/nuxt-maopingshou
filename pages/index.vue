@@ -84,7 +84,8 @@
       justify-content: space-between
       width: 100%
       text-align: right
-      padding 20px
+      padding 0 20px
+      max-height: 100px
       .avatar
         display flex
         justify-content: center
@@ -93,7 +94,7 @@
     .containers
       text-align: center
       position: relative
-      margin-bottom: 100px
+      margin-bottom: 150px
       .logo
         margin-bottom: 50px
         header
