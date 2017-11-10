@@ -1,10 +1,11 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @click="showElse">
     <header>
       <span></span>
       <section class="avatar">
         <div class="tools">
-          <img class="iconfont tool" src="~assets/img/header-tool.png"/>
+          <!--<img class="iconfont tool" src="~assets/img/header-tool.png"/>-->
+          <i class="material-icons">blur_on</i>
           <section class="tools-items">
             <ul>
               <li>
@@ -16,8 +17,18 @@
             </ul>
           </section>
         </div>
-        <div class="user">
-          <img class="head" src="~assets/img/header-heads.png" alt="头像">
+        <div class="user" @click.stop="openUser">
+          <!--<img class="head" src="~assets/img/header-heads.png" alt="头像">-->
+          <i class="material-icons">person</i>
+          <div class="user-panel " v-show="openU">
+            <section class="arrow"></section>
+            <ul >
+              <li class="login-in"  > <a href="/login/">登录</a></li>
+              <li ><a href="/plan/" target="_blank">定制服务</a></li>
+              <li class="subscribe" style="display: none"><a href="/app/#/oldAlerts" target="_blank">已创建的订阅</a></li>
+              <li class="log-out" style="display: none">登出</li>
+            </ul>
+          </div>
         </div>
       </section>
     </header>
@@ -46,9 +57,13 @@
 
 <script type="text/ecmascript-6">
   export default {
+    created () {
+    },
     data () {
       return {
-        searchText: ''
+        searchText: '',
+        login: false,
+        openU: false
       }
     },
     components: {},
@@ -68,6 +83,15 @@
       searchList () {
         let userText = this.searchText
         this.$router.push({path: `/app/${userText}`})
+      },
+      openUser (e) {
+        e.preventDefault()
+        this.openU = !this.openU
+      },
+      showElse () {
+        if (this.openU) {
+          this.openU = !this.openU
+        }
       }
     }
   }
@@ -84,7 +108,7 @@
       justify-content: space-between
       width: 100%
       text-align: right
-      padding 0 20px
+      padding 0 40px
       max-height: 100px
       .avatar
         display flex
@@ -170,7 +194,7 @@
           transition: all .25s
           font-size: 30px
         .to-go:hover
-          background:  #e2455b
+          background: #e2455b
           color: #fff
       .simulation
         height: 100%
@@ -189,7 +213,6 @@
         display: block
         height: 35%
 
-
   .title
     font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif /* 1 */
     display: block
@@ -207,9 +230,47 @@
       right: -30px
       top: 40px
 
+
+  .arrow
+    position: absolute
+    width: 13px
+    height: 13px
+    background-color: #fff
+    transform: rotate(45deg) translateX(-50%)
+    top: -2px
+    border: 1px solid #c5c5c6
+    border-right: none
+    border-bottom:  none
+
   .user
     margin-left: 35px
     position: relative
+    .user-panel
+      position: absolute
+      text-align: left
+      font-size: 13px
+      color: #4a4a4a
+      width: 150px
+      top: 50px
+      right: -2px
+      z-index: 999
+      ul
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.12)
+        border: 1px solid #c5c5c6
+        border-radius: 4px
+        padding: 10px
+        position: relative
+        cursor: pointer
+        z-index: 1
+        right: -10px
+        li
+          line-height: 2.5
+          a
+            color: #4a4a4a
+            text-decoration: none
+      .arrow
+        right: 3px
+        z-index: 2
 
 
 </style>

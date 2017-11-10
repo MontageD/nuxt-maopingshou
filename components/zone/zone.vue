@@ -44,38 +44,41 @@
           </li>
         </ul>
         <div class="new-source">
-          <button>
-            <i class="material-icons"></i>
+          <button ref="sourceBtn"
+                  v-on:mouseover="hoverSource"
+                  v-on:mouseleave="leaveSource"
+          >
+            <i class="material-icons">playlist_add</i>
             添加自定义来源
           </button>
         </div>
       </div>
 
-
       <section class="info-list">
         <header>
           <ul class="default">
-            <li>
+            <li @click="showAll">
               <span>
                         全部
               </span>
             </li>
-            <li>
+            <li @click="showIntelligence">
               <span>
                           智能筛选
                </span>
             </li>
+            <i ref="infoAfters" class="infoAfter"></i>
           </ul>
         </header>
         <div class="infos">
-            <ul>
-              <li>
-                <section>
-                    <header style="none"></header>
-                    <article></article>
-                </section>
-              </li>
-            </ul>
+          <ul>
+            <li>
+              <section>
+                <header style="none"></header>
+                <article></article>
+              </section>
+            </li>
+          </ul>
         </div>
       </section>
       <section class="content">
@@ -85,7 +88,26 @@
   </section>
 </template>
 <script>
-  export default {}
+  export default {
+    methods: {
+      hoverSource () {
+        this.$refs.sourceBtn.className = 'hoverSource'
+      },
+      leaveSource () {
+        console.log('leave')
+        console.log(this.$refs.sourceBtn)
+        this.$refs.sourceBtn.className = ''
+      },
+      showAll () {
+        this.$refs.infoAfters.style.transition = 'all 0.4s'
+        this.$refs.infoAfters.style.transform = `translate3d(0,0,0)`
+      },
+      showIntelligence () {
+        this.$refs.infoAfters.style.transition = 'all 0.4s'
+        this.$refs.infoAfters.style.transform = `translate3d(150px,0,0)`
+      }
+    }
+  }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .zone
@@ -100,6 +122,7 @@
       align-content: center
       justify-content: space-between
       padding: 0
+
   .list
     width: 250px
     height: 100%
@@ -122,7 +145,6 @@
           color: #e2455b
           font-size: 12px
           line-height: 40px
-
     p
       font-size: 15px
       margin: 12px 0
@@ -141,8 +163,18 @@
     text-align: center
     margin-top: 10px
     button
+      display: flex
+      justify-content: center
+      align-items: center
+      margin: 0 auto
+      cursor: pointer
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12)
       color: #9b9b9b
+
+  .hoverSource
+    cursor: pointer
+    color: #000 !important
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .12) !important
 
   .info-list
     width: 360px
@@ -151,27 +183,28 @@
     border-right: 1px solid #e6e9ed
     header
       padding-top: 20px
-      .default:after
+      .infoAfter
+        left: 0
         position: absolute
         content: " "
         display: block
-        left: 0
         top: 0
         width: 51%
         height: 100%
         z-index: 2
         border-radius: 4px
         background-color: #fff
-        box-shadow: 0 3px 10px rgba(0,0,0,.156863), 0 3px 10px rgba(0,0,0,.227451)
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .156863), 0 3px 10px rgba(0, 0, 0, .227451)
         tranistion: all .35s
       ul
         margin: 0 25px
         display: flex
-        background:#edeef0
+        background: #edeef0
         position: relative
         border: 1px solid #e1eafa
         border-radius: 4px
         li
+          font-size: 15px
           height: 48px
           width: 50%
           line-height: 48px
@@ -180,15 +213,12 @@
           cursor: pointer
           z-index: 3
 
-
-
   .content
-      width: calc(100% - 655px)
-      height: calc(100% - 50px)
-      margin: 20px
-      padding-right: 0px
-      margin-left: 25px
-
+    width: calc(100% - 655px)
+    height: calc(100% - 50px)
+    margin: 20px
+    padding-right: 0px
+    margin-left: 25px
 
 
 </style>
