@@ -19,6 +19,7 @@
                   </a>
                 </li>
                 <li class="nav-item link-item"><a href="/zhuanlan/all">最新评论</a></li>
+                <li class="nav-item link-item"><a href="/zhuanlan/all">古老评论</a></li>
               </ul>
             </li>
             <!--<li class="nav-item search">最新热评</li>-->

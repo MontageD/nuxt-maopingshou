@@ -148,20 +148,50 @@ $switch-background = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYA
   margin: auto
   line-height: 1
 
-
-
-
+.list-header .list-nav, .list-header .nav-list
+  display: -webkit-flex
+  display: flex
+  -webkit-box-align: center
+  align-items: center
+  justify-content: space-between
 
 .lazy
   position: relative
   overflow: hidden
+
 .avatar
   display: inline-block
   background-position: 50%
   background-repeat: no-repeat
   background-color: #eee
   background-size: 100%
-//
+
+ol ul, ul ol, ul ul, ol ol
+  -webkit-margin-before: 0px
+  -webkit-margin-after: 0px
+
+//ul, menu, dir
+//  display: block
+//  -webkit-margin-before: 1em
+//  -webkit-margin-after: 1em
+//  -webkit-margin-start: 1em
+//  -webkit-margin-end: 1em
+//  -webkit-padding-start: 40px
+
+.content-box, .info-box
+  display: flex
+
+
+.info-box
+  -webkit-box-flex: 1
+  flex: 1 1 auto
+  -webkit-box-orient: vertical
+  -webkit-box-direction: normal
+  flex-direction: column
+  -webkit-box-pack: center
+  justify-content: center
+  min-width: 0
+  //
 //.app-logo
 //  font-size 20px
 //  color: blue

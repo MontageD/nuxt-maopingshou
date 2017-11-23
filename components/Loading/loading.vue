@@ -24,7 +24,6 @@
         let c = parseInt(Math.random() * 255)
         //   let opacity = parseInt((Math.random()) * 10)
         let color = 'rgba(' + a + ',' + b + ',' + c + ',' + 1 + ')'
-        console.log(this.$refs.load)
         this.$refs.load.style.color = color
       }
     },
@@ -47,7 +46,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: transparent;
+    background: tran;
     text-align: center;
     padding-top: 200px;
     font-size: 23px;
