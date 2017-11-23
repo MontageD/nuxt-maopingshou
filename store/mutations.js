@@ -1,6 +1,20 @@
+import * as types from './mutations-type'
+
 const mutations = {
-  increment (state) {
-    state.counter++
+  [types.SET_LOGIN] (state, loginState) {
+    state.loginState = loginState
+  },
+  [types.SET_MODEDATA] (state, modeData) {
+    state.modeData = modeData
+  },
+  [types.SET_PASSWORD] (state, password) {
+    state.password = password
+  },
+  [types.SET_USERNAME] (state, username) {
+    state.username = username
+  },
+  [types.SET_SEARCHLIST] (state, searchList) {
+    state.searchList = searchList
   }
 }
 

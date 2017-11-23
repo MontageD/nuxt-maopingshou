@@ -15,9 +15,9 @@ module.exports = {
     ]
   },
   css: [
-    {src: 'bulma-stylus', lang: 'stylus'},
     {src: '~/assets/stylus/index.styl', lang: 'stylus'},
-    {src: 'material-design-icons/iconfont/material-icons.css'}
+    {src: 'material-design-icons/iconfont/material-icons.css'},
+    // {src: 'bulma-stylus/bulma.styl', lang: 'stylus'}
   ],
   render: {
     bundleRenderer: {

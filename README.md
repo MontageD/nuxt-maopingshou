@@ -1,6 +1,10 @@
-# nuxjs
+## 猫评手网站 (maopingshou.com)
+*聚合各种网站的评论信息并作筛选和分类,从你最喜欢的角度过滤信息
+*「人们想要的往往不是真相，而是他们想要看到的真相」
 
-> Nuxt.js project
+
+> Node.js(6.9.1) + vue(2.0) + vuex + (NUXT)SSR + nginx反向代理 
+
 
 ## Build Setup
 
@@ -15,8 +19,6 @@ $ npm run dev
 $ npm run build
 $ npm start
 
-# generate static project
-$ npm run generate
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+如果我的项目对您有所帮助，您可以点右上角 "Star" 支持一下 感谢～～！

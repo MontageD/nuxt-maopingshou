@@ -45,7 +45,9 @@
 </template>
 <script>
   //  import axios from 'axios'
+  import {mapGetters} from 'vuex'
   import mains from '~/components/main/main'
+
   export default {
     data () {
       return {
@@ -55,7 +57,16 @@
       }
     },
     created () {
+      this.$nextTick(() => {
+        console.log('跳转')
+        console.log(this.searchList)
+      })
       this.comment = this.$route.params.id
+    },
+    computed: {
+      ...mapGetters([
+        'searchList'
+      ])
     },
     methods: {
       changeSwitch () {
@@ -75,8 +86,6 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   $switch-background = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAeUlEQVRIS+2UwQ2AIBRDHxu4iY6gm+lkOoIj6AaOwM1o8lEaErh8jqS06UtDoMIJFTLwEImyhWsEVsnlLZ6A7XllhXTAUBCyA9dfSIG//dTXJSFthkud8ALMX9WaNZF454i9SQ6lW5P6u3rB5QQOdV0+4SQxn7AwPoiRdQoaQM/fOQAAAABJRU5ErkJggg=='
-
-
 
   section
     /*border-bottom: 1px solid #e6e9ed*/
@@ -195,16 +204,10 @@
         font-size: 13px
         font-family: SourceHanSansCN-Medium
 
-
-
-
   .tooltip
     img
       height: 20px
       width: 20px
-
-
-
 
   .tooltip-inner
     position: absolute
