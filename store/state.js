@@ -3,7 +3,8 @@ const state = {
   password: '',
   loginState: false,
   modeData: {},
-  searchList: ''
+  searchList: '',
+  orderId: 0
 }
 
 export default state

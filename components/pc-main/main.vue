@@ -9,32 +9,31 @@
           <li class="nav-item">
             <a href="">热点评论</a>
           </li>
-          <li class="nav-item">
-            <a href="">小道评论</a>
-          </li>
         </ul>
       </nav>
-      <nav class="user-action-nav user-action-nav">
-        <ul class="nav-list left">
-          <div class="lazy avatar loaded" :style='userimg'></div>
-          <li class="nav-item">
-            <a href="">写评论</a>
-          </li>
-          <li class="nav-item">
-            <a href="">分享链接</a>
-          </li>
-        </ul>
-        <ul class="nav-list right">
-          <a href="/editor/drafts" class="nav-item">
-            草稿
-          </a>
-        </ul>
-      </nav>
+      <!--<nav class="user-action-nav user-action-nav">-->
+      <!--<ul class="nav-list left">-->
+      <!--<div class="lazy avatar loaded" :style='userimg'></div>-->
+      <!--<li class="nav-item">-->
+      <!--<a href="">写评论</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--<a href="">分享链接</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--<ul class="nav-list right">-->
+      <!--<a href="/editor/drafts" class="nav-item">-->
+      <!--草稿-->
+      <!--</a>-->
+      <!--</ul>-->
+      <!--</nav>-->
+
+
       <div class="timeline-entry-list">
         <header class="list-header">
           <nav class="list-nav">
             <ul class="nav-list left">
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a href="">热门</a>
               </li>
               <li class="nav-item">
@@ -52,65 +51,74 @@
           </nav>
         </header>
         <ul class="entry-list">
-          <li class="item">
+
+
+          <!--<li class="item">-->
+          <!--<div class="content-box">-->
+          <!--<div class="info-box">-->
+          <!--<div class="info-row meta-row">-->
+          <!--<ul class="meta-list">-->
+          <!--<li class="item post">专栏</li>-->
+          <!--<li class="item username clickable">forver</li>-->
+          <!--<li class="item ">1天前</li>-->
+          <!--<li class="item tag">前端/Promise</li>-->
+          <!--</ul>-->
+          <!--</div>-->
+          <!--<div class="info-row title-row">&lt;!&ndash;&ndash;&gt;&lt;!&ndash;&ndash;&gt;-->
+          <!--<a href="/post/5a0c170c6fb9a0451c39eff2" target="_blank" rel=""-->
+          <!--class="title">让我印象深刻的 JavaScript 面试题</a>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</li>-->
+
+          <li v-for="item in list">
+            <!---->
+            <!--<nuxt-link :to="{ name: 'posts-id', params: { id: post.id } }">-->
             <div class="content-box">
               <div class="info-box">
                 <div class="info-row meta-row">
                   <ul class="meta-list">
-                    <li class="item post">专栏</li>
-                    <li class="item username clickable">forver</li>
-                    <li class="item ">1天前</li>
-                    <li class="item tag">前端/Promise</li>
+                    <li class="item post">{{ item.type }}</li>
+                    <li class="item username clickable">{{ item.author }}</li>
+                    <li class="item ">{{ item.age }}</li>
+                    <li class="item tag">{{ item.types }}</li>
                   </ul>
                 </div>
                 <div class="info-row title-row"><!----><!---->
-                  <a href="/post/5a0c170c6fb9a0451c39eff2" target="_blank" rel=""
-                     class="title">让我印象深刻的 JavaScript 面试题</a>
+                  <span class="title">
+                    {{ item.title }}
+                  </span>
+                  <a class="content" @click="detail" v-bind:data-id="item.id">{{ item.content }}</a>
                 </div>
               </div>
-            </div>
-          </li>
-          <li class="item">
-
-            <div class="content-box">
-              <div class="info-box">
-                <div class="info-row meta-row">
-                  <ul class="meta-list">
-                    <li class="item post">专栏</li>
-                    <li class="item username clickable">forver</li>
-                    <li class="item ">1天前</li>
-                    <li class="item tag">前端/Promise</li>
-                  </ul>
-                </div>
-                <div class="info-row title-row"><!----><!---->
-                  <a href="/post/5a0c170c6fb9a0451c39eff2" target="_blank" rel=""
-                     class="title">让我印象深刻的 JavaScript 面试题</a>
-                </div>
-
-
+              <div v-if="item.img" class="lazy thumb thumb loaded"
+                   :style="{'background-image': 'url(http://maopingshou.com:3002/images/'+ item.img+')'}">
               </div>
-
-
+              <div v-else class="lazy thumb thumb loaded default_img"
+                   :style="{'background-image': 'url(http://maopingshou.com:3002/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
+              </div>
+              <!--<div class="lazy thumb thumb loaded"-->
+              <!--:style="{'background-image': 'url(http://maopingshou.com:3002/images/'+ item.img+')'}"></div>-->
+              <!--<div class="lazy thumb thumb loaded">-->
+              <!--<img v-bind:src="'http://maopingshou.com:3000/images/'+item.comment_img"/>-->
+              <!--</div>-->
             </div>
-
+            <!--</nuxt-link>-->
           </li>
-
-
         </ul>
-
-
       </div>
       <aside class="index-aside aside">
         <section class="section user-section">
           <header class="user-section-header">你可能感兴趣的评论</header>
           <ul class="user-list">
-            <li class="item">
+            <li class="item" v-for="item in recommend">
               <a data-v-2b9fe4cd="" href="/user/552f20a7e4b060d72a89d87f" target="_blank" rel="" class="link">
                 <div
                   class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(https://user-gold-cdn.xitu.io/2017/10/27/b8ab80249fb8bbd77ee22d3c0cf60c44?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1)'}"></div>
+                  :style="{backgroundImage: 'url(http://maopingshou.com:3000/images/'+ item.comment_img+') '}"></div>
                 <div class="user-info">
-                  <div class="username">扔物线</div>
+                  <div class="username">{{ item.title_key }}</div>
                   <div class="position">Android 布道师（假装） @ HenCoder</div>
                 </div>
               </a>
@@ -122,19 +130,49 @@
   </main>
 </template>
 <script>
+  import axios from 'axios'
+
   export default {
     created () {
+      axios.get(`http://maopingshou.com:3002/list?start=10`)
+        .then((res) => {
+          res.data.forEach((currentValue, index, array) => {
+            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+          })
+          console.log(res.data)
+          this.list = res.data
+        })
+    },
+    mounted () {
+      axios.get(`http://maopingshou.com:3002/recommend`)
+        .then((res) => {
+          this.recommend = res.data
+        })
     },
     data () {
       return {
+        list: {},
+        recommend: {},
+        title: 'title',
         userimg: {
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
         }
+      }
+    },
+    methods: {
+      detail (e) {
+        let uid = e.toElement.dataset.id
+        this.$router.push({path: `/detail/${uid}`})
       }
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .timeline-index-view
+    position relative
+    top 3rem
+
   .view-nav
     width: 100%
     position: fixed
@@ -154,6 +192,10 @@
       .active
         a
           color: #007fff
+
+  .active
+    a
+      color: #007fff
 
   .view-nav
     .nav-list
@@ -175,7 +217,7 @@
         color #007fff
 
   .main-container
-    > .view
+    > .view.thumb
       margin-top: 4.2rem
       width: 100%
 
@@ -186,7 +228,7 @@
     -webkit-box-pack: justify
     justify-content: space-between
     font-size: 1rem
-    margin-right: 21.667rem
+    margin-right: 15.667rem
     background-color: #fff
     border-radius: 2px
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
@@ -213,7 +255,7 @@
 
   .timeline-entry-list
     margin-top: 1rem
-    margin-right: 21.667rem
+    margin-right: 15.667rem
     background-color: #ffffff
     border-radius: 2px
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
@@ -236,6 +278,8 @@
     -webkit-box-align: center
     align-item: center
     padding: 1.5rem 2rem
+    border-bottom 1px solid rgba(178, 186, 194, .15)
+    align-items center
 
   .info-box
     -webkit-box-flex: 1
@@ -258,7 +302,7 @@
     text-overflow: ellipsis
 
   .title
-    font-size: 1rem
+    font-size: 1.2rem
     font-weight: 600
     line-height: 1.4rem
     color: #2e3135
@@ -276,7 +320,7 @@
 
   /*右侧边栏*/
   .index-aside
-    width: 20rem
+    width: 15rem
     position: absolute
     top: 0
     right: 0
@@ -284,7 +328,7 @@
 
   .aside
     position: absolute
-    top: 4.2rem
+    top: 1rem
     right: 0
 
   .section
@@ -320,6 +364,7 @@
           white-space: nowrap
           overflow: hidden
           text-overflow: ellipsis
+          font-size .8rem
         .position
           color: #909090
           font-size: .6rem
@@ -329,8 +374,8 @@
         .avatar
           -webkit-box-flex: 0
           flex: 0 0 auto
-          width: 3rem
-          height: 3rem
+          width: 2rem
+          height: 2rem
           border-radius: 50%
           margin-right: .8rem
     .banner
@@ -344,12 +389,33 @@
       width: 100%
       height: 100%
 
+  .content
+    font-size .9rem
+    font-weight: 400
+    display block
+    line-height 1.2rem
+    margin-top 3px
+    cursor pointer
+    max-height 1rem
 
+  .thumb
+    flex: 0 0 auto
+    width: 5rem
+    height: 5rem
+    margin-left: 2rem
+    background-color: #fff
+    background-size: cover
+    background-position: 50%
+    background-repeat: no-repeat
+    cursor pointer
+    box-shadow 0px 10px 60px 4px rgba(0, 64, 128, .2)
+    img
+      height: 100%
+      width 100%
 
+  .default_img
+    background-size 558%
 
-
-
-
-
-
+  /*background-position: 3% 8%*/
+  /*background-repeat: no-repeat*/
 </style>

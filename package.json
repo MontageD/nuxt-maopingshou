@@ -14,17 +14,18 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
     "material-design-icons": "^3.0.1",
     "node-sass": "^4.7.1",
     "nuxt": "^1.0.0-rc11",
     "sass": "^1.0.0-beta.3",
     "sass-loader": "^6.0.6",
+    "source-map-support": "^0.4.15",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "vue-style-loader": "^3.0.3",
-    "cross-env": "^5.0.1",
-    "express": "^4.15.3",
-    "source-map-support": "^0.4.15"
+    "vue-lazyload": "^1.1.4",
+    "vue-style-loader": "^3.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

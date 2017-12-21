@@ -15,6 +15,9 @@ const mutations = {
   },
   [types.SET_SEARCHLIST] (state, searchList) {
     state.searchList = searchList
+  },
+  [types.SET_ORDERID] (state, orderId) {
+    state.orderId = orderId
   }
 }
 

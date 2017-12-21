@@ -1,6 +1,6 @@
 <template>
   <div class="main-header-box">
-    <header class="main-header">
+    <header class="main-header" ref="mainHeader">
       <div class="container">
         <a href="/" class="logo">
           <img src="~assets/img/233.png"/>
@@ -19,7 +19,10 @@
                   </a>
                 </li>
                 <li class="nav-item link-item"><a href="/zhuanlan/all">最新评论</a></li>
-                <li class="nav-item link-item"><a href="/zhuanlan/all">古老评论</a></li>
+                <li class="nav-item link-item"><a href="/douban/all">豆瓣</a></li>
+                <li class="nav-item link-item"><a href="/new/all">新闻网站</a></li>
+                <li class="nav-item link-item"><a href="/zhihu/all">知乎</a></li>
+                <li class="nav-item link-item"><a href="/history/all">历史评论</a></li>
               </ul>
             </li>
             <!--<li class="nav-item search">最新热评</li>-->
@@ -32,9 +35,29 @@
   </div>
 </template>
 <script>
-  export default {}
+  export default {
+    mounted () {
+      window.addEventListener('scroll', this.handleScroll)
+    },
+    methods: {
+      handleScroll (e) {
+        if (window.scrollY > 0) {
+          this.$refs.mainHeader.style.position = 'fixed'
+        }
+      }
+    }
+  }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .container
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center
+    align-items: center
+    height: 100%
+    width: 100%
+    position: relative
+
   .visible
     transform: translateZ(0)
 
@@ -42,6 +65,7 @@
     position: relative;
     height: 4rem;
     .main-header
+      width 100%
       background: #fff
       border-bottom: 1px solid #f1f1f1
       height: 4rem
@@ -49,7 +73,6 @@
       .container
         max-width: 960px
         margin: auto
-
 
   .logo
     margin-right: 2rem
@@ -72,6 +95,9 @@
           display: none
         .phone-hide
           display: flex
+          .active
+            a
+              color: #007fff
 
       .nav-item
         flex: 1 1 auto

@@ -1,6 +1,6 @@
 <template>
   <div class="load" ref="load" v-show="loading">
-    Loading...
+    ...
   </div>
 </template>
 <script>

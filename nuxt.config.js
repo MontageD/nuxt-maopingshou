@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'nuxjs',
+    title: '猫评 - 帮助你看评论的网站',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -16,7 +16,7 @@ module.exports = {
   },
   css: [
     {src: '~/assets/stylus/index.styl', lang: 'stylus'},
-    {src: 'material-design-icons/iconfont/material-icons.css'},
+    {src: 'material-design-icons/iconfont/material-icons.css'}
     // {src: 'bulma-stylus/bulma.styl', lang: 'stylus'}
   ],
   render: {
@@ -50,5 +50,9 @@ module.exports = {
   },
   router: {
     middleware: 'stats'
-  }
+  },
+  plugins:
+    [
+      {src: '~plugins/vue-lazyload', ssr: false}
+    ]
 }
