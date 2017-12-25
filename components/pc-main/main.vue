@@ -72,7 +72,7 @@
           <!--</div>-->
           <!--</li>-->
 
-          <li v-for="item in list">
+          <li v-for="item in postList">
             <!---->
             <!--<nuxt-link :to="{ name: 'posts-id', params: { id: post.id } }">-->
             <div class="content-box">
@@ -89,7 +89,8 @@
                   <span class="title">
                     {{ item.title }}
                   </span>
-                  <a class="content" @click="detail" v-bind:data-id="item.id">{{ item.content }}</a>
+                  <a @click="detail" class="content" target="_blank" v-bind:data-id="item.id">{{ item.content }}
+                  </a>
                 </div>
               </div>
               <div v-if="item.img" class="lazy thumb thumb loaded"
@@ -112,17 +113,31 @@
         <section class="section user-section">
           <header class="user-section-header">你可能感兴趣的评论</header>
           <ul class="user-list">
-            <li class="item" v-for="item in recommend">
-              <a data-v-2b9fe4cd="" href="/user/552f20a7e4b060d72a89d87f" target="_blank" rel="" class="link">
-                <div
-                  class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(http://maopingshou.com:3000/images/'+ item.comment_img+') '}"></div>
+            <li class="item" v-for="side in sideList">
+              <a  target="_blank" rel="" class="link">
+                <!--<div-->
+                <!--class="lazy avatar avatar loaded"-->
+                <!--:style="{backgroundImage: 'url(http://maopingshou.com:3000/images/'+ item.comment_img+') '}"></div>-->
+                <div class="lazy avatar avatar loaded" :style="{backgroundImage: 'url(http://maopingshou.com:3002/images/'+ side.img+') '}">
+                </div>
                 <div class="user-info">
-                  <div class="username">{{ item.title_key }}</div>
-                  <div class="position">Android 布道师（假装） @ HenCoder</div>
+                  <div class="username">{{side.title}}</div>
+                  <div class="position">{{side.content}}</div>
                 </div>
               </a>
             </li>
+            <!--<li class="item" v-for="item in recommend">-->
+            <!--<a data-v-2b9fe4cd="" href="/user/552f20a7e4b060d72a89d87f" target="_blank" rel="" class="link">-->
+            <!--&lt;!&ndash;<div&ndash;&gt;-->
+            <!--&lt;!&ndash;class="lazy avatar avatar loaded"&ndash;&gt;-->
+            <!--&lt;!&ndash;:style="{backgroundImage: 'url(http://maopingshou.com:3000/images/'+ item.comment_img+') '}"></div>&ndash;&gt;-->
+            <!--<div class="lazy avatar avatar loaded"></div>-->
+            <!--<div class="user-info">-->
+            <!--<div class="username">{{ item.title_key }}</div>-->
+            <!--<div class="position">Android 布道师（假装） @ HenCoder</div>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</li>-->
           </ul>
         </section>
       </aside>
@@ -131,28 +146,42 @@
 </template>
 <script>
   import axios from 'axios'
+  import {mapGetters, mapMutations} from 'vuex'
 
   export default {
     created () {
-      axios.get(`http://maopingshou.com:3002/list?start=10`)
-        .then((res) => {
-          res.data.forEach((currentValue, index, array) => {
-            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+      if (typeof (this.postList.length) === 'undefined') {
+        axios.get(`http://maopingshou.com:3002/list?start=10`)
+          .then((res) => {
+            res.data.forEach((currentValue, index, array) => {
+              res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+              res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+              res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+            })
+            this.setPostList(res.data)
           })
-          console.log(res.data)
-          this.list = res.data
-        })
+      }
     },
     mounted () {
-      axios.get(`http://maopingshou.com:3002/recommend`)
+      //      axios.get(`http://maopingshou.com:3002/recommend`)
+      //        .then((res) => {
+      //          this.recommend = res.data
+      //        })
+      axios.get(`http://maopingshou.com:3002/mainSide?start=5`)
         .then((res) => {
-          this.recommend = res.data
+          this.sideList = res.data
         })
+    },
+    computed: {
+      ...mapGetters([
+        'currentIndex',
+        'postList'
+      ])
     },
     data () {
       return {
         list: {},
+        sideList: {},
         recommend: {},
         title: 'title',
         userimg: {
@@ -163,8 +192,13 @@
     methods: {
       detail (e) {
         let uid = e.toElement.dataset.id
-        this.$router.push({path: `/detail/${uid}`})
-      }
+        console.log(e)
+        window.open(`/detail/${uid}`)
+        //        this.$router.push({path: `/detail/${uid}`})
+      },
+      ...mapMutations({
+        setPostList: 'SET_POSTLIST'
+      })
     }
   }
 </script>
@@ -328,7 +362,7 @@
 
   .aside
     position: absolute
-    top: 1rem
+    top: 0
     right: 0
 
   .section
@@ -350,7 +384,7 @@
       align-items: center
       cursor: pointer
       .link
-        padding: .5rem .8rem
+        padding: .5rem .1rem
         display: flex
         -webkit-box-align: center
         align-items: center
@@ -396,7 +430,7 @@
     line-height 1.2rem
     margin-top 3px
     cursor pointer
-    max-height 1rem
+    max-height 2.3rem
 
   .thumb
     flex: 0 0 auto
@@ -409,6 +443,7 @@
     background-repeat: no-repeat
     cursor pointer
     box-shadow 0px 10px 60px 4px rgba(0, 64, 128, .2)
+    border-radius 8px
     img
       height: 100%
       width 100%

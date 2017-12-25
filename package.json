@@ -13,9 +13,12 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "aframe": "^0.7.1",
     "axios": "^0.17.0",
+    "browserify": "^14.5.0",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
+    "external": "^1.0.0",
     "material-design-icons": "^3.0.1",
     "node-sass": "^4.7.1",
     "nuxt": "^1.0.0-rc11",

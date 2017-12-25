@@ -46,7 +46,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: tran;
+    background: transparent;
     text-align: center;
     padding-top: 200px;
     font-size: 23px;

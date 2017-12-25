@@ -19,10 +19,10 @@
                   </a>
                 </li>
                 <li class="nav-item link-item"><a href="/zhuanlan/all">最新评论</a></li>
-                <li class="nav-item link-item"><a href="/douban/all">豆瓣</a></li>
-                <li class="nav-item link-item"><a href="/new/all">新闻网站</a></li>
-                <li class="nav-item link-item"><a href="/zhihu/all">知乎</a></li>
-                <li class="nav-item link-item"><a href="/history/all">历史评论</a></li>
+                <!--<li class="nav-item link-item"><a href="/douban/all">豆瓣</a></li>-->
+                <!--<li class="nav-item link-item"><a href="/new/all">新闻网站</a></li>-->
+                <!--<li class="nav-item link-item"><a href="/zhihu/all">知乎</a></li>-->
+                <!--<li class="nav-item link-item"><a href="/history/all">历史评论</a></li>-->
               </ul>
             </li>
             <!--<li class="nav-item search">最新热评</li>-->
@@ -41,9 +41,9 @@
     },
     methods: {
       handleScroll (e) {
-        if (window.scrollY > 0) {
-          this.$refs.mainHeader.style.position = 'fixed'
-        }
+      //        if (window.scrollY > 0) {
+      //          this.$refs.mainHeader.style.position = 'fixed'
+      //        }
       }
     }
   }
@@ -61,9 +61,16 @@
   .visible
     transform: translateZ(0)
 
+
+
+  .main-header
+    position fixed
+
+
   .main-header-box
     position: relative;
-    height: 4rem;
+    height: 4rem
+    display flex
     .main-header
       width 100%
       background: #fff
@@ -73,6 +80,11 @@
       .container
         max-width: 960px
         margin: auto
+
+  @media (max-width: 960px)
+    .main-header
+      padding 0 1rem
+
 
   .logo
     margin-right: 2rem

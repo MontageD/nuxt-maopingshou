@@ -4,7 +4,9 @@ const state = {
   loginState: false,
   modeData: {},
   searchList: '',
-  orderId: 0
+  orderId: 0,
+  postList: {},
+  detaiList: {}
 }
 
 export default state

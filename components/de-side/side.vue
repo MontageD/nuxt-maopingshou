@@ -20,4 +20,12 @@
       width 100%
       height 10rem
       background-color #fff
+
+
+
+
+
+  @media (max-width: 960px)
+    .side_section
+      display none
 </style>

@@ -9,3 +9,7 @@ export const password = state => state.password
 export const searchList = state => state.searchList
 
 export const orderId = state => state.orderId
+
+export const postList = state => state.postList
+
+export const detaiList = state => state.detaiList

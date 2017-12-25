@@ -18,6 +18,12 @@ const mutations = {
   },
   [types.SET_ORDERID] (state, orderId) {
     state.orderId = orderId
+  },
+  [types.SET_POSTLIST] (state, postList) {
+    state.postList = postList
+  },
+  [types.SET_DETAILIST] (state, detaiList) {
+    state.detaiList = detaiList
   }
 }
 
