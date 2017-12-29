@@ -13,3 +13,7 @@ export const SET_ORDERID = 'SET_ORDERID'
 export const SET_POSTLIST = 'SET_POSTLIST'
 
 export const SET_DETAILIST = 'SET_DETAILIST'
+
+export const SET_CELLS = 'SET_CELLS'
+
+export const SET_PAGENUM = 'SET_PAGENUM'

@@ -1,34 +1,7 @@
 <template>
   <main class="container main-container">
+    <search></search>
     <div class="view timeline-index-view">
-      <nav class="view-nav">
-        <ul class="nav-list left">
-          <li class="nav-item active">
-            <a href="">我关注的</a>
-          </li>
-          <li class="nav-item">
-            <a href="">热点评论</a>
-          </li>
-        </ul>
-      </nav>
-      <!--<nav class="user-action-nav user-action-nav">-->
-      <!--<ul class="nav-list left">-->
-      <!--<div class="lazy avatar loaded" :style='userimg'></div>-->
-      <!--<li class="nav-item">-->
-      <!--<a href="">写评论</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--<a href="">分享链接</a>-->
-      <!--</li>-->
-      <!--</ul>-->
-      <!--<ul class="nav-list right">-->
-      <!--<a href="/editor/drafts" class="nav-item">-->
-      <!--草稿-->
-      <!--</a>-->
-      <!--</ul>-->
-      <!--</nav>-->
-
-
       <div class="timeline-entry-list">
         <header class="list-header">
           <nav class="list-nav">
@@ -36,9 +9,9 @@
               <li class="nav-item active">
                 <a href="">热门</a>
               </li>
-              <li class="nav-item">
-                <a href="">最新</a>
-              </li>
+              <!--<li class="nav-item">-->
+              <!--<a href="">最新</a>-->
+              <!--</li>-->
             </ul>
             <!--<ul class="nav-right right">-->
             <!--<li class="nav-item">-->
@@ -51,30 +24,7 @@
           </nav>
         </header>
         <ul class="entry-list">
-
-
-          <!--<li class="item">-->
-          <!--<div class="content-box">-->
-          <!--<div class="info-box">-->
-          <!--<div class="info-row meta-row">-->
-          <!--<ul class="meta-list">-->
-          <!--<li class="item post">专栏</li>-->
-          <!--<li class="item username clickable">forver</li>-->
-          <!--<li class="item ">1天前</li>-->
-          <!--<li class="item tag">前端/Promise</li>-->
-          <!--</ul>-->
-          <!--</div>-->
-          <!--<div class="info-row title-row">&lt;!&ndash;&ndash;&gt;&lt;!&ndash;&ndash;&gt;-->
-          <!--<a href="/post/5a0c170c6fb9a0451c39eff2" target="_blank" rel=""-->
-          <!--class="title">让我印象深刻的 JavaScript 面试题</a>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</li>-->
-
           <li v-for="item in postList">
-            <!---->
-            <!--<nuxt-link :to="{ name: 'posts-id', params: { id: post.id } }">-->
             <div class="content-box">
               <div class="info-box">
                 <div class="info-row meta-row">
@@ -108,18 +58,42 @@
             <!--</nuxt-link>-->
           </li>
         </ul>
+        <div class="entry-loading" @click="loadingData">
+          <img src="~assets/img/Rolling.gif" v-show="showLoading">
+          <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
+
+        </div>
       </div>
+
       <aside class="index-aside aside">
+        <section class="side_mood">
+          <p class="side_title">每日心情</p>
+          <img src="http://maopingshou.com:3002/images/extra/every_1.jpg">
+          <div class="clear"></div>
+        </section>
+
+        <section class="side_hoting">
+          <p class="side_title">热门标签</p>
+          <div @click="shuffle">
+            <transition-group name="cell" tag="ul" class="side_tag">
+              <li v-for="cell in celles" :key="cell.id" class="cell">
+                {{ cell.number }}
+              </li>
+            </transition-group>
+          </div>
+          <div class="clear"></div>
+        </section>
         <section class="section user-section">
           <header class="user-section-header">你可能感兴趣的评论</header>
           <ul class="user-list">
             <li class="item" v-for="side in sideList">
-              <a  target="_blank" rel="" class="link">
-                <!--<div-->
-                <!--class="lazy avatar avatar loaded"-->
-                <!--:style="{backgroundImage: 'url(http://maopingshou.com:3000/images/'+ item.comment_img+') '}"></div>-->
-                <div class="lazy avatar avatar loaded" :style="{backgroundImage: 'url(http://maopingshou.com:3002/images/'+ side.img+') '}">
-                </div>
+              <a data-id='' target="_blank" rel="" class="link">
+                <div
+                  class="lazy avatar avatar loaded"
+                  :style="{backgroundImage: 'url(http://maopingshou.com:3002/images/'+ side.img+') '}"></div>
+                <!--<div class="lazy avatar avatar loaded">-->
+
+                <!--</div>-->
                 <div class="user-info">
                   <div class="username">{{side.title}}</div>
                   <div class="position">{{side.content}}</div>
@@ -145,28 +119,28 @@
   </main>
 </template>
 <script>
+  import search from '~/components/search/search'
   import axios from 'axios'
   import {mapGetters, mapMutations} from 'vuex'
 
   export default {
     created () {
-      if (typeof (this.postList.length) === 'undefined') {
-        axios.get(`http://maopingshou.com:3002/list?start=10`)
-          .then((res) => {
-            res.data.forEach((currentValue, index, array) => {
-              res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-              res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-              res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
-            })
-            this.setPostList(res.data)
-          })
-      }
     },
     mounted () {
-      //      axios.get(`http://maopingshou.com:3002/recommend`)
-      //        .then((res) => {
-      //          this.recommend = res.data
-      //        })
+      axios.get(`http://maopingshou.com:3002/oftenTag?num=13`)
+        .then((res) => {
+          let tagList = Object.assign({}, res.data)
+          this.tagList = {}
+          for (let key in tagList) {
+            this.tagList[key] = {}
+            this.tagList[key].number = tagList[key].type
+            this.tagList[key].id = key
+          }
+          this.celles = Object.assign({}, this.tagList)
+          setInterval(() => {
+            this.celles = window._.shuffle(this.celles)
+          }, 5000)
+        })
       axios.get(`http://maopingshou.com:3002/mainSide?start=5`)
         .then((res) => {
           this.sideList = res.data
@@ -175,37 +149,65 @@
     computed: {
       ...mapGetters([
         'currentIndex',
-        'postList'
+        'postList',
+        'pageNum'
       ])
     },
     data () {
       return {
+        showLoading: false,
         list: {},
         sideList: {},
         recommend: {},
         title: 'title',
         userimg: {
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
-        }
+        },
+        tagList: {},
+        celles: {}
       }
     },
     methods: {
       detail (e) {
         let uid = e.toElement.dataset.id
-        console.log(e)
-        window.open(`/detail/${uid}`)
-        //        this.$router.push({path: `/detail/${uid}`})
+        //        window.open(`/detail/${uid}`)
+        this.$router.push({path: `/detail/${uid}`})
+      },
+      loadingData () {
+        this.showLoading = !this.showLoading
+        let PageNum = this.pageNum + 10
+        this.setPageNum(PageNum)
+        axios.get(`http://maopingshou.com:3002/list?start=` + PageNum).then((res) => {
+          res.data.forEach((currentValue, index, array) => {
+            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+            res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+          })
+          this.setPostList(res.data)
+          if (PageNum !== res.data.length) {
+            this.$refs.showLoading.innerText = '已经到底'
+          } else {
+            this.showLoading = !this.showLoading
+          }
+        })
+      },
+      shuffle () {
+        this.celles = window._.shuffle(this.celles)
       },
       ...mapMutations({
-        setPostList: 'SET_POSTLIST'
+        setPostList: 'SET_POSTLIST',
+        setPageNum: 'SET_PAGENUM',
+        setSearchList: 'SET_SEARCHLIST'
       })
+    },
+    components: {
+      search
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .timeline-index-view
     position relative
-    top 3rem
 
   .view-nav
     width: 100%
@@ -290,13 +292,33 @@
   .timeline-entry-list
     margin-top: 1rem
     margin-right: 15.667rem
-    background-color: #ffffff
     border-radius: 2px
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
+    margin-bottom 3rem
+    .entry-list
+      background-color #ffffff
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
+    .entry-loading
+      width 100%
+      min-height 2rem
+      margin-top 1rem
+      box-shadow 0 1px 2px 0 rgba(0, 0, 0, .05)
+      background-color #fff
+      display flex
+      align-items center
+      text-align center
+      font-size .8rem
+      justify-content center
+      font-weight 800
+      cursor pointer
+      img
+        height 1rem
+        width 1rem
 
   .list-header
     padding: 1.3rem 1rem
     border-bottom: 1px solid hsla(0, 0%, 59%, .1)
+    background-color #ffffff
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
     .left
       .nav-item
         padding: 0 1.2rem
@@ -384,7 +406,7 @@
       align-items: center
       cursor: pointer
       .link
-        padding: .5rem .1rem
+        padding: .5rem .8rem
         display: flex
         -webkit-box-align: center
         align-items: center
@@ -450,6 +472,42 @@
 
   .default_img
     background-size 558%
+
+  .side_mood
+    box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
+    margin-bottom 1rem
+
+  .side_title
+    text-align left
+    min-height 2rem
+    padding 0 1rem
+    font-size .8rem
+    background-color #fff
+    display flex
+    align-items center
+    border-bottom 1px solid #f6f6f6
+
+  .side_hoting
+    box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
+    margin-bottom 1rem
+
+  img
+    width 100%
+
+  .side_tag
+    cursor pointer
+    width 100%
+    min-height 5rem
+    background-color #fff
+    padding .5rem
+    li
+      font-size .6rem
+      display inline-block
+      margin .3rem .2rem
+      color #7e7e7e
+
+  .cell-move
+    transition: transform 2s;
 
   /*background-position: 3% 8%*/
   /*background-repeat: no-repeat*/

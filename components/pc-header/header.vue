@@ -18,7 +18,12 @@
                     首页
                   </a>
                 </li>
-                <li class="nav-item link-item"><a href="/zhuanlan/all">最新评论</a></li>
+                <li class="nav-item link-item route-active active">
+                  <a href="">
+                    评论集
+                  </a>
+                </li>
+                <!--<li class="nav-item link-item"><a href="/zhuanlan/all">最新评论</a></li>-->
                 <!--<li class="nav-item link-item"><a href="/douban/all">豆瓣</a></li>-->
                 <!--<li class="nav-item link-item"><a href="/new/all">新闻网站</a></li>-->
                 <!--<li class="nav-item link-item"><a href="/zhihu/all">知乎</a></li>-->

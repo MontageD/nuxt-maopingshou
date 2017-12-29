@@ -6,7 +6,9 @@ const state = {
   searchList: '',
   orderId: 0,
   postList: {},
-  detaiList: {}
+  detaiList: {},
+  cells: {},
+  pageNum: 10
 }
 
 export default state

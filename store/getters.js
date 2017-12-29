@@ -13,3 +13,7 @@ export const orderId = state => state.orderId
 export const postList = state => state.postList
 
 export const detaiList = state => state.detaiList
+
+export const cells = state => state.cells
+
+export const pageNum = state => state.pageNum

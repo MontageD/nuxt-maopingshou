@@ -34,7 +34,8 @@ module.exports = {
   ** Build configuration
   */
   plugins: [
-    {src: '~plugins/extra.js', ssr: false}
+    {src: '~plugins/extra.js', ssr: false},
+    {src: '~plugins/lodash.js', ssr: false}
   ],
   build: {
     /*

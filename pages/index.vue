@@ -9,24 +9,38 @@
   import pcHeader from '~/components/pc-header/header'
   import pcMain from '~/components/pc-main/main'
   import axios from 'axios'
-  import {mapMutations} from 'vuex'
+
+  import {mapMutations, mapActions} from 'vuex'
 
   export default {
-    asyncData ({store, params}) {
-      axios.get(`http://maopingshou.com:3002/list?start=10`)
-        .then((res) => {
-          res.data.forEach((currentValue, index, array) => {
-            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-            res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
-          })
-          store.commit('SET_POSTLIST', res.data)
-        })
+    async fetch ({store, params}) {
+      //      return axios.get('http://my-api/stars')
+      //        .then((res) => {
+      //          store.commit('setStars', res.data)
+      //        })
+      let res = await axios.get(`http://maopingshou.com:3002/list?start=10`)
+      res.data.forEach((currentValue, index, array) => {
+        res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+        res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+        res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+      })
+      store.commit('SET_POSTLIST', res.data)
+      //  分割
+      // let cells = await axios.get(`http://maopingshou.com:3002/oftenTag?num=13`)
+      // console.log(cells)
+      //      return axios.get(`http://maopingshou.com:3002/list?start=10`)
+      //        .then((res) => {
+      //          res.data.forEach((currentValue, index, array) => {
+      //            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+      //            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+      //            res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+      //          })
+      //          store.commit('SET_POSTLIST', res.data)
+      //        })
     },
     created () {
     },
     mounted () {
-      console.log(window.utils.getUrl)
     },
     components: {
       pcHeader,
@@ -35,8 +49,10 @@
     methods: {
       ...mapMutations({
         setPostList: 'SET_POSTLIST'
-      })
-
+      }),
+      ...mapActions(
+        ['insertPostList']
+      )
       //      ...mapActions([
       //        'showPostList'
       //      ])

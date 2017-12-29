@@ -1,6 +1,6 @@
 <template>
-  <div class="column-view" id="view">
-    <div v-for="item in info">
+  <div  id="view">
+    <div v-for="item in info" class="column-view">
       <div class="container entry-view">
         <a class="post-author clearfix"
         >
@@ -11,7 +11,7 @@
             <div class="author-name text-pointer">{{item.author}}</div>
             <div class="author-meta">{{item.time}}<!----></div>
           </div>
-          <div class="tag" @click="tagclick">
+          <div class="view_tag" @click="tagclick">
             <i class="material-icons" ref="tags">&#xE8D2;</i>
             <div class="v_menu">
               <transition name="slide-fade">
@@ -51,23 +51,7 @@
 
   export default {
     created () {
-      //      this.info = Object.assign({}, this.detaiList)
-      //      this.info[0].img = 'http://maopingshou.com:3002/images/' + this.info[0].img
-
-      //      this.$nextTick(() => {
-      //        console.log()
-      //        console.log('orderId:' + this.orderId)
-      //        axios.get(`http://maopingshou.com:3002/recommend?uid=` + this.orderId)
-      //          .then((res) => {
-      //            this.info = Object.assign({}, res.data)
-      //            this.info[0].img = 'http://maopingshou.com:3002/images/' + this.info[0].img
-      //            console.log(this.info[0])
-      //          })
-      //      })
-    },
-    mounted () {
-      console.log(window.utils.getUrl)
-      axios.get(`http://maopingshou.com:3002/recommend?uid=` + window.utils.getUrl)
+      axios.get(`http://maopingshou.com:3002/recommend?uid=` + this.$route.params.id)
         .then((res) => {
           res.data.forEach((currentValue, index, array) => {
             res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
@@ -88,7 +72,10 @@
           if (pathname[pathname.length - 1] === '') {
             this.info[0].img = pathname[pathname.length - 1]
           }
+          console.log()
         })
+    },
+    mounted () {
     },
     data () {
       return {
@@ -145,7 +132,7 @@
     transform: translateX(10px)
     opacity: 0
 
-  .tag
+  .view_tag
     position absolute
     right 0
     top 50%
@@ -153,6 +140,7 @@
     width 2em
     border-radius 3px
     transition all .4s
+    box-shadow 0 0px 13px rgba(0,64,128,.2)
     .v_menu
       position relative
       .menu
@@ -162,7 +150,7 @@
         li
           min-width: 5rem
           height 2em
-          line-height 2em
+          line-height 1.6em
           text-align center
           color #1c94e0
           font-weight 800
@@ -287,5 +275,5 @@
 
   .view
     margin-top 1.767rem
-    background-color #fff
+    /*background-color #fff*/
 </style>

@@ -24,6 +24,12 @@ const mutations = {
   },
   [types.SET_DETAILIST] (state, detaiList) {
     state.detaiList = detaiList
+  },
+  [types.SET_CELLS] (state, cells) {
+    state.cells = cells
+  },
+  [types.SET_PAGENUM] (state, pageNum) {
+    state.pageNum = pageNum
   }
 }
 
