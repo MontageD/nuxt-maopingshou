@@ -72,7 +72,6 @@
           if (pathname[pathname.length - 1] === '') {
             this.info[0].img = pathname[pathname.length - 1]
           }
-          console.log()
         })
     },
     mounted () {
@@ -165,6 +164,7 @@
       width 100%
       font-size 1rem
       line-height 2rem
+      word-break break-all
       .author
         color dodgerblue
         font-size 14px
@@ -200,7 +200,7 @@
         display block
         margin 0 auto
         border-radius 8px
-        box-shadow 0px 0px 10px #000
+        box-shadow 0 0 30px #ccc
 
   .view-content
     padding 1rem

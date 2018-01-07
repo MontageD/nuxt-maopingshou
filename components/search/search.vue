@@ -1,5 +1,5 @@
 <template>
-  <div class="view timeline-search">
+  <div class="view timeline-search" style="display: none;">
     <section class="zone" ref="zone">
       <section class="inner">
         <input type="text" id="search" placeholder="" v-model="searchText" @blur="closeSearch" @focus="openSearch">

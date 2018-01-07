@@ -8,7 +8,9 @@ const state = {
   postList: {},
   detaiList: {},
   cells: {},
-  pageNum: 10
+  pageNum: 10,
+  mainMenu: {},
+  mainMenuList: 1
 }
 
 export default state

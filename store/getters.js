@@ -17,3 +17,7 @@ export const detaiList = state => state.detaiList
 export const cells = state => state.cells
 
 export const pageNum = state => state.pageNum
+
+export const mainMenu = state => state.mainMenu
+
+export const mainMenuList = state => state.mainMenuList

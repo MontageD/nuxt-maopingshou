@@ -17,3 +17,7 @@ export const SET_DETAILIST = 'SET_DETAILIST'
 export const SET_CELLS = 'SET_CELLS'
 
 export const SET_PAGENUM = 'SET_PAGENUM'
+
+export const SET_MAINMENU = 'SET_MAINMENU'
+
+export const SET_MAINMENULIST = 'SET_MAINMENULIST'

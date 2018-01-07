@@ -30,6 +30,12 @@ const mutations = {
   },
   [types.SET_PAGENUM] (state, pageNum) {
     state.pageNum = pageNum
+  },
+  [types.SET_MAINMENU] (state, mainMenu) {
+    state.mainMenu = mainMenu
+  },
+  [types.SET_MAINMENULIST] (state, mainMenuList) {
+    state.mainMenuList = mainMenuList
   }
 }
 

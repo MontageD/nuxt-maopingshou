@@ -68,7 +68,7 @@
       <aside class="index-aside aside">
         <section class="side_mood">
           <p class="side_title">每日心情</p>
-          <img src="http://maopingshou.com:3002/images/extra/every_1.jpg">
+          <img :src="everyImg">
           <div class="clear"></div>
         </section>
 
@@ -145,6 +145,12 @@
         .then((res) => {
           this.sideList = res.data
         })
+      // 右侧滚动图片样式
+      let _this = this
+      setInterval(() => {
+        let num = parseInt(Math.random() * 4) + 1
+        _this.everyImg = 'http://maopingshou.com:3002/images/extra/every_' + num + '.jpg'
+      }, 6000)
     },
     computed: {
       ...mapGetters([
@@ -164,7 +170,8 @@
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
         },
         tagList: {},
-        celles: {}
+        celles: {},
+        everyImg: 'http://maopingshou.com:3002/images/extra/every_1.jpg'
       }
     },
     methods: {
@@ -298,6 +305,7 @@
       background-color #ffffff
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
     .entry-loading
+      padding 1rem
       width 100%
       min-height 2rem
       margin-top 1rem
@@ -306,10 +314,11 @@
       display flex
       align-items center
       text-align center
-      font-size .8rem
+      font-size 1rem
       justify-content center
       font-weight 800
       cursor pointer
+      font-weight 800
       img
         height 1rem
         width 1rem
@@ -476,6 +485,8 @@
   .side_mood
     box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
     margin-bottom 1rem
+    img
+     max-height 20rem
 
   .side_title
     text-align left
