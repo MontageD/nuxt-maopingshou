@@ -29,11 +29,43 @@
   opacity: 0;
 }
 
+
+
+.up-fade-enter-active {
+  transition: all .3s ease;
+}
+
+.up-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.up-fade-enter, .up-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+
+
+
 .clear {
   clear: both
 }
 
 //@media (max-width: 992px) {
+._col-2 {
+  width 31.55555%
+}
+
 ._col-3 {
   width 33.33333333%
 }
@@ -46,6 +78,57 @@
   width 13.33333333%
 }
 
+.after-in:before,
+.after-in:after {
+  content " "
+  display table
+}
+
+.after-in:after {
+  clear both
+}
+
+.heart {
+  //background: url(../images/web_heart_animation.png);
+  background-position: left;
+  background-repeat: no-repeat;
+  height: 2rem;
+  width: 5rem;
+  cursor: pointer;
+  left: -14px;
+  background-size: 2900%;
+}
+
+.heart:hover, .heart:focus {
+  background-position: right;
+}
+
+
+
+@keyframes heartBlast {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+
+.heartAnimation {
+  display: inline-block;
+  animation-name: heartBlast;
+  animation-duration: .8s;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(28);
+  background-position: right;
+}
+
 //}
 
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

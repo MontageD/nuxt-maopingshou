@@ -1,6 +1,6 @@
 <template>
   <div class="main-header-box">
-    <header class="main-header" ref="mainHeader">
+    <div class="main-header" ref="mainHeader">
       <div class="container">
         <a href="/" class="logo">
           <img src="~assets/img/233.png"/>
@@ -15,37 +15,39 @@
 
 
               <ul class="phone-hide show">
-                <li class="nav-item link-item route-active" v-for="(value,key) in mainMenu">
+                <!--<li class="nav-item link-item route-active" v-for="(value,key) in mainMenu">-->
 
-                  <nuxt-link @click="changeHeader" class="active" v-if="value.orderid===mainMenuList" :to="value.href">
+                <!--<nuxt-link class="menu-num" @click="changeHeader"-->
+                <!--v-bind:data-order="value.orderid"-->
+                <!--v-bind:data-href="value.href"-->
+                <!--:to='value.href'-->
+                <!--&gt;-->
+                <!--{{ value.name }}-->
+                <!--</nuxt-link>-->
+                <!--</li>-->
+                <!---->
 
-                    {{ value.name }}
-
-
-                  </nuxt-link>
-                  <nuxt-link @click="changeHeader" v-if="value.orderid!==mainMenuList" :to="value.href">
-
-                    {{ value.name }}
-
-
-                  </nuxt-link>
-
+                <li class="nav-item link-item route-active ">
+                  <router-link to="/">
+                  首页
+                  </router-link>
                 </li>
-                <!--<li class="nav-item link-item route-active ">-->
-                <!--<a href="/list">-->
-                <!--评论集-->
-                <!--</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item link-item route-active ">-->
-                <!--<a href="/list">-->
-                <!--评论搜索-->
-                <!--</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item link-item route-active ">-->
-                <!--<a href="/list">-->
-                <!--意见反馈-->
-                <!--</a>-->
-                <!--</li>-->
+
+                <li class="nav-item link-item route-active ">
+                  <router-link to="/list">
+                    评论集
+                  </router-link>
+                </li>
+                <li class="nav-item link-item route-active ">
+                  <router-link to="/search">
+                    评论搜索
+                  </router-link>
+                </li>
+                <li class="nav-item link-item route-active ">
+                  <router-link to="/feedback">
+                    意见反馈
+                  </router-link>
+                </li>
                 <!--<li class="nav-item link-item"><a href="/zhuanlan/all">最新评论</a></li>-->
                 <!--<li class="nav-item link-item"><a href="/douban/all">豆瓣</a></li>-->
                 <!--<li class="nav-item link-item"><a href="/new/all">新闻网站</a></li>-->
@@ -59,52 +61,59 @@
           <!--<li class="nav-item add"></li>-->
         </nav>
       </div>
-    </header>
+    </div>
     <ul class="phone-item" v-show="menu">
       <li class="active">
-        <a href="/">
+        <router-link to="/">
           首页
-        </a>
+        </router-link>
       </li>
       <li class="">
-        <a href="/list">
+         <router-link  to="/list">
           评论集
-        </a>
+        </router-link>
       </li>
       <li class="">
-        <a href="/list">
+        <router-link to="/search">
           评论搜索
-        </a>
+        </router-link>
       </li>
       <li class="">
-        <a href="/list">
+        <router-link to="/feedback">
           意见反馈
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
 <script>
   import { mapGetters, mapMutations } from 'vuex'
-  import axios from 'axios'
 
   export default {
     data () {
       return {
-        menu: false
+        menu: false,
+        bugs: 1
       }
     },
     created () {
+      console.log('created:' + this.mainMenuList)
     },
     mounted () {
       window.addEventListener('scroll', this.handleScroll)
-      console.log(this.mainMenu)
-      if (JSON.stringify(this.mainMenu) === '{}') {
-        axios.get(`http://120.78.174.192:3002/menuList`)
-          .then((res) => {
-            this.setMainMenu(res.data)
-          })
-      }
+
+      //      if (JSON.stringify(this.mainMenu) === '{}') {
+      //        axios.get(`http://120.78.174.192:3002/menuList`)
+      //          .then((res) => {
+      //            console.log('获取数据')
+      //            this.setMainMenu(res.data)
+      //          })
+      //      }
+
+      this.$nextTick(() => {
+        //        let menu = document.querySelectorAll('.menu-num')
+        //        menu[this.mainMenuList].setAttribute('class', 'menu-num active')
+      })
     },
 
     methods: {
@@ -113,13 +122,11 @@
         this.menu = !this.menu
       },
       handleScroll (e) {
-        //        if (window.scrollY > 0) {
-        //          this.$refs.mainHeader.style.position = 'fixed'
-        //        }
       },
       changeHeader (e) {
-        console.log('change')
-        e.preventDefault()
+        this.setMainMenuList(e.srcElement.dataset.order)
+        this.$router.push({path: e.srcElement.dataset.href})
+        //        e.preventDefault()
       },
       ...mapMutations({
         setMainMenu: 'SET_MAINMENU',
@@ -222,7 +229,7 @@
         flex: 1 1 auto
         -webkit-box-pack: end
         justify-content: flex-end
-        cursor: auto
+        cursor: pointer
         .active
           color: #007fff
 
@@ -289,5 +296,6 @@
       .nav-list
         justify-content flex-end
 
-
+  .nuxt-link-exact-active
+    color #007fff !important
 </style>

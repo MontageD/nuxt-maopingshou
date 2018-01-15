@@ -6,6 +6,7 @@ const state = {
   searchList: '',
   orderId: 0,
   postList: {},
+  listData: {},
   detaiList: {},
   cells: {},
   pageNum: 10,

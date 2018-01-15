@@ -1,22 +1,24 @@
 <template>
   <div id="app" class="">
-    <pcHeader></pcHeader>
+    <keep-alive>
+      <Headers></Headers>
+    </keep-alive>
     <DeMain></DeMain>
   </div>
 </template>
 <script>
   //  import axios from 'axios'
-  import pcHeader from '~/components/pc-header/header'
   import DeMain from '~/components/de-main/main'
-  import {mapMutations, mapActions, mapGetters} from 'vuex'
-  //  import axios from 'axios'
+  import { mapMutations, mapActions, mapGetters } from 'vuex'
+  import Headers from '~/components/pc-header/header'
 
   export default {
     created () {
     },
     data () {
       return {
-        order_id: 0
+        order_id: 0,
+        info: {}
       }
     },
     computed: {
@@ -35,7 +37,7 @@
       )
     },
     components: {
-      pcHeader,
+      Headers,
       DeMain
     }
   }

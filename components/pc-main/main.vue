@@ -100,18 +100,6 @@
                 </div>
               </a>
             </li>
-            <!--<li class="item" v-for="item in recommend">-->
-            <!--<a data-v-2b9fe4cd="" href="/user/552f20a7e4b060d72a89d87f" target="_blank" rel="" class="link">-->
-            <!--&lt;!&ndash;<div&ndash;&gt;-->
-            <!--&lt;!&ndash;class="lazy avatar avatar loaded"&ndash;&gt;-->
-            <!--&lt;!&ndash;:style="{backgroundImage: 'url(http://maopingshou.com:3000/images/'+ item.comment_img+') '}"></div>&ndash;&gt;-->
-            <!--<div class="lazy avatar avatar loaded"></div>-->
-            <!--<div class="user-info">-->
-            <!--<div class="username">{{ item.title_key }}</div>-->
-            <!--<div class="position">Android 布道师（假装） @ HenCoder</div>-->
-            <!--</div>-->
-            <!--</a>-->
-            <!--</li>-->
           </ul>
         </section>
       </aside>

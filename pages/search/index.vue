@@ -1,85 +1,71 @@
 <template>
-  <div class="wrapper" @click="showElse">
-    <header>
-      <span></span>
-      <section class="avatar">
-        <div class="tools">
-          <!--<img class="iconfont tool" src="~assets/img/header-tool.png"/>-->
-          <i class="material-icons">blur_on</i>
-          <section class="tools-items">
-            <ul>
-              <li>
-                <a href="">
-                  <img src="" alt="">
-                  <p>词云</p>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
-        <div class="user" @click.stop="openUser">
-          <!--<img class="head" src="~assets/img/header-heads.png" alt="头像">-->
-          <i class="material-icons">person</i>
-          <div class="user-panel " v-show="openU">
-            <section class="arrow"></section>
-            <ul>
-              <li class="login-in"><a href="/login/">登录</a></li>
-              <li><a href="/plan/" target="_blank">定制服务</a></li>
-              <li class="subscribe" style="display: none"><a href="/app/#/oldAlerts" target="_blank">已创建的订阅</a></li>
-              <li class="log-out" style="display: none">登出</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </header>
-    <div class="containers">
-      <section class="logo">
-        <header>
-          <div class="img">
-            <img src="~assets/img/logo3.png" alt="LOGO">
-          </div>
-          <h3>MAOPING SHOU</h3>
-          <p>猫评数据</p>
-        </header>
-      </section>
-      <section class="zone">
-        <section class="inner">
-          <input type="text" id="search" placeholder="" v-model="searchText" @blur="closeSearch" @focus="openSearch">
-          <i class="iconfont to-go" title="点击搜索" @click="searchList">></i>
-          <section class="simulation" ref="simulation">中国</section>
+  <div id="search">
+    <keep-alive>
+      <pc-Header></pc-Header>
+    </keep-alive>
+
+    <div class="wrapper" @click="showElse">
+      <div class="containers">
+        <section class="logo">
+          <header>
+            <div class="img">
+              <img src="~assets/img/logo3.png" alt="LOGO">
+            </div>
+            <h3>MAOPING SHOU</h3>
+            <p>猫评数据</p>
+          </header>
         </section>
-        <p>大众评论分析利器</p>
-      </section>
-      <section class="advise none"></section>
+        <section class="zone">
+          <section class="inner">
+            <input type="text" placeholder="" v-model="searchText" @blur="closeSearch" @focus="openSearch">
+            <i class="iconfont to-go" title="点击搜索" @click="searchList">></i>
+            <section class="simulation" ref="simulation">中国</section>
+          </section>
+          <p>大众评论分析利器</p>
+        </section>
+        <section class="advise none"></section>
+      </div>
+
+
     </div>
+
+
+    <div class="search-inner">
+      <div class="search-content">
+          评论A
+          评论B
+          评论C
+          -|-
+      </div>
+    </div>
+
   </div>
 </template>
-
-<script type="text/ecmascript-6">
-  import {mapGetters, mapMutations} from 'vuex'
+<script>
+  import pcHeader from '~/components/pc-header/header'
 
   export default {
-    created () {
-      console.log(this.loginState)
-    },
     data () {
       return {
-        searchText: '',
         login: false,
-        openU: false
+        openU: false,
+        searchText: ''
       }
     },
-    computed: {
-      ...mapGetters([
-        'loginState'
-      ])
-    },
-    components: {},
     watch: {
       searchText (newVal, oldVal) {
       }
     },
     methods: {
+      openUser (e) {
+        e.preventDefault()
+        this.openU = !this.openU
+      },
+      showElse () {
+        if (this.openU) {
+          this.openU = !this.openU
+        }
+      },
       openSearch () {
         this.$refs.simulation.style.display = 'none'
       },
@@ -90,35 +76,38 @@
       },
       searchList () {
         let userText = this.searchText
-        console.log(userText)
         console.log('跳')
         this.setSearchList = userText
         this.$router.push({path: `/app/${userText}`})
-      },
-      openUser (e) {
-        e.preventDefault()
-        this.openU = !this.openU
-      },
-      showElse () {
-        if (this.openU) {
-          this.openU = !this.openU
-        }
-      },
-      ...mapMutations({
-        setSearchList: 'SET_SEARCHLIST'
-      })
+      }
+    },
+    components: {
+      pcHeader
     }
   }
 </script>
-
-
 <style scoped lang="stylus" rel="stylesheet/stylus">
+
+
+  .search-inner
+    display flex
+    align-items center
+    justify-content center
+    width 100%
+    background transparent
+    .search-content
+      padding 1rem
+      background-color #fff
+      width 400px
+      text-align center
 
   .wrapper
     display: flex
     justify-content: center
     flex-wrap: wrap
     height 85%
+    padding 6rem 0 0
+
     header
       display: flex
       justify-content: space-between
@@ -134,7 +123,7 @@
     .containers
       text-align: center
       position: relative
-      margin-bottom: 150px
+      margin-bottom: 2rem
       .logo
         margin-bottom: 50px
         header
@@ -289,6 +278,5 @@
       .arrow
         right: 3px
         z-index: 2
-
 
 </style>
