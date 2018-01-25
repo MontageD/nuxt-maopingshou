@@ -1,9 +1,22 @@
-## 猫评手网站 (maopingshou.com)
+### 猫评手网站 ([maopingshou.com](https://maopingshou.com))
 * 聚合各种网站的评论信息并作筛选和分类,从你最喜欢的角度过滤信息
 * 「人们想要的往往不是真相，而是他们想要看到的真相」
 
 
 > Node.js(6.9.1) + vue(2.0) + vuex + (NUXT)SSR + nginx反向代理 
+
+
+## PC
+
+![](http://oj711uhrd.bkt.clouddn.com/WX20180125-141930@2x.png)
+
+
+## Mobile
+
+<img src="http://oj711uhrd.bkt.clouddn.com/WX20180125-142018@2x.png" width = "33%" height = "463px" alt="图片名称" align=center />
+<img src="http://oj711uhrd.bkt.clouddn.com/WX20180125-142049@2x.png" width = "33%" height = "463px" alt="图片名称" align=center />
+<img src="http://oj711uhrd.bkt.clouddn.com/WX20180125-142146@2x.png" width = "33%" height = "463px" alt="图片名称" align=center />
+
 
 ### 目标功能
 - [ ] 首页布局 -- 未完成
