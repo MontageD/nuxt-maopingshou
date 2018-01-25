@@ -8,24 +8,23 @@
 
 ## PC
 
-![](http://oj711uhrd.bkt.clouddn.com/WX20180125-141930@2x.png)
+![](http://oj711uhrd.bkt.clouddn.com/33.png)
 
 
 ## Mobile
 
-<img src="http://oj711uhrd.bkt.clouddn.com/WX20180125-142018@2x.png" width = "33%" height = "463px" alt="图片名称" align=center />
-<img src="http://oj711uhrd.bkt.clouddn.com/WX20180125-142049@2x.png" width = "33%" height = "463px" alt="图片名称" align=center />
-<img src="http://oj711uhrd.bkt.clouddn.com/WX20180125-142146@2x.png" width = "33%" height = "463px" alt="图片名称" align=center />
+![](http://oj711uhrd.bkt.clouddn.com/8989.png)
 
 
-### 目标功能
-- [ ] 首页布局 -- 未完成
-- [ ] 评论页面布局 -- 未完成
-- [ ] 主页搜索功能 -- 未完成
-- [ ] 主页点赞和评论功能 --  未完成
-- [ ] 抓取评论数据(豆瓣,新闻网站) -- 未完成
-- [ ] 评论搜索功能 -- 未完成
-- [ ] 评论搜索个人中心	--未完成
+## Todos 更新记录
+- [x] 首页布局 
+- [x] 评论页面布局 
+- [ ] 主页点赞和评论功能 
+- [ ] 抓取评论数据(豆瓣,新闻网站) 
+- [ ] 评论搜索功能
+- [ ] 评论搜索个人中心	
+- [x] 用户登陆+注册
+- [x] nuxt部署到nginx,pm2
 
 
 
@@ -42,6 +41,9 @@ $ npm run dev
 # build for production and launch server
 $ npm run build
 $ npm start
+
+# nuxt 部署到pm2 
+$  pm2 start node_modules/nuxt/bin/nuxt-start -i max
 
 ```
 
