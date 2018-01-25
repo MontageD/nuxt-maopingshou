@@ -14,7 +14,7 @@
       console.log(params)
     },
     created () {
-      axios.get(`http://120.78.174.192:3000/api`)
+      axios.get(`http://data.maopingshou.com/api`)
         .then((res) => {
           console.log(res.data)
         })

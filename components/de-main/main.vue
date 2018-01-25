@@ -1,5 +1,6 @@
 <template>
   <div class="container main-container" id="main">
+
     <DeView></DeView>
     <Side></Side>
   </div>

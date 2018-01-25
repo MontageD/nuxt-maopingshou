@@ -3,6 +3,8 @@
     <search></search>
     <div class="view timeline-index-view">
       <div class="timeline-entry-list">
+
+
         <header class="list-header">
           <nav class="list-nav">
             <ul class="nav-list left">
@@ -23,54 +25,67 @@
             <!--</ul>-->
           </nav>
         </header>
-        <ul class="entry-list">
-          <li v-for="item in postList">
-            <div class="content-box">
-              <div class="info-box">
-                <div class="info-row meta-row">
-                  <ul class="meta-list">
-                    <li class="item post">{{ item.type }}</li>
-                    <li class="item username clickable">{{ item.author }}</li>
-                    <li class="item ">{{ item.age }}</li>
-                    <li class="item tag">{{ item.types }}</li>
-                  </ul>
-                </div>
-                <div class="info-row title-row"><!----><!---->
-                  <span class="title">
+
+
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated tada">
+          <ul class="entry-list" v-if="listInfo">
+            <li v-for="item in listInfo">
+              <div class="content-box">
+                <div class="info-box">
+                  <div class="info-row meta-row">
+                    <ul class="meta-list">
+                      <li class="item post">{{ item.type }}</li>
+                      <li class="item username clickable">{{ item.author }}</li>
+                      <li class="item ">{{ item.age }}</li>
+                      <li class="item tag">{{ item.types }}</li>
+                    </ul>
+                  </div>
+                  <router-link :to="`/detail/${item.id}`" class="info-row title-row"><!----><!---->
+                    <span class="title">
                     {{ item.title }}
                   </span>
-                  <a @click="detail" class="content" target="_blank" v-bind:data-id="item.id">{{ item.content }}
-                  </a>
+                  </router-link>
+                    <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
+                      {{ item.content }}
+                    </router-link>
                 </div>
+                <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
+                  <i :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}"></i>
+                </router-link>
+                <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
+                             :style="{'background-image': 'url(http://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
+                </router-link>
+                <!--<div class="lazy thumb thumb loaded"-->
+                <!--:style="{'background-im.age': 'url(http://maopingshou.com:3002/images/'+ item.img+')'}"></div>-->
+                <!--<div class="lazy thumb thumb loaded">-->
+                <!--<img v-bind:src="'http://maopingshou.com:3000/images/'+item.comment_img"/>-->
+                <!--</div>-->
               </div>
-              <div v-if="item.img" class="lazy thumb thumb loaded"
-                   :style="{'background-image': 'url(http://maopingshou.com:3002/images/'+ item.img+')'}">
-              </div>
-              <div v-else class="lazy thumb thumb loaded default_img"
-                   :style="{'background-image': 'url(http://maopingshou.com:3002/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
-              </div>
-              <!--<div class="lazy thumb thumb loaded"-->
-              <!--:style="{'background-image': 'url(http://maopingshou.com:3002/images/'+ item.img+')'}"></div>-->
-              <!--<div class="lazy thumb thumb loaded">-->
-              <!--<img v-bind:src="'http://maopingshou.com:3000/images/'+item.comment_img"/>-->
-              <!--</div>-->
-            </div>
-            <!--</nuxt-link>-->
-          </li>
-        </ul>
+              <!--</nuxt-link>-->
+            </li>
+          </ul>
+        </transition>
+
         <div class="entry-loading" @click="loadingData">
           <img src="~assets/img/Rolling.gif" v-show="showLoading">
           <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
 
         </div>
+
+
       </div>
 
       <aside class="index-aside aside">
-        <section class="side_mood">
-          <p class="side_title">每日心情</p>
-          <img :src="everyImg">
-          <div class="clear"></div>
+        <section>
+
         </section>
+        <!--<section class="side_mood">-->
+        <!--<p class="side_title">每日心情</p>-->
+        <!--<img :src="everyImg">-->
+        <!--<div class="clear"></div>-->
+        <!--</section>-->
 
         <section class="side_hoting">
           <p class="side_title">热门标签</p>
@@ -87,10 +102,10 @@
           <header class="user-section-header">你可能感兴趣的评论</header>
           <ul class="user-list">
             <li class="item" v-for="side in sideList">
-              <a data-id='' target="_blank" rel="" class="link">
+              <router-link :to="`/detail/${side.id}`" class="link">
                 <div
                   class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(http://maopingshou.com:3002/images/'+ side.img+') '}"></div>
+                  :style="{backgroundImage: 'url(http://data.maopingshou.com/images/'+ side.img+') '}"></div>
                 <!--<div class="lazy avatar avatar loaded">-->
 
                 <!--</div>-->
@@ -98,55 +113,69 @@
                   <div class="username">{{side.title}}</div>
                   <div class="position">{{side.content}}</div>
                 </div>
+              </router-link>
+            </li>
+          </ul>
+        </section>
+
+
+        <section class="follow-section">
+          <header>关注我们</header>
+          <ul class="account-list">
+            <li class="item weibo">
+              <a>
+                <img src="~assets/img/bottom_weibo.png" alt="微博" class="icon">
               </a>
+            </li>
+            <li class="item wechat">
+              <a>
+                <img src="~assets/img/bottom_weixin.png" alt="微信" class="icon">
+              </a>
+            </li>
+            <!--<li class="item zhihu"><a ><img src="https://gold-cdn.xitu.io/v3/static/img/zhuanlan.18265c6.png" alt="知乎" class="icon"></a>-->
+            <!--</li>-->
+            <!--<li class="item jianshu"><a ><img src="https://gold-cdn.xitu.io/v3/static/img/jianshu.80c1fdd.png" alt="简书" class="icon"></a>-->
+            <!--</li>-->
+          </ul>
+          <ul class="more-list">
+            <li class="item">
+              <a target="_blank">关于</a>
+              <a target="_blank">友情链接</a>
+            </li>
+            <li class="item"><a target="_blank">粤ICP备15044136号-2</a>
             </li>
           </ul>
         </section>
       </aside>
     </div>
+
+
   </main>
 </template>
 <script>
   import search from '~/components/search/search'
   import axios from 'axios'
-  import {mapGetters, mapMutations} from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     created () {
     },
     mounted () {
-      axios.get(`http://maopingshou.com:3002/oftenTag?num=13`)
-        .then((res) => {
-          let tagList = Object.assign({}, res.data)
-          this.tagList = {}
-          for (let key in tagList) {
-            this.tagList[key] = {}
-            this.tagList[key].number = tagList[key].type
-            this.tagList[key].id = key
-          }
-          this.celles = Object.assign({}, this.tagList)
-          setInterval(() => {
-            this.celles = window._.shuffle(this.celles)
-          }, 5000)
-        })
-      axios.get(`http://maopingshou.com:3002/mainSide?start=5`)
+      axios.get(`http://data.maopingshou.com/mainSide?start=5`)
         .then((res) => {
           this.sideList = res.data
         })
       // 右侧滚动图片样式
-      let _this = this
-      setInterval(() => {
-        let num = parseInt(Math.random() * 4) + 1
-        _this.everyImg = 'http://maopingshou.com:3002/images/extra/every_' + num + '.jpg'
-      }, 6000)
+      //      let _this = this
+      //      setInterval(() => {
+      //        let num = parseInt(Math.random() * 4) + 1
+      //        _this.everyImg = 'http://maopingshou.com:3002/images/extra/every_' + num + '.jpg'
+      //      }, 6000)
     },
-    computed: {
-      ...mapGetters([
-        'currentIndex',
-        'postList',
-        'pageNum'
-      ])
-    },
+    computed: mapGetters({
+      listInfo: 'option/getListInfo',
+      celles: 'option/getCells'
+    }),
     data () {
       return {
         showLoading: false,
@@ -158,14 +187,12 @@
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
         },
         tagList: {},
-        celles: {},
-        everyImg: 'http://maopingshou.com:3002/images/extra/every_1.jpg'
+        everyImg: 'http://data.maopingshou.com/images/extra/every_1.jpg'
       }
     },
     methods: {
       detail (e) {
         let uid = e.toElement.dataset.id
-        //        window.open(`/detail/${uid}`)
         this.$router.push({path: `/detail/${uid}`})
       },
       loadingData () {
@@ -187,13 +214,8 @@
         })
       },
       shuffle () {
-        this.celles = window._.shuffle(this.celles)
-      },
-      ...mapMutations({
-        setPostList: 'SET_POSTLIST',
-        setPageNum: 'SET_PAGENUM',
-        setSearchList: 'SET_SEARCHLIST'
-      })
+        this.$store.commit('option/SET_CELLS', window._.shuffle(this.celles))
+      }
     },
     components: {
       search
@@ -201,6 +223,32 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .follow-section
+    background transparent
+    text-align center
+    color #909090
+    box-shadow none
+    overflow visible
+    header
+      font-size 1.1em
+    .more-list
+      margin .5rem 0
+      li
+        margin .5rem 0
+    .account-list
+      display flex
+      justify-content center
+      margin 1rem 0
+      li
+        margin 0 .3rem
+        a
+          height 24px
+          width 24px
+          display block
+          img
+            height 100%
+            width 100%
+
   .timeline-index-view
     position relative
 
@@ -312,7 +360,7 @@
         width 1rem
 
   .list-header
-    padding: 1.3rem 1rem
+    padding: 1.3rem 0
     border-bottom: 1px solid hsla(0, 0%, 59%, .1)
     background-color #ffffff
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
@@ -450,22 +498,41 @@
     margin-top 3px
     cursor pointer
     max-height 2.3rem
+    overflow: hidden
 
   .thumb
     flex: 0 0 auto
     width: 5rem
     height: 5rem
     margin-left: 2rem
-    background-color: #fff
+    background-color: transparent
     background-size: cover
     background-position: 50%
     background-repeat: no-repeat
     cursor pointer
     box-shadow 0px 10px 60px 4px rgba(0, 64, 128, .2)
     border-radius 8px
-    img
-      height: 100%
+    i
+      transition: all .5s;
+      display block
+      height 100%
       width 100%
+      background-size: cover
+      background-position: 50%
+      background-repeat: no-repeat
+
+  .thumb
+    i:hover
+      transform rotate(10deg);
+
+  @media (max-width: 480px)
+    .thumb
+      width 100%
+      height 10rem
+      margin-left 0
+
+    .content-box
+      display block
 
   .default_img
     background-size 558%
@@ -474,7 +541,7 @@
     box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
     margin-bottom 1rem
     img
-     max-height 20rem
+      max-height 20rem
 
   .side_title
     text-align left

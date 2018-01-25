@@ -12,11 +12,8 @@
                 <i class="material-icons" ref="menu_icon" v-show="!menu" @click="changeMenu">&#xE8FE;</i>
                 <i class="material-icons" v-show="menu" @click="changeMenu">&#xE5CD;</i>
               </div>
-
-
               <ul class="phone-hide show">
                 <!--<li class="nav-item link-item route-active" v-for="(value,key) in mainMenu">-->
-
                 <!--<nuxt-link class="menu-num" @click="changeHeader"-->
                 <!--v-bind:data-order="value.orderid"-->
                 <!--v-bind:data-href="value.href"-->
@@ -29,7 +26,7 @@
 
                 <li class="nav-item link-item route-active ">
                   <router-link to="/">
-                  首页
+                    首页
                   </router-link>
                 </li>
 
@@ -54,6 +51,17 @@
                 <!--<li class="nav-item link-item"><a href="/zhihu/all">知乎</a></li>-->
                 <!--<li class="nav-item link-item"><a href="/history/all">历史评论</a></li>-->
               </ul>
+
+              <div class="user-action" v-if="user===0">
+                <!--辨别是否为登陆状态-->
+                <a class="user-comment">写文章</a>
+                <router-link to="/logined" class="user-login">登陆</router-link>
+                <router-link to="/register" class="user-register">注册</router-link>
+              </div>
+              <div class="user-action" v-else>
+                <router-link to="/logined" class="user-login">{{ uname }}</router-link>
+                <i class="avatar" :style="{'background-image': 'url('+ portrait+')'}"></i>
+              </div>
             </li>
             <!--<li class="nav-item search">最新热评</li>-->
             <!--<li class="nav-item add">发现</li>-->
@@ -62,33 +70,40 @@
         </nav>
       </div>
     </div>
-    <ul class="phone-item" v-show="menu">
-      <li class="active">
-        <router-link to="/">
-          首页
-        </router-link>
-      </li>
-      <li class="">
-         <router-link  to="/list">
-          评论集
-        </router-link>
-      </li>
-      <li class="">
-        <router-link to="/search">
-          评论搜索
-        </router-link>
-      </li>
-      <li class="">
-        <router-link to="/feedback">
-          意见反馈
-        </router-link>
-      </li>
-    </ul>
+
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <ul class="phone-item" v-show="menu">
+        <li class="active">
+          <router-link to="/">
+            首页
+          </router-link>
+        </li>
+        <li class="">
+          <router-link to="/list">
+            评论集
+          </router-link>
+        </li>
+        <li class="">
+          <router-link to="/search">
+            评论搜索
+          </router-link>
+        </li>
+        <li class="">
+          <router-link to="/feedback">
+            意见反馈
+          </router-link>
+        </li>
+      </ul>
+
+    </transition>
+
   </div>
 </template>
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
-
   export default {
     data () {
       return {
@@ -97,25 +112,26 @@
       }
     },
     created () {
-      console.log('created:' + this.mainMenuList)
+    },
+    computed: {
+      user () {
+        const gravatar = this.$store.state.option.loginState
+        return gravatar
+      },
+      uname () {
+        const username = this.$store.state.option.username
+        return username
+      },
+      portrait () {
+        const avator = this.$store.state.option.avator
+        return avator
+      }
     },
     mounted () {
       window.addEventListener('scroll', this.handleScroll)
-
-      //      if (JSON.stringify(this.mainMenu) === '{}') {
-      //        axios.get(`http://120.78.174.192:3002/menuList`)
-      //          .then((res) => {
-      //            console.log('获取数据')
-      //            this.setMainMenu(res.data)
-      //          })
-      //      }
-
       this.$nextTick(() => {
-        //        let menu = document.querySelectorAll('.menu-num')
-        //        menu[this.mainMenuList].setAttribute('class', 'menu-num active')
       })
     },
-
     methods: {
       changeMenu (e) {
         //        this.$refs.menu_icon.style.transform = 'rotateX(90deg)'
@@ -124,24 +140,47 @@
       handleScroll (e) {
       },
       changeHeader (e) {
-        this.setMainMenuList(e.srcElement.dataset.order)
-        this.$router.push({path: e.srcElement.dataset.href})
         //        e.preventDefault()
-      },
-      ...mapMutations({
-        setMainMenu: 'SET_MAINMENU',
-        setMainMenuList: 'SET_MAINMENULIST'
-      })
-    },
-    computed: {
-      ...mapGetters([
-        'mainMenu',
-        'mainMenuList'
-      ])
+      }
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .avatar
+    height 2rem
+    width 2rem
+    border-radius 50%
+    background-size 100%
+    background-position center
+    margin-left 1rem
+  .user-action
+    display flex
+    justify-content space-between
+    align-items center
+    .user-comment:after
+      content "|"
+      position absolute
+      left 100%
+      color hsla(0, 0%, 59%, .4)
+    .user-login
+      padding 0 .6rem 0 1rem
+    .user-login:after
+      content "\B7"
+      position absolute
+      left 100%
+      color #007fff
+      font-weight 800
+    > a
+      position relative
+      color #007fff
+      font-size 1rem
+      padding 0 1.2rem
+      cursor pointer
+      display flex
+      align-items center
+      justify-content center
+      height 4rem
+
   .bounce-enter-active {
     animation: bounce-in .5s;
   }
@@ -214,8 +253,11 @@
       margin: 0
       -webkit-box-pack: flex-end
       position: relative
+      > li
+        width 100%
       .main-nav-list
         display: flex
+        justify-content space-between
         .phone-show-menu
           cursor: pointer
           display: none
@@ -268,6 +310,8 @@
       z-index 10086
       box-shadow 0 1px 2px 0 rgba(0, 0, 0, .1)
       margin 0 -1px
+      padding-bottom 200%
+      background-color rgba(0, 0, 0, .8)
       li:last-child
         border-bottom 0
       li

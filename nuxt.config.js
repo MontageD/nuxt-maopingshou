@@ -17,6 +17,7 @@ module.exports = {
   css: [
     {src: '~/assets/stylus/index.styl', lang: 'stylus'},
     {src: 'material-design-icons/iconfont/material-icons.css'},
+    {src: '~/assets/css/animate.css'}
     // {src: 'bulma-stylus/bulma.styl', lang: 'stylus'}
   ],
   render: {
@@ -35,7 +36,9 @@ module.exports = {
   */
   plugins: [
     {src: '~plugins/extra.js', ssr: false},
-    {src: '~plugins/lodash.js', ssr: false}
+    {src: '~plugins/lodash.js', ssr: false},
+    {src: '~plugins/getSlideDirection.js', ssr: false},
+    {src: '~plugins/input_filter.js', ssr: false}
   ],
   build: {
     /*

@@ -3,16 +3,25 @@
     <keep-alive>
       <Headers></Headers>
     </keep-alive>
+
     <DeMain></DeMain>
   </div>
 </template>
 <script>
   //  import axios from 'axios'
   import DeMain from '~/components/de-main/main'
-  import { mapMutations, mapActions, mapGetters } from 'vuex'
   import Headers from '~/components/pc-header/header'
 
   export default {
+    fetch ({store, params, error}) {
+      return store.dispatch('loadArticleDetail', params).catch(() => {
+        error({statusCode: 404, message: '众里寻他 我已不再'})
+      })
+    },
+    transition (to, from) {
+      if (!from) return 'slide-left'
+      return +to.query.page < +from.query.page ? 'slide-right' : 'slide-left'
+    },
     created () {
     },
     data () {
@@ -22,19 +31,8 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'detaiList',
-        'orderId'
-      ])
     },
     methods: {
-      ...mapMutations({
-        setOrderId: 'SET_ORDERID',
-        setDetailList: 'SET_DETAILIST'
-      }),
-      ...mapActions(
-        ['insertOrderId', 'insertDetaiList']
-      )
     },
     components: {
       Headers,

@@ -2,8 +2,12 @@
   <div id="view">
 
 
-    <transition name="fade">
-      <div v-if="info" v-for="item in info" class="column-view">
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <div v-if="detailList" v-for="item in detailList" class="column-view">
         <div class="container entry-view">
           <a class="post-author clearfix"
           >
@@ -22,7 +26,6 @@
                     <li>{{item.type}}</li>
                   </ul>
                 </transition>
-
               </div>
             </div>
           </a>
@@ -45,7 +48,6 @@
 
           </ul>
 
-
           <ul class="view-comment no-data" v-else>
             肥肠抱歉，没有找到你要的评论 T_T
           </ul>
@@ -65,7 +67,7 @@
           <div class="view-like-left">
             <div class="view-like-list">
               <p><i v-bind:class="zanClassName" ref="zan" @click='zan'
-                    :style="{ 'background-image': 'url(http://maopingshou.com:3002/images/extra/web_heart_animation.png)' }"></i>
+                    :style="{ 'background-image': 'url(http://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>
               </p>
               <p>喜欢 <i class="view-like-num"></i></p>
             </div>
@@ -73,38 +75,47 @@
           <div class="view-like-right">
             <div class="view-like-list">
               <p class="share_list" @click="ask_friend">
-
                 <i class="material-icons">&#xE80D;</i>
-
               </p>
               <p>告诉朋友</p>
             </div>
           </div>
+        </div>
 
 
-        </div>
-        <div class="ask_friend" ref="askF">
-          <a class="ask_link">
-            <img src="~assets/img/link.png"/>
-          </a>
-          <a class="ask_weibo">
-            <img src="~assets/img/weibos_link.png"/>
-          </a>
-          <a class="ask_weixin">
-            <img src="~assets/img/weixin_links.png"/>
-          </a>
-        </div>
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated zoomIn"
+          leave-active-class="animated zoomOut"
+        >
+          <div class="ask_friend" ref="askF" v-show="show">
+            <div class="askF">
+              <a class="ask_link">
+                <img src="~assets/img/link.png"/>
+              </a>
+              <a class="ask_weibo">
+                <img src="~assets/img/weibos_link.png"/>
+              </a>
+              <a class="ask_weixin">
+                <img src="~assets/img/weixin_links.png"/>
+              </a>
+            </div>
+          </div>
+        </transition>
       </div>
-
     </transition>
 
-
-    <div class="view-comm" v-show="likeInfo">
-      <p class="view-comm-title">猜你喜欢</p>
-        <div class="view-comm-ul after-in" ref="view_ul" >
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <div class="view-comm" v-show="showBottom">
+        <p class="view-comm-title">猜你喜欢</p>
+        <div class="view-comm-ul after-in view-ul" ref="view_ul">
           <div class="view-comm-li" v-for="like in likeInfo">
             <div class="view-comm-ul-img" @click='detail_link'
-                 :style="{ 'background-image': 'url(http://maopingshou.com:3002/images/' + like.img + ')' }">
+                 :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + like.img + ')' }">
             </div>
             <div class="view-comm-content">
               <span class="view-comm-content-detail after-in">
@@ -114,68 +125,86 @@
             </div>
           </div>
         </div>
-        <div class="view-navigation" v-if="show">
+        <div class="view-navigation">
           <div class="view-navigation-left" @click="nav_left"><i class="material-icons">&#xE5CB;</i></div>
           <div class="view-navigation-center" @click="nav_center"><i class="material-icons">&#xE5D3;</i></div>
           <div class="view-navigation-right" @click="nav_right"><i class="material-icons">&#xE5CC;</i></div>
         </div>
+
+
         <!--<p class>热点文章</p>-->
 
-      <div class="clear"></div>
+        <div class="clear"></div>
 
-    </div>
+      </div>
 
-
+    </transition>
   </div>
 </template>
 <script>
   import { mapMutations, mapActions, mapGetters } from 'vuex'
   import axios from 'axios'
   import backgroundUrl from '~/assets/img/web_heart_animation.png'
+  import 'swiper/dist/css/swiper.css'
 
   export default {
     created () {
-      axios.get(`http://maopingshou.com:3002/recommend?uid=` + this.$route.params.id)
-        .then((res) => {
-          res.data.forEach((currentValue, index, array) => {
-            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-            //            res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
-          })
-          //          store.commit('SET_POSTLIST', res.data)
-          this.insertDetaiList({
-            postList: res.data
-          })
-          this.setDetailList(res.data)
-          this.insertOrderId({
-            orderId: this.$route.params.id
-          })
-          this.info = Object.assign({}, res.data)
-          this.info[0].img = 'http://maopingshou.com:3002/images/' + this.info[0].img
-          let pathname = (this.info[0].img).split('/')
-          if (pathname[pathname.length - 1] === '') {
-            this.info[0].img = pathname[pathname.length - 1]
-          }
-        })
-
-      axios.get(`http://maopingshou.com:3002/likeInfo?start=5`)
+      /// 推荐你喜欢的文章
+      axios.get(`http://data.maopingshou.com/likeInfo?start=5`)
         .then((res) => {
           res.data.forEach((currentValue, index, array) => {
             res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
             res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
             res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
           })
+          this.showBottom = !this.showBottom
           this.likeInfo = res.data
         })
-      //      res.data.forEach((currentValue, index, array) => {
-      //        res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-      //        res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-      //        res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
-      //      })
-      //      console.log(res.data)
     },
     mounted () {
-      console.log(this.info)
+      let viewUl = document.getElementsByClassName('view-ul')[0]
+      let startX, startY
+      viewUl.addEventListener('touchstart', function (ev) {
+        startX = ev.touches[0].pageX
+        startY = ev.touches[0].pageY
+      }, false)
+      // 底部推荐新闻滑动
+      let _this = this
+      viewUl.addEventListener('touchend', function (ev) {
+        let endX, endY
+        endX = ev.changedTouches[0].pageX
+        endY = ev.changedTouches[0].pageY
+        let direction = window.utils.getSlide(startX, startY, endX, endY)
+        switch (direction) {
+          case 0:
+            // alert('没滑动')
+            break
+          case 1:
+            // alert('向上')
+            break
+          case 2:
+            // alert('向下')
+            break
+          case 3:
+            // alert('向左')
+            if (_this.$refs.view_ul.style.transform === '') {
+              _this.$refs.view_ul.style.transform = `translate(-5rem)`
+            } else {
+
+            }
+            break
+          case 4:
+            if (_this.$refs.view_ul.style.transform) {
+              console.log('存在动画')
+            } else {
+              console.log('不存在动画')
+              //              _this.$refs.view_ul.style.transform = _this.$refs.view_ul.style.transform - 1 + 'rem'
+            }
+            // alert('向右')
+            break
+          default:
+        }
+      }, false)
     },
     data () {
       return {
@@ -185,14 +214,14 @@
         menu_show: true,
         zanClassName: 'view-like-icon heart',
         askF: 'none',
-        show: true
+        show: false,
+        showBottom: false
       }
     },
     computed: {
-      ...mapGetters([
-        'orderId',
-        'detaiList'
-      ]),
+      ...mapGetters({
+        detailList: 'article/getDetailList'
+      }),
       _getPosAndScale () {
         const x = 10
         const y = 10
@@ -207,7 +236,7 @@
     methods: {
       ask_friend () {
         this.show = !this.show
-        //        if (!this.$refs.askF[0].style.display || this.$refs.askF[0].style.display === 'none') {
+        //        if (!this.$refs.askF[0].style.left || this.$refs.askF[0].style.display === 'none') {
         //          this.askF = 'flex'
         //          this.$refs.askF[0].style.display = 'flex'
         //        } else {
@@ -216,10 +245,22 @@
         //        }
       },
       detail_link (e) {
-        console.log(e.currentTarget)
       },
-      zan () {
-        this.zanClassName = 'view-like-icon heart heartAnimation'
+      zan (e) {
+        if (this.$refs.zan[0].className === 'view-like-icon heart heartAnimation') {
+          this.zanClassName = 'view-like-icon heart heartAnimation2'
+          // 点赞
+          // let _this = this
+          let like = this.info[0].like
+          let id = this.info[0].id
+          axios.get(`http://data.maopingshou.com/zanLike?like=${like}&id=${id}`)
+            .then(function (res) {
+              console.log(res)
+            })
+        } else {
+          // 不点赞
+          this.zanClassName = 'view-like-icon heart heartAnimation'
+        }
       },
       nav_left () {
         this.$refs.view_ul.style.transform = `translate(0,0)`
@@ -228,7 +269,7 @@
         this.$refs.view_ul.style.transform = `translate(-15rem,0)`
       },
       nav_right () {
-        this.$refs.view_ul.style.transform = `translate(-30rem,0)`
+        this.$refs.view_ul.style.transform = `translate(-45rem,0)`
       },
       tagclick () {
         //        this.$refs.tag.style.transition = 'all 0.4s'
@@ -254,24 +295,28 @@
 <style lang="stylus" rel="stylesheet/stylus">
 
   .ask_friend
-    display none
     bottom 0
     background rgba(0, 0, 0, .8)
     width 100%
     height 3rem
-    justify-content center
-    align-items center
+
     border-bottom 1px solid #eee
     border-left 1px solid #eee
     border-right 1px solid #eee
     transition all 0.5s
-    a
-      height 1.5rem
-      width 1.5rem
-      margin 0 1rem
-      img
-        width 100%
-        height 100%
+    .askF
+      width 100%
+      height 100%
+      display flex
+      justify-content center
+      align-items center
+      a
+        height 1.5rem
+        width 1.5rem
+        margin 0 1rem
+        img
+          width 100%
+          height 100%
 
   .view-like
     width 100%
@@ -359,7 +404,8 @@
             display flex
             justify-content space-between
             .view-comm-content-detail-title
-              height .7rem
+              height 1rem
+              line-height 1rem
               overflow hidden
               font-size .8rem
               width 80%
@@ -466,11 +512,13 @@
     font-size 1rem
     letter-spacing 3px
     p
-      line-height 1.7em
       text-align left
       word-break break-all
       word-wrap break-word
       font-size 1rem
+      margin-bottom 1em
+      line-height 2em
+      text-indent 2em
 
   .column-view
     max-width 700px
@@ -515,6 +563,25 @@
       max-width 700px
       padding 0 24px
       box-sizing border-box
+
+  @media (max-width: 992px)
+    .fb-content
+      .view-title
+        padding 0 1rem
+
+    .entry-view
+      padding 0 !important
+
+    .view-img
+      padding 1rem !important
+
+    .view-comment
+      margin 1rem !important
+
+    .column-view
+      max-width 100% !important
+      .post-author
+        margin 0 1rem
 
   /*.lazy*/
   /*opacity 0*/

@@ -3,7 +3,7 @@
     <div class="side_section">
       <section class="side_mood">
         <p class="side_title">每日心情</p>
-        <img src="http://maopingshou.com:3002/images/extra/every_1.jpg">
+        <img src="http://data.maopingshou.com/images/extra/every_1.jpg">
         <div class="clear"></div>
       </section>
 
@@ -29,7 +29,7 @@
 
   export default {
     mounted () {
-      axios.get(`http://maopingshou.com:3002/oftenTag?num=13`)
+      axios.get(`http://data.maopingshou.com/oftenTag?num=13`)
         .then((res) => {
           let tagList = Object.assign({}, res.data)
           this.tagList = {}

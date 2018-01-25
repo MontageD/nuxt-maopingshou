@@ -25,31 +25,53 @@
         </section>
         <section class="advise none"></section>
       </div>
-
-
     </div>
 
 
     <div class="search-inner">
-      <div class="search-content">
-          评论A
-          评论B
-          评论C
-          -|-
+      <div class="search-loading" v-show="showLoading">
+
+        <div class="lds-css ng-scope">
+          <div style="width:100%;height:100%" class="lds-rolling">
+            <div></div>
+          </div>
+        </div>
+        <!--<img src="~assets/img/Rolling.gif"/>-->
+        <!--<img src="/assets/img/Rolling.gif"/>-->
       </div>
+      <div class="search-content" v-for="s in sources" v-show="!showLoading">
+        <div class="comment-all">
+          <div class="comment-top">
+            <span class="comment-time">{{s.time}}</span>
+            <span class="comment-source">{{s.types}}</span>
+          </div>
+          <div class="comment-title">
+            <i :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + s.img + ')' }"></i>
+            <span class="comment-titleName">{{s.author}}</span>
+          </div>
+          <div class="comment-tit">{{s.title}}</div>
+          <div class="comment-content" v-html="s.content">
+          </div>
+        </div>
+      </div>
+
+
     </div>
 
   </div>
 </template>
 <script>
   import pcHeader from '~/components/pc-header/header'
+  import axios from 'axios'
 
   export default {
     data () {
       return {
         login: false,
         openU: false,
-        searchText: ''
+        searchText: '',
+        sources: [],
+        showLoading: false
       }
     },
     watch: {
@@ -76,9 +98,26 @@
       },
       searchList () {
         let userText = this.searchText
-        console.log('跳')
-        this.setSearchList = userText
-        this.$router.push({path: `/app/${userText}`})
+        let num = 10
+        let _this = this
+        _this.showLoading = !_this.showLoading
+        axios.get(`http://data.maopingshou.com/getNews?title=${userText}&num=${num}`)
+          .then(function (res) {
+            setTimeout(() => {
+              _this.showLoading = !_this.showLoading
+            }, 1000)
+            console.log(userText)
+            res.data.forEach((currentValue, index, array) => {
+              res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+              res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+              // res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+              res.data[index].content = (res.data[index].content).replace('/黑/g', '<span class="highlight">黑</span>')
+            })
+            console.log(res.data)
+            _this.sources = res.data
+          })
+        //        this.setSearchList = userText
+        //        this.$router.push({path: `/app/${userText}`})
       }
     },
     components: {
@@ -89,17 +128,83 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 
 
-  .search-inner
-    display flex
-    align-items center
-    justify-content center
+  .highlight
+    background-color #ffff8b
+    color #4a4a4a
+    font-weight 700
+    font-size inherit
+
+  .comment-all
+    height 100%
     width 100%
+    padding-bottom 1rem
+    .comment-top
+      display flex
+      justify-content space-between
+      color #9b9b9b
+      font-size 12px
+      margin-bottom 10px
+    .comment-tit
+      min-height 1rem
+      line-height 1.5rem
+      margin-bottom 10px
+      font-size 16px
+    .comment-title
+      display flex
+      margin-bottom 5px
+      i
+        height 30px
+        width 30px
+        border-radius 50%
+        margin-right 10px
+        border 1px solid #f5f5f6
+        background-repeat no-repeat
+        background-size 100%
+        cursor pointer
+      .comment-titleName
+        display flex
+        align-items center
+        font-size 14px
+    .comment-content
+      font-size 16px
+      color #4a4a4a
+      line-height 24px
+      font-weight lighter
+      text-align left
+      max-height 18rem
+      overflow scroll
+
+  .search-inner
+    width 23rem
+    display block
+    margin 0 auto
     background transparent
+    margin-bottom 3rem
+    position relative
+    .search-loading
+      position absolute
+      top 0
+      left 50%
+      transform translate(-50%, 0)
+      height 5rem
+      width 5rem
+      background-color rgba(0, 0, 0, .4)
+      border-radius 5px
+      background-repeat no-repeat
+      background-position center
+      background-size 100%
     .search-content
       padding 1rem
       background-color #fff
-      width 400px
       text-align center
+      transition all .25s
+      border-radius 4px
+      cursor pointer
+      max-height 27rem
+      overflow hidden
+      margin-bottom 2rem
+    .search-content:hover
+      box-shadow rgb(145, 145, 145) 0px 8px 40px 1px
 
   .wrapper
     display: flex
@@ -124,6 +229,7 @@
       text-align: center
       position: relative
       margin-bottom: 2rem
+      width 25rem
       .logo
         margin-bottom: 50px
         header
@@ -168,6 +274,7 @@
             top: 41px
             transform: translate(-50%, -50%)
             z-index: -1
+
     .zone
       margin-bottom: 50px
       p
@@ -177,19 +284,24 @@
       .inner
         position: relative
         margin-bottom: 15px
+        height 48px
+        background: #fff
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .12)
+        border-radius: 4px
+        border: none
+        outline: none
+        padding: 0 15px
         input
-          width: 400px
-          height 48px
-          background: #fff
-          color: #4a4a4a
-          box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .12)
-          border-radius: 4px
-          border: none
-          outline: none
-          padding: 0 15px
-          font-size: 24px
-          font-weight: lighter
-          text-align: center
+          width 100%
+          height 100%
+          border none
+          color #4a4a4a
+          font-size 24px
+          text-align center
+          font-weight lighter
+          outline: none;
+        input:focus
+          border none
         .to-go
           position: absolute
           width: 50px
@@ -279,4 +391,32 @@
         right: 3px
         z-index: 2
 
+  @media (max-width: 992px)
+    .wrapper
+      .containers
+        width 25rem
+
+    .search-content
+      padding 1rem
+      background-color #fff
+      width auto
+      text-align center
+
+    .search-inner
+      width 22rem !important
+
+
+  @media (max-width: 450px)
+    .wrapper
+      .containers
+        width 20rem
+
+    .search-content
+      padding 1rem
+      width auto
+      background-color #fff
+      text-align center
+
+    .search-inner
+      width 22rem !important
 </style>
