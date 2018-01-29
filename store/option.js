@@ -15,6 +15,8 @@ export const state = () => {
     username: '',
     // 登陆头像
     avator: '',
+    // 存储登陆后的所有数据
+    userData: {},
     // 图片格式
     imgExt: 'webp',
     // 是否为移动端
@@ -47,6 +49,9 @@ export const getters = {
 export const mutations = {
   SET_LISTINFO (state, action) {
     state.listInfo = action
+  },
+  SET_USERDATA (state, action) {
+    state.userData = action
   },
   SET_LOGINSTATE (state, action) {
     state.loginState = action

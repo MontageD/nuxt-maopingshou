@@ -1,6 +1,6 @@
 <template>
   <div class="main-header-box">
-    <div class="main-header" ref="mainHeader">
+    <div class="main-header 4hei" id="mainHeader" ref="mainHeader">
       <div class="container">
         <a href="/" class="logo">
           <img src="~assets/img/233.png"/>
@@ -24,23 +24,23 @@
                 <!--</li>-->
                 <!---->
 
-                <li class="nav-item link-item route-active ">
+                <li class="nav-item link-item route-active 4hei" ref="linkItem">
                   <router-link to="/">
                     首页
                   </router-link>
                 </li>
 
-                <li class="nav-item link-item route-active ">
+                <li class="nav-item link-item route-active 4hei" ref="linkItem">
                   <router-link to="/list">
                     评论集
                   </router-link>
                 </li>
-                <li class="nav-item link-item route-active ">
+                <li class="nav-item link-item route-active 4hei" ref="linkItem">
                   <router-link to="/search">
                     评论搜索
                   </router-link>
                 </li>
-                <li class="nav-item link-item route-active ">
+                <li class="nav-item link-item route-active 4hei" ref="linkItem">
                   <router-link to="/feedback">
                     意见反馈
                   </router-link>
@@ -59,7 +59,7 @@
                 <router-link to="/register" class="user-register">注册</router-link>
               </div>
               <div class="user-action" v-else>
-                <router-link to="/logined" class="user-login">{{ uname }}</router-link>
+                <router-link to="/settings" class="user-login">{{ uname }}</router-link>
                 <i class="avatar" :style="{'background-image': 'url('+ portrait+')'}"></i>
               </div>
             </li>
@@ -138,14 +138,23 @@
         this.menu = !this.menu
       },
       handleScroll (e) {
+        if (document.documentElement.scrollTop === 0) {
+          document.querySelectorAll('#mainHeader')[0].style.height = `4rem`
+        } else {
+          document.querySelectorAll('#mainHeader')[0].style.height = `3rem`
+        }
       },
       changeHeader (e) {
-        //        e.preventDefault()
+        // e.preventDefault()
       }
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .4hei
+    height 4rem
+  .3hei
+    height 3rem
   .avatar
     height 2rem
     width 2rem
@@ -153,6 +162,7 @@
     background-size 100%
     background-position center
     margin-left 1rem
+
   .user-action
     display flex
     justify-content space-between
@@ -215,6 +225,7 @@
 
   .main-header
     position fixed
+    transition all .5s
 
   .main-header-box
     position: relative;
@@ -277,7 +288,7 @@
 
   .link-item
     padding: 0 1.2rem
-    height: 4rem
+    height: 100%
 
   .nav-item
     color: #71777c

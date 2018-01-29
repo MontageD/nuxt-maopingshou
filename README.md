@@ -1,4 +1,4 @@
-### 猫评手网站 ([maopingshou.com](https://maopingshou.com))
+### 猫评手网站 ([maopingshou.com](http://maopingshou.com))
 * 聚合各种网站的评论信息并作筛选和分类,从你最喜欢的角度过滤信息
 * 「人们想要的往往不是真相，而是他们想要看到的真相」
 
@@ -8,8 +8,7 @@
 
 ## PC
 
-![](http://oj711uhrd.bkt.clouddn.com/33.png)
-
+![](http://oj711uhrd.bkt.clouddn.com/WX20180129-105708@2x.png)
 
 ## Mobile
 
@@ -43,7 +42,7 @@ $ npm run build
 $ npm start
 
 # nuxt 部署到pm2 
-$  pm2 start node_modules/nuxt/bin/nuxt-start -i max
+$ pm2 start node_modules/nuxt/bin/nuxt-start -i max
 
 ```
 

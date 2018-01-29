@@ -74,5 +74,8 @@ export const actions = {
   },
   loadAvator ({commit}, avator) {
     commit('option/SET_AVATOR', avator)
+  },
+  loadUserData ({commit}, userData) {
+    commit('option/SET_USERDATA', userData)
   }
 }

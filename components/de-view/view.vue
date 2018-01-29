@@ -195,9 +195,7 @@
             break
           case 4:
             if (_this.$refs.view_ul.style.transform) {
-              console.log('存在动画')
             } else {
-              console.log('不存在动画')
               //              _this.$refs.view_ul.style.transform = _this.$refs.view_ul.style.transform - 1 + 'rem'
             }
             // alert('向右')
@@ -255,7 +253,6 @@
           let id = this.info[0].id
           axios.get(`http://data.maopingshou.com/zanLike?like=${like}&id=${id}`)
             .then(function (res) {
-              console.log(res)
             })
         } else {
           // 不点赞

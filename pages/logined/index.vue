@@ -3,6 +3,13 @@
     <keep-alive>
       <Headers></Headers>
     </keep-alive>
+
+
+
+
+
+
+
     <div class="register-view">
       <div class="register-title">登陆</div>
       <div class="register-username">
@@ -27,6 +34,12 @@
       <div class="clear"></div>
     </div>
 
+
+
+
+
+
+
     <div class="alert-show">
       <ul>
         <li class="active" v-for="al in alertNow">{{al.message}}</li>
@@ -35,6 +48,8 @@
         <!--<li>请输入密码</li>-->
       </ul>
     </div>
+
+
 
 
   </div>
@@ -74,8 +89,9 @@
               }, 2000)
               _this.$store.dispatch('loadLoginState', state)
               _this.$store.dispatch('loadUsername', username)
+              _this.$store.dispatch('loadUserData', res.data[0])
               _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
-              console.log('登陆状态：' + _this.$store.state.option.loginState)
+              // console.log('登陆状态：' + _this.$store.state.option.loginState)
               _this.$router.push('/')
             }
           })
@@ -87,7 +103,6 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
   .alert-show
     position fixed
     height 100%
