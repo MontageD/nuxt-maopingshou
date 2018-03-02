@@ -8,15 +8,15 @@
       <div class="user-info">
         <div class="major-area">
           <div class="avatar loaded"
-               :style="{'background-image': 'url(https://user-gold-cdn.xitu.io/2018/1/25/1612db19e54f7c80?imageView2/1/w/90/h/90/q/85/format/webp/interlace/1)'}"></div>
+               :style="{'background-image': 'url('+ portrait+')'}"></div>
           <div class="info-box">
             <h1 class="username">{{username}}</h1>
             <div class="position">
               <span></span>
               <!--<span class="content">-->
-                  <!--<span>web</span>-->
-                  <!--<span class="split"></span>-->
-                  <!--<span>web</span>-->
+              <!--<span>web</span>-->
+              <!--<span class="split"></span>-->
+              <!--<span>web</span>-->
               <!--</span>-->
             </div>
             <div class="intro">
@@ -38,11 +38,11 @@
         </div>
 
 
-        <div v-if="show===0">
+        <div v-if="show===1">
           <User></User>
         </div>
 
-        <div v-if="show===1">
+        <div v-if="show===0">
           <Articles></Articles>
         </div>
 
@@ -79,13 +79,17 @@
 
   export default {
     created () {
-      this.username = this.$store.state.option.userData.nickname
+      this.username = this.$store.state.option.userData.username
+      if (this.username.length <= 0) {
+        this.$router.push('/logined')
+      }
     },
     data () {
       return {
         alertNow: [],
         menu: [
-          {name: '个人资料', active: 'active'}
+          {name: '内容定制', active: 'active'},
+          {name: '个人资料', active: ''}
           //          {name: '文章管理', active: ''},
           //          {name: '标签管理', active: ''}
         ],
@@ -93,7 +97,12 @@
         username: ''
       }
     },
-    computed: {},
+    computed: {
+      portrait () {
+        const avator = this.$store.state.option.avator
+        return avator
+      }
+    },
     methods: {
       changeMenu (e) {
         let tag = parseInt(e.currentTarget.getAttribute('data'))
@@ -117,6 +126,8 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+
+
   .profile-input
     input
       outline none

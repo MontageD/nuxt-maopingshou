@@ -8,7 +8,8 @@
       <li class="items">
         <span class="title">昵称</span>
         <div class="input-box profile-input ">
-          <input placeholder="填写你的昵称" v-model="nickname" class="input">
+          <input v-model="nickname" placeholder="填写你的昵称" class="input" onfocus="this.placeholder=''"
+                 onblur="this.placeholder='填写你的昵称'" @click="inputLink">
           <div class="action-box" tabindex="nickname" @click="changeData">
             <button class="btn edit-btn">
               <!--<span>保存</span>-->
@@ -21,7 +22,8 @@
       <li class="items">
         <span class="title">用户名</span>
         <div class="input-box profile-input ">
-          <input placeholder="" v-model="username" class="input">
+          <input v-model="username" placeholder="清填写用户名" class="input" onfocus="this.placeholder=''"
+                 onblur="this.placeholder='清填写用户名'" @click="inputLink">
           <div class="action-box">
             <button tabindex="username" class="btn edit-btn" @click="changeData">
               <!--<span>保存</span>-->
@@ -34,7 +36,8 @@
       <li class="items">
         <span class="title">密码</span>
         <div class="input-box profile-input ">
-          <input placeholder="填写你的密码" v-model="password" class="input">
+          <input placeholder="填写你的密码" onfocus="this.placeholder=''" onblur="this.placeholder='填写你的密码'"
+                 v-model="password" class="input" @click="inputLink">
           <div class="action-box">
             <button tabindex="password" class="btn edit-btn" @click="changeData">
               <!--<span>保存</span>-->
@@ -44,12 +47,10 @@
       </li>
 
 
-
-
-
-
-
     </ul>
+
+
+    <button @click="submitResult" class="btn-sub">修改个人资料</button>
   </div>
 </template>
 <script>
@@ -58,7 +59,6 @@
       this.username = this.$store.state.option.userData.username
       this.nickname = this.$store.state.option.userData.nickname
       this.password = this.$store.state.option.userData.password
-      console.log(this.$store.state.option.userData)
       // if (this.$store.state.option.userData) {
       //  this.$router.push({path: `/`})
       // }
@@ -74,11 +74,24 @@
       changeData (e) {
         console.log('fuck')
         console.log(e)
+      },
+      inputLink () {
+      },
+      submitResult () {
+        console.log(this.$store.state.option.userData.id)
       }
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .btn-sub
+    width 100%
+    background-color #007fff
+    color #fff
+    text-align center
+    margin-top 1rem
+    font-size 14px
+
   .action-box
     cursor pointer
 
@@ -91,6 +104,8 @@
       outline none
       border none
       font-size .9rem
+    input[placeholder]
+      color: #a2a4a6
 
   .one-mark
     font-size 1.5rem

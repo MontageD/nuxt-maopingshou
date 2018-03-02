@@ -5,7 +5,7 @@
   "author": "关德兴 <guandexis@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "node server.js",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -30,7 +30,10 @@
     "stylus-loader": "^3.0.1",
     "vue-awesome-swiper": "^3.1.0",
     "vue-lazyload": "^1.1.4",
-    "vue-style-loader": "^3.0.3"
+    "vue-style-loader": "^3.0.3",
+    "body-parser": "^1.17.2",
+    "express-session": "^1.15.3",
+    "mysql": "^2.15.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

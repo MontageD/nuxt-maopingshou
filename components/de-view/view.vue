@@ -114,15 +114,17 @@
         <p class="view-comm-title">猜你喜欢</p>
         <div class="view-comm-ul after-in view-ul" ref="view_ul">
           <div class="view-comm-li" v-for="like in likeInfo">
-            <div class="view-comm-ul-img" @click='detail_link'
-                 :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + like.img + ')' }">
-            </div>
-            <div class="view-comm-content">
+            <router-link :to="{path: '/detail/' + like.id}"  >
+              <div class="view-comm-ul-img" @click='detail_link'
+                   :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + like.img + ')' }">
+              </div>
+              <div class="view-comm-content">
               <span class="view-comm-content-detail after-in">
                 <span class="view-comm-content-detail-title">{{ like.title }}</span>
                 <!--<span class="view-comm-content-detail-details">详情</span>-->
                 </span>
-            </div>
+              </div>
+            </router-link>
           </div>
         </div>
         <div class="view-navigation">
@@ -130,8 +132,6 @@
           <div class="view-navigation-center" @click="nav_center"><i class="material-icons">&#xE5D3;</i></div>
           <div class="view-navigation-right" @click="nav_right"><i class="material-icons">&#xE5CC;</i></div>
         </div>
-
-
         <!--<p class>热点文章</p>-->
 
         <div class="clear"></div>
@@ -162,6 +162,7 @@
         })
     },
     mounted () {
+      console.log(this.$store.state.article.detailList[0])
       let viewUl = document.getElementsByClassName('view-ul')[0]
       let startX, startY
       viewUl.addEventListener('touchstart', function (ev) {

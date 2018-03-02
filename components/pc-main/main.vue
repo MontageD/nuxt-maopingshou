@@ -33,6 +33,8 @@
           <ul class="entry-list" v-if="listInfo">
             <li v-for="item in listInfo">
               <div class="content-box">
+
+
                 <div class="info-box">
                   <div class="info-row meta-row">
                     <ul class="meta-list">
@@ -47,9 +49,9 @@
                     {{ item.title }}
                   </span>
                   </router-link>
-                    <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
-                      {{ item.content }}
-                    </router-link>
+                  <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
+                    {{ item.content }}
+                  </router-link>
                 </div>
                 <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
                   <i :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}"></i>
@@ -62,7 +64,24 @@
                 <!--<div class="lazy thumb thumb loaded">-->
                 <!--<img v-bind:src="'http://maopingshou.com:3000/images/'+item.comment_img"/>-->
                 <!--</div>-->
+
+
+                <!--<div class="user-action">-->
+                  <!--<div class="zan">-->
+
+                    <!--<img src="~assets/img/on.png"/>-->
+                  <!--</div>-->
+                  <!--<div class="cai">-->
+                    <!--<img src="~assets/img/up.png"/>-->
+                  <!--</div>-->
+                  <!--<div class="comment">-->
+
+                  <!--</div>-->
+                <!--</div>-->
+
               </div>
+
+
               <!--</nuxt-link>-->
             </li>
           </ul>
@@ -146,6 +165,8 @@
             </li>
           </ul>
         </section>
+
+
       </aside>
     </div>
 
@@ -187,7 +208,8 @@
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
         },
         tagList: {},
-        everyImg: 'http://data.maopingshou.com/images/extra/every_1.jpg'
+        everyImg: 'http://data.maopingshou.com/images/extra/every_1.jpg',
+        pageNum: 10
       }
     },
     methods: {
@@ -197,21 +219,12 @@
       },
       loadingData () {
         this.showLoading = !this.showLoading
-        let PageNum = this.pageNum + 10
-        this.setPageNum(PageNum)
-        axios.get(`http://maopingshou.com:3002/list?start=` + PageNum).then((res) => {
-          res.data.forEach((currentValue, index, array) => {
-            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-            res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
-          })
-          this.setPostList(res.data)
-          if (PageNum !== res.data.length) {
-            this.$refs.showLoading.innerText = '已经到底'
-          } else {
-            this.showLoading = !this.showLoading
-          }
-        })
+        this.pageNum = this.pageNum + 10
+        let PageNum = {
+          'num': this.pageNum
+        }
+        this.$store.dispatch('loadListInfo', PageNum)
+        this.showLoading = !this.showLoading
       },
       shuffle () {
         this.$store.commit('option/SET_CELLS', window._.shuffle(this.celles))
@@ -223,6 +236,29 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .user-action
+    position absolute
+    bottom 1rem
+    display flex
+    div
+      display flex
+      align-items center
+      height 2rem
+      width 4rem
+      img
+        height 1rem
+        width 1rem
+        display block
+    .zan
+      background-color #e8f3ff
+      margin-right .5rem
+    .cai
+      margin 0 .5rem
+      background-color #e8f3ff
+    .comment
+      margin 0 .5rem
+      background-color #e8f3ff
+
   .follow-section
     background transparent
     text-align center
@@ -376,9 +412,11 @@
 
   /*遍历内容*/
   .content-box
+    position relative
     -webkit-box-align: center
     align-item: center
     padding: 1.5rem 2rem
+    padding-bottom 3rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
 
@@ -397,7 +435,7 @@
       font-weight: 500
 
   .title-row
-    margin: .5rem 0 1rem
+    margin: .5rem 0 .4rem
     wihte-space: nowrap
     overflow: hidden
     text-overflow: ellipsis

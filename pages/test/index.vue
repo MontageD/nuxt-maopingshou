@@ -1,13 +1,21 @@
 <template>
   <div class="container">
-    <h1>Blog</h1>
-    <ul>
-      <li v-for="(post, index) in posts" :key="index">
-        <nuxt-link :to="{ name: 'posts-id', params: { id: post.id } }">{{ post.title }}</nuxt-link>
-      </li>
-    </ul>
+    <h1>Please login to see the secret content</h1>
+    <form v-if="!$store.state.option.authUser" @submit.prevent="login">
+      <p class="error" v-if="formError">{{ formError }}</p>
+      <p><i>To login, use <b>demo</b> as username and <b>demo</b> as password.</i></p>
+      <p>Username: <input type="text" v-model="formUsername" name="username"/></p>
+      <p>Password: <input type="password" v-model="formPassword" name="password"/></p>
+      <button type="submit">Login</button>
+    </form>
+    <div v-else>
+      Hello {{ $store.state.option.authUser.username }}!
+      <pre>I am the secret content, I am shown only when the use is connected.</pre>
+      <p><i>You can also refresh this page, you'll still be connected!</i></p>
+      <button @click="logout">Logout</button>
+    </div>
     <p>
-      <nuxt-link to="/">Back to home page</nuxt-link>
+      <nuxt-link to="/secret">Super secret page</nuxt-link>
     </p>
   </div>
 </template>
@@ -16,53 +24,51 @@
   import axios from 'axios'
 
   export default {
-    asyncData ({req, params}) {
-      // We can return a Promise instead of calling the callback
-      return axios.get('https://jsonplaceholder.typicode.com/posts')
+    created () {
+      axios.get('/good')
         .then((res) => {
-          console.log(res.data)
-          return {posts: res.data.slice(0, 5)}
+          console.log(res)
         })
     },
     data () {
       return {
-        list: ''
+        formError: null,
+        formUsername: '',
+        formPassword: ''
       }
     },
-    head: {
-      title: 'List of posts'
+    methods: {
+      login () {
+        try {
+          this.$store.dispatch('login', {
+            username: this.formUsername,
+            password: this.formPassword
+          })
+          console.log('$store.state.authUser' + this.$store.state.option.authUser)
+          //          this.formUsername = ''
+          //          this.formPassword = ''
+          //          this.formError = null
+        } catch (e) {
+          this.formError = e.message
+        }
+      },
+      async logout () {
+        try {
+          await this.$store.dispatch('logout')
+        } catch (e) {
+          this.formError = e.message
+        }
+      }
     }
   }
 </script>
 
-<style scoped>
+<style>
   .container {
-    width: 70%;
-    margin: auto;
-    text-align: center;
-    padding-top: 100px;
+    padding: 100px;
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
+  .error {
+    color: red;
   }
-
-  ul li {
-    border: 1px #ddd solid;
-    padding: 20px;
-    text-align: left;
-  }
-
-  ul li a {
-    color: gray;
-  }
-
-  p {
-    font-size: 20px;
-  }
-
-  a {
-    color: #41B883;
-  }
-</style>Œ
+</style>

@@ -30,11 +30,11 @@
                   </router-link>
                 </li>
 
-                <li class="nav-item link-item route-active 4hei" ref="linkItem">
-                  <router-link to="/list">
-                    评论集
-                  </router-link>
-                </li>
+                <!--<li class="nav-item link-item route-active 4hei" ref="linkItem">-->
+                  <!--<router-link to="/list">-->
+                    <!--评论集-->
+                  <!--</router-link>-->
+                <!--</li>-->
                 <li class="nav-item link-item route-active 4hei" ref="linkItem">
                   <router-link to="/search">
                     评论搜索
@@ -54,13 +54,14 @@
 
               <div class="user-action" v-if="user===0">
                 <!--辨别是否为登陆状态-->
-                <a class="user-comment">写文章</a>
+                <!--<a class="user-comment">写文章</a>-->
                 <router-link to="/logined" class="user-login">登陆</router-link>
                 <router-link to="/register" class="user-register">注册</router-link>
               </div>
               <div class="user-action" v-else>
-                <router-link to="/settings" class="user-login">{{ uname }}</router-link>
-                <i class="avatar" :style="{'background-image': 'url('+ portrait+')'}"></i>
+                <router-link to="/settings" class="user-comment">{{ uname }}</router-link>
+                <i class="avatar user-register" :style="{'background-image': 'url('+ portrait+')'}"></i>
+                <a href=""  class="user-register">退出</a>
               </div>
             </li>
             <!--<li class="nav-item search">最新热评</li>-->
@@ -82,11 +83,11 @@
             首页
           </router-link>
         </li>
-        <li class="">
-          <router-link to="/list">
-            评论集
-          </router-link>
-        </li>
+        <!--<li class="">-->
+          <!--<router-link to="/list">-->
+            <!--评论集-->
+          <!--</router-link>-->
+        <!--</li>-->
         <li class="">
           <router-link to="/search">
             评论搜索

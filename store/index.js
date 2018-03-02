@@ -1,8 +1,12 @@
 import Service from '~/plugins/axios'
 import UaParse from '~/utils/ua-parse'
+import axios from 'axios'
 
 export const actions = {
   nuxtServerInit (store, {params, route, req}) {
+    if (req.session && req.session.authUser) {
+      store.commit('option/SET_USER', req.session.authUser)
+    }
     // 检查设备类型
     const userAgent = process.server ? req.headers['user-agent'] : navigator.userAgent
     const {isMobile, isIE, isSafari, isEdge, isFF, isBB, isMaxthon, isIos} = UaParse(userAgent)
@@ -10,9 +14,12 @@ export const actions = {
     store.commit('option/SET_IMG_EXT', mustJpg ? 'jpeg' : 'webp')
     store.commit('option/SET_MOBILE_LAYOUT', isMobile)
     store.commit('option/SET_USER_AGENT', userAgent)
+    let start = {
+      'num': 10
+    }
     const initAppData = [
       //   // 配置数据
-      store.dispatch('loadListInfo'),
+      store.dispatch('loadListInfo', start),
       store.dispatch('loadTag')
       //   store.dispatch('loadGlobalOption'),
       //   // 内容数据
@@ -21,13 +28,13 @@ export const actions = {
     ]
     // // 如果不是移动端的话，则请求热门文章
     if (!isMobile) {
-      console.log('这是移动端')
+      // console.log('这不是移动端....')
     }
     return Promise.all(initAppData)
   },
   // 加载主页的新闻数据
-  loadListInfo ({commit}) {
-    return Service.get(`http://data.maopingshou.com/list?start=10`)
+  loadListInfo ({commit}, params = {}) {
+    return Service.get(`http://data.maopingshou.com/list?start=${params.num}`)
       .then(res => {
         res.data.forEach((currentValue, index, array) => {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
@@ -77,5 +84,27 @@ export const actions = {
   },
   loadUserData ({commit}, userData) {
     commit('option/SET_USERDATA', userData)
+  },
+  // 登陆 //退出
+  login ({commit}, {username, password}) {
+    try {
+      axios.get(`/api/login?username=${username}&&password=${password}`)
+        .then((res) => {
+          console.log(res)
+          console.log(res.data)
+          commit('option/SET_USER', res.data)
+        })
+      // const {data} = axios.post(`http://data.maopingshou.com/login`, {username, password})
+      // commit('option/SET_USER', data)
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
+  },
+  async logout ({commit}) {
+    axios.post(`/api/logout`)
+    commit('option/SET_USER', null)
   }
 }

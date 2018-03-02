@@ -5,6 +5,8 @@
 */
 export const state = () => {
   return {
+    // 登陆状态
+    authUser: null,
     // 主页新闻数据
     listInfo: {},
     // 主页标签数据
@@ -47,6 +49,9 @@ export const getters = {
 }
 
 export const mutations = {
+  SET_USER (state, action) {
+    state.authUser = action
+  },
   SET_LISTINFO (state, action) {
     state.listInfo = action
   },

@@ -1,3 +1,6 @@
+const apiConfig = require('./api.config')
+const isProdMode = Object.is(process.env.NODE_ENV, 'production')
+
 module.exports = {
   /*
   ** Headers of the page
@@ -38,12 +41,14 @@ module.exports = {
     {src: '~plugins/extra.js', ssr: false},
     {src: '~plugins/lodash.js', ssr: false},
     {src: '~plugins/getSlideDirection.js', ssr: false},
-    {src: '~plugins/input_filter.js', ssr: false}
+    {src: '~plugins/input_filter.js', ssr: false},
+    {src: '~plugins/ga.js', ssr: false}
   ],
   build: {
     /*
     ** Run ESLint on save
     */
+    vendor: ['axios'],
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
@@ -54,6 +59,11 @@ module.exports = {
         })
       }
     }
+  },
+  dev: isProdMode,
+  env: {
+    baseUrl: apiConfig.baseUrl,
+    HOST_URL: apiConfig.socketHost
   },
   router: {
     middleware: 'stats'

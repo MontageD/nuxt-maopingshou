@@ -53,6 +53,7 @@
       register () {
         let username = this.username
         let password = this.password
+
         let email = this.email
         //        if (!username.match(/^[\u4e00-\u9fa5|a-zA-Z]*$/)) {
         //          alert('用户名必须由汉字、英文字母线组成')
@@ -64,7 +65,6 @@
         let _this = this
         axios.get('http://data.maopingshou.com/userPost?username=' + username + '&password=' + password + '&email=' + email)
           .then(function (response) {
-            console.log(response)
             if (response.status === 200) {
               let message = '注册成功'
               let obj = {
@@ -77,10 +77,30 @@
               let state = 1
               _this.$store.dispatch('loadLoginState', state)
             }
-          }).catch(function (error) {
-            console.log(error)
-            console.log('出错')
           })
+
+        setTimeout(function () {
+          axios.get('http://data.maopingshou.com/loginState?username=' + username + '&password=' + password)
+            .then(function (res) {
+              if (res.data.length > 0) {
+                let message = '登陆成功'
+                let state = 1
+                let obj = {
+                  message: message
+                }
+                _this.alertNow.push(obj)
+                setTimeout(() => {
+                  _this.alertNow.splice(_this.alertNow.length - 1, 1)
+                }, 2000)
+                _this.$store.dispatch('loadLoginState', state)
+                _this.$store.dispatch('loadUsername', username)
+                _this.$store.dispatch('loadUserData', res.data[0])
+                _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
+                // console.log('登陆状态：' + _this.$store.state.option.loginState)
+                _this.$router.push('/')
+              }
+            })
+        }, 1000)
       }
     },
     components: {
