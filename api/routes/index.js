@@ -24,7 +24,7 @@ router.get('/api', (req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   res.header('Access-Control-Allow-Headers', 'Content-Type')
-  let obj = {
+  var obj = {
     name: 'huangming',
     age: 16
   }
@@ -80,13 +80,9 @@ router.get('/likeInfo', function (req, res, next) {
 
 //  跳转评论详细的接口
 router.get('/recommend', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-  res.header('Access-Control-Allow-Headers', 'Content-Type')
-  let param = req.query.uid  // 参数
+  let param = req.query.uid
   pool.getConnection((err, connection) => {
-    let sql = 'select id,title,time,content,score,type,author,img,order_id,types,like from w_news where id =' + param
+    let sql = 'select * from w_news where id =' + param
     connection.query(sql, (err, result) => {
       let sql = 'select * from w_comment where order_id=\'' + result[0].title + '\''
       result = JSON.parse(JSON.stringify(result))
@@ -237,25 +233,14 @@ router.get('/zanLike', (req, res, next) => {
 
 // 提交用户名和密码,邮箱， 注册用户信息
 router.get('/userPost', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
   console.log('链接数据')
   pool.getConnection((err, connection) => {
     let param = req.query
     let sql = 'INSERT INTO w_user (username,password,email) VALUES ("' + param.username + '","' + param.password + '","' + param.email + '")'
-    console.log('开启sql')
-    console.log(sql)
-    connection.query(sql, (err, result) => {
-      responseJSON(res, result)
-    })
-    connection.release()
-  })
-})
-
-// 检验登陆状态
-router.get('/loginState', (req, res, next) => {
-  console.log('链接数据')
-  pool.getConnection((err, connection) => {
-    let param = req.query
-    let sql = 'select * from w_user where username= "' + param.username + '" and password="' + param.password + '"'
     console.log('开启sql')
     console.log(sql)
     connection.query(sql, (err, result) => {
@@ -285,6 +270,22 @@ router.get('/postAdvice', (req, res, next) => {
     connection.release()
   })
 })
+// 加载主页主题
+router.get('/getTheme', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+
+  pool.getConnection((err, connection) => {
+    let param = req.query
+    let sql = 'select * from w_theme  limit  ' + param.num
+    connection.query(sql, (err, result) => {
+      responseJSON(res, result)
+    })
+    connection.release()
+  })
+})
 
 // 登陆接口
 router.get('/login', (req, res) => {
@@ -294,27 +295,63 @@ router.get('/login', (req, res) => {
   res.header('Access-Control-Allow-Headers', 'Content-Type')
 
   let param = req.query
-  console.log(param)
   if (param.username === 'demo' && param.password === 'demo') {
     req.session.authUser = {username: 'demo'}
     return res.json({username: 'demo'})
   }
   res.status(401).json({message: 'Bad credentials'})
+
 })
 
 // Add POST - /api/logout
 router.post('/logout', (req, res) => {
-
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
   delete req.session.authUser
   res.json({ok: true})
 })
-router.get('/good', (req, res) => {
-  res.send('hello')
 
+// 检验登陆状态
+router.get('/loginState', (req, res) => {
+  let param = req.query
   pool.getConnection((err, connection) => {
-    let param = req.query
-    let sql = 'INSERT INTO w_advice (username,advice,email,ip) VALUES ("' + param.username + '","' + param.advice + '","' + param.email + '","' + ip + '")'
-    console.log(sql)
+    let sql = 'select * from w_user where username= "' + param.username + '" and password="' + param.password + '"'
+    connection.query(sql, (err, result) => {
+      // if (result.length === 0) {
+      //   console.log('失败')
+      //   responseJSON(res, result)
+      //   res.status(401).json({message: 'Bad credentials'})
+      // } else {
+      //   console.log('成功')
+      //   let res = JSON.parse(JSON.stringify(result))
+      //   // req.session.authUser = {username: res[0].username}
+      //   req.session.authUser = {username: 'demo'}
+      //   return res.json({username: 'demo'})
+      //   // responseJSON(res, result)
+      // }
+      responseJSON(res, result)
+    })
+    connection.release()
+  })
+})
+
+// 根据用户名获取用户信息
+router.get('/getUserData', (req, res) => {
+  let param = req.query
+  pool.getConnection((err, connection) => {
+    let sql = 'select * from w_user where username= "' + param.username + '"'
+    connection.query(sql, (err, result) => {
+      responseJSON(res, result)
+    })
+    connection.release()
+  })
+})
+
+router.get('/good', (req, res) => {
+  pool.getConnection((err, connection) => {
+    let sql = 'select * from w_user'
     connection.query(sql, (err, result) => {
       responseJSON(res, result)
     })

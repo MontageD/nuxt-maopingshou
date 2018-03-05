@@ -17,18 +17,15 @@
     <p>
       <nuxt-link to="/secret">Super secret page</nuxt-link>
     </p>
+
+
+    <button @click="setCookies">set cookie</button>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
     created () {
-      axios.get('/good')
-        .then((res) => {
-          console.log(res)
-        })
     },
     data () {
       return {
@@ -38,6 +35,9 @@
       }
     },
     methods: {
+      setCookies () {
+        this.$cookie.set('test', 'Hello world!', 1)
+      },
       login () {
         try {
           this.$store.dispatch('login', {

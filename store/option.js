@@ -38,17 +38,23 @@ export const state = () => {
           likes: 0
         }
       }
-    }
+    },
+    // 主页主题
+    theme: {}
   }
 }
 
 export const getters = {
   mobileLayout: state => state.mobileLayout,
   getListInfo: (state) => state.listInfo,
-  getCells: (state) => state.celles
+  getCells: (state) => state.celles,
+  getTheme: (state) => state.theme
 }
 
 export const mutations = {
+  SET_THEME (state, action) {
+    state.theme = action
+  },
   SET_USER (state, action) {
     state.authUser = action
   },

@@ -8,22 +8,38 @@
         <header class="list-header">
           <nav class="list-nav">
             <ul class="nav-list left">
-              <li class="nav-item active">
-                <a href="">热门</a>
+              <li class="nav-item " @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
+                <a href="javaScript:void(0);">{{ item.name }}</a>
               </li>
-              <!--<li class="nav-item">-->
-              <!--<a href="">最新</a>-->
-              <!--</li>-->
             </ul>
-            <!--<ul class="nav-right right">-->
-            <!--<li class="nav-item">-->
-            <!--<a href="">本周最热</a>-->
-            <!--</li>-->
-            <!--<li class="nav-item">-->
-            <!--<a href="">本周最新</a>-->
-            <!--</li>-->
-            <!--</ul>-->
           </nav>
+
+
+          <!--主题导航-->
+          <div class="list-theme">
+            <ul class="setting-list"
+                v-touch:tap="tapHandler"
+                v-touch:longtap="longtapHandler"
+                v-touch:swipe.left="swipeLeftHandler"
+                v-touch:swipe.right="swipeRightHandler">
+
+
+              <li v-for="(value,key) in theme"
+                  :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+value.img+')'}">
+                <p class="list-title">
+                  {{value.title}}
+                </p>
+                <p class="list-btn">+</p>
+                <div class="grey"></div>
+              </li>
+
+
+            </ul>
+
+          </div>
+          <!--主题导航-->
+
+
         </header>
 
 
@@ -67,16 +83,16 @@
 
 
                 <!--<div class="user-action">-->
-                  <!--<div class="zan">-->
+                <!--<div class="zan">-->
 
-                    <!--<img src="~assets/img/on.png"/>-->
-                  <!--</div>-->
-                  <!--<div class="cai">-->
-                    <!--<img src="~assets/img/up.png"/>-->
-                  <!--</div>-->
-                  <!--<div class="comment">-->
+                <!--<img src="~assets/img/on.png"/>-->
+                <!--</div>-->
+                <!--<div class="cai">-->
+                <!--<img src="~assets/img/up.png"/>-->
+                <!--</div>-->
+                <!--<div class="comment">-->
 
-                  <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
 
               </div>
@@ -195,10 +211,16 @@
     },
     computed: mapGetters({
       listInfo: 'option/getListInfo',
-      celles: 'option/getCells'
+      celles: 'option/getCells',
+      theme: 'option/getTheme'
     }),
     data () {
       return {
+        menu: [
+          {name: '关注', active: 'nav-item '},
+          {name: '推荐', active: 'nav-item active'},
+          {name: '热门', active: 'nav-item'}
+        ],
         showLoading: false,
         list: {},
         sideList: {},
@@ -213,9 +235,32 @@
       }
     },
     methods: {
+      tapHandler () {
+        console.log('tapHandler')
+      },
+      longtapHandler () {
+        console.log('longtapHandler')
+      },
+      swipeLeftHandler () {
+        console.log('swipeLeftHandler')
+      },
+      swipeRightHandler () {
+        console.log('swipeRightHandler')
+      },
       detail (e) {
         let uid = e.toElement.dataset.id
         this.$router.push({path: `/detail/${uid}`})
+      },
+      getIndex (index) {
+        let _this = this
+        _this.show = index
+        this.menu.forEach((v, k) => {
+          if (index === k) {
+            _this.menu[k].active = 'nav-item active'
+          } else {
+            _this.menu[k].active = 'nav-item'
+          }
+        })
       },
       loadingData () {
         this.showLoading = !this.showLoading
@@ -287,6 +332,7 @@
 
   .timeline-index-view
     position relative
+    width 100%
 
   .view-nav
     width: 100%
@@ -308,10 +354,6 @@
         a
           color: #007fff
 
-  .active
-    a
-      color: #007fff
-
   .view-nav
     .nav-list
       .nav-item
@@ -321,14 +363,11 @@
         font-weight: 800
 
   .nav-item
-    > a:before
-      content: ""
-      position: absolute
-      top: 0
-      right: 0
-      bottom: 0
-      left: 0
-      &:hover
+    &:hover
+      transition all .5s
+      color #007fff
+      border-bottom 1px solid #007fff
+      a
         color #007fff
 
   .main-container
@@ -396,19 +435,45 @@
         width 1rem
 
   .list-header
-    padding: 1.3rem 0
+    /*padding: 1.3rem 0*/
+    height 9.6rem
     border-bottom: 1px solid hsla(0, 0%, 59%, .1)
     background-color #ffffff
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
+    overflow hidden
+    .list-nav
+      border-bottom 1px solid rgba(178, 186, 194, .15)
+      display flex
+      height 2.6rem
+      .active
+        color #007fff
+        border-bottom 1px solid #007fff
+        a
+          color #007fff
     .left
       .nav-item
         padding: 0 1.2rem
         font-size: 1rem
-        border-right: 1px solid hsla(0, 0%, 59%, .2)
     .nav-list
       -webkit-box-align: center
       align-items: center
       line-height: 1px
+      display flex
+      height 100%
+      width 100%
+      li
+        height 100%
+        flex 1
+        display flex
+        align-content center
+        justify-content center
+        a
+          height 100%
+          width 100%
+          line-height 2.6rem
+          display flex
+          align-content center
+          justify-content center
 
   /*遍历内容*/
   .content-box
@@ -612,6 +677,58 @@
 
   .cell-move
     transition: transform 2s;
+
+  .setting-list
+    min-width 1000px
+    li
+      background-size cover
+      background-repeat no-repeat
+      background-position center
+      border-radius 15px
+      height 5rem
+      width 5rem
+      float left
+      margin-right .3rem
+      margin-left .3rem
+      margin-top .7rem
+      display inline-block
+      border 1px solid #f1f1f1
+      padding .5rem
+      position relative
+      margin-bottom 1rem
+      .grey
+        height 100%
+        width 100%
+        background-color rgba(0, 0, 0, .4)
+        border-radius 15px
+        position absolute
+        left 0
+        top 0
+        z-index 1
+      .list-title
+        font-weight 600
+        color #fff
+        height 1rem
+        position relative
+        z-index 10
+      .list-btn
+        position absolute
+        width 2.8rem
+        left 50%
+        transform translate(-50%, 0)
+        height 1rem
+        background-color #007fff
+        color #fff
+        bottom .3rem
+        text-align center
+        font-size 14px
+        display flex
+        align-items center
+        justify-content center
+        z-index 8
+        border-radius 3px
+        font-weight 600
+        cursor pointer
 
   /*background-position: 3% 8%*/
   /*background-repeat: no-repeat*/

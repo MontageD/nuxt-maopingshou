@@ -3,7 +3,6 @@
     <keep-alive>
       <Headers></Headers>
     </keep-alive>
-
     <DeMain></DeMain>
   </div>
 </template>
@@ -30,10 +29,8 @@
         info: {}
       }
     },
-    computed: {
-    },
-    methods: {
-    },
+    computed: {},
+    methods: {},
     components: {
       Headers,
       DeMain

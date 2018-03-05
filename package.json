@@ -15,12 +15,15 @@
   "dependencies": {
     "aframe": "^0.7.1",
     "axios": "^0.17.0",
+    "body-parser": "^1.17.2",
     "browserify": "^14.5.0",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "external": "^1.0.0",
     "lodash": "^4.17.4",
     "material-design-icons": "^3.0.1",
+    "mysql": "^2.15.0",
     "node-sass": "^4.7.1",
     "nuxt": "^1.0.0-rc11",
     "sass": "^1.0.0-beta.3",
@@ -29,11 +32,12 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-awesome-swiper": "^3.1.0",
+    "vue-cookie": "^1.1.4",
+    "vue-directive-touch": "^1.0.10",
     "vue-lazyload": "^1.1.4",
     "vue-style-loader": "^3.0.3",
-    "body-parser": "^1.17.2",
-    "express-session": "^1.15.3",
-    "mysql": "^2.15.0"
+    "vue-touch": "^1.1.0",
+    "vue2-touch-events": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

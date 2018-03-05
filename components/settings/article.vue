@@ -9,7 +9,6 @@
 
     <ul class="setting-list">
 
-
       <li
         :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
         <p class="list-title">

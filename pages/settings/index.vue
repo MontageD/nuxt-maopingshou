@@ -79,10 +79,6 @@
 
   export default {
     created () {
-      this.username = this.$store.state.option.userData.username
-      if (this.username.length <= 0) {
-        this.$router.push('/logined')
-      }
     },
     data () {
       return {
@@ -95,6 +91,11 @@
         ],
         show: 0,
         username: ''
+      }
+    },
+    mounted () {
+      if (!this.$cookie.get('username')) {
+        this.$router.push('/logined')
       }
     },
     computed: {

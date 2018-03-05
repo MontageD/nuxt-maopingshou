@@ -4,7 +4,7 @@ const session = require('express-session')
 const app = require('express')()
 const index = require('./api/routes/index')
 // Body parser，用来封装 req.body
-app.use('/api', index)
+
 app.use(bodyParser.json())
 
 // Sessions 来创建 req.session
@@ -14,6 +14,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {maxAge: 60000}
 }))
+
+app.use('/api', index)
 // app.get('/good', function (req, res) {
 //   res.send('goosjj')
 // })
@@ -47,4 +49,6 @@ if (!isProd) {
 }
 app.use(nuxt.render)
 app.listen(3000)
-console.log('Server is listening on http://localhost:3000')
+
+// eslint-disable-line no-console
+console.log(`Nuxt.js SSR Server listening on localhost:3000, at ${new Date().toLocaleString()}`)

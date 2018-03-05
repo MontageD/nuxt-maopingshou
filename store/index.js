@@ -20,7 +20,8 @@ export const actions = {
     const initAppData = [
       //   // 配置数据
       store.dispatch('loadListInfo', start),
-      store.dispatch('loadTag')
+      store.dispatch('loadTag'),
+      store.dispatch('loadListTheme', start)
       //   store.dispatch('loadGlobalOption'),
       //   // 内容数据
       //   store.dispatch('loadTagList'),
@@ -44,6 +45,13 @@ export const actions = {
         commit('option/SET_LISTINFO', res.data)
       })
   },
+  // 加载主页主题图片和数据
+  loadListTheme ({commit}, params = {}) {
+    return Service.get(`/api/getTheme?num=${params.num}`)
+      .then(res => {
+        commit('option/SET_THEME', res.data)
+      })
+  },
   //  加载主页标签数据
   loadTag ({commit}) {
     return Service.get(`http://data.maopingshou.com/oftenTag?num=13`)
@@ -59,7 +67,7 @@ export const actions = {
       })
   },
   loadArticleDetail ({commit}, params = {}) {
-    return Service.get(`http://data.maopingshou.com/recommend?uid= ${params.detail_id} `)
+    return Service.get(`/api/recommend?uid= ${params.detail_id} `)
       .then(res => {
         res.data[0].img = 'http://data.maopingshou.com/images/' + res.data[0].img
         let pathname = (res.data[0].img).split('/')
@@ -85,13 +93,14 @@ export const actions = {
   loadUserData ({commit}, userData) {
     commit('option/SET_USERDATA', userData)
   },
+  logining ({commit}, data) {
+    commit('option/SET_USER', data)
+  },
   // 登陆 //退出
   login ({commit}, {username, password}) {
     try {
       axios.get(`/api/login?username=${username}&&password=${password}`)
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
           commit('option/SET_USER', res.data)
         })
       // const {data} = axios.post(`http://data.maopingshou.com/login`, {username, password})

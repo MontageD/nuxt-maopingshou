@@ -42,7 +42,9 @@ module.exports = {
     {src: '~plugins/lodash.js', ssr: false},
     {src: '~plugins/getSlideDirection.js', ssr: false},
     {src: '~plugins/input_filter.js', ssr: false},
-    {src: '~plugins/ga.js', ssr: false}
+    {src: '~plugins/ga.js', ssr: false},
+    {src: '~plugins/cookie.js', ssr: false},
+    {src: '~plugins/vue_touch.js', ssr: false}
   ],
   build: {
     /*

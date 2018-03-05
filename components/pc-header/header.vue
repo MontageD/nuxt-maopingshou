@@ -31,9 +31,9 @@
                 </li>
 
                 <!--<li class="nav-item link-item route-active 4hei" ref="linkItem">-->
-                  <!--<router-link to="/list">-->
-                    <!--评论集-->
-                  <!--</router-link>-->
+                <!--<router-link to="/list">-->
+                <!--评论集-->
+                <!--</router-link>-->
                 <!--</li>-->
                 <li class="nav-item link-item route-active 4hei" ref="linkItem">
                   <router-link to="/search">
@@ -52,16 +52,19 @@
                 <!--<li class="nav-item link-item"><a href="/history/all">历史评论</a></li>-->
               </ul>
 
-              <div class="user-action" v-if="user===0">
-                <!--辨别是否为登陆状态-->
-                <!--<a class="user-comment">写文章</a>-->
-                <router-link to="/logined" class="user-login">登陆</router-link>
-                <router-link to="/register" class="user-register">注册</router-link>
-              </div>
-              <div class="user-action" v-else>
-                <router-link to="/settings" class="user-comment">{{ uname }}</router-link>
-                <i class="avatar user-register" :style="{'background-image': 'url('+ portrait+')'}"></i>
-                <a href=""  class="user-register">退出</a>
+
+              <div v-show="showed">
+                <div class="user-action" v-if="!$store.state.option.authUser">
+                  <!--辨别是否为登陆状态-->
+                  <!--<a class="user-comment">写文章</a>-->
+                  <router-link to="/logined" class="user-login">登陆</router-link>
+                  <router-link to="/register" class="user-register">注册</router-link>
+                </div>
+                <div class="user-action" v-else>
+                  <router-link to="/settings" class="user-comment">{{ uname }}</router-link>
+                  <i class="avatar user-register" :style="{'background-image': 'url('+ portrait+')'}"></i>
+                  <a class="user-register" @click="logout">退出</a>
+                </div>
               </div>
             </li>
             <!--<li class="nav-item search">最新热评</li>-->
@@ -84,9 +87,9 @@
           </router-link>
         </li>
         <!--<li class="">-->
-          <!--<router-link to="/list">-->
-            <!--评论集-->
-          <!--</router-link>-->
+        <!--<router-link to="/list">-->
+        <!--评论集-->
+        <!--</router-link>-->
         <!--</li>-->
         <li class="">
           <router-link to="/search">
@@ -105,14 +108,18 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+
   export default {
     data () {
       return {
         menu: false,
-        bugs: 1
+        bugs: 1,
+        showed: false
       }
     },
     created () {
+
     },
     computed: {
       user () {
@@ -130,10 +137,36 @@
     },
     mounted () {
       window.addEventListener('scroll', this.handleScroll)
-      this.$nextTick(() => {
-      })
+      if (this.$cookie.get('username')) {
+        let _this = this
+        let username = this.$cookie.get('username')
+
+        axios.get(`/api/getUserData?username=${username}`)
+          .then(function (res) {
+            let state = 1
+            _this.$store.dispatch('logining', res.data[0])
+            _this.$store.dispatch('loadLoginState', state)
+            _this.$store.dispatch('loadUsername', username)
+            _this.$store.dispatch('loadUserData', res.data[0])
+            if (res.data[0].avator === null) {
+              //  默认头像
+              _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
+            } else {
+              _this.$store.dispatch('loadAvator', res.data[0].avator)
+            }
+
+            _this.showed = true
+          })
+      } else {
+        this.showed = true
+      }
     },
     methods: {
+      logout () {
+        this.$cookie.delete('username')
+        this.$cookie.delete('password')
+        this.$router.go(0)
+      },
       changeMenu (e) {
         //        this.$refs.menu_icon.style.transform = 'rotateX(90deg)'
         this.menu = !this.menu
@@ -153,9 +186,9 @@
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .4hei
-    height 4rem
+  height 4rem
   .3hei
-    height 3rem
+  height 3rem
   .avatar
     height 2rem
     width 2rem
@@ -165,6 +198,7 @@
     margin-left 1rem
 
   .user-action
+    height 100%
     display flex
     justify-content space-between
     align-items center

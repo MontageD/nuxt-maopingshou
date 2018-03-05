@@ -5,11 +5,6 @@
     </keep-alive>
 
 
-
-
-
-
-
     <div class="register-view">
       <div class="register-title">登陆</div>
       <div class="register-username">
@@ -35,11 +30,6 @@
     </div>
 
 
-
-
-
-
-
     <div class="alert-show">
       <ul>
         <li class="active" v-for="al in alertNow">{{al.message}}</li>
@@ -48,8 +38,6 @@
         <!--<li>请输入密码</li>-->
       </ul>
     </div>
-
-
 
 
   </div>
@@ -75,9 +63,14 @@
         window.utils.filter.prototype.required(username, '用户名不能为空', this)
         window.utils.filter.prototype.required(password, '密码不能为空', this)
         let _this = this
-        axios.get('http://data.maopingshou.com/loginState?username=' + username + '&password=' + password)
+        axios.get(`/api/loginState?username=${username}&&password=${password}`)
           .then(function (res) {
-            if (res.data.length > 0) {
+            if (res.data[0]) {
+              let expireDays = 1000 * 60 * 60 * 24 * 15
+              _this.$cookie.set('username', username, expireDays)
+              _this.$cookie.set('password', password, expireDays)
+              _this.$store.dispatch('logining', res.data[0])
+
               let message = '登陆成功'
               let state = 1
               let obj = {
@@ -93,6 +86,12 @@
               _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
               // console.log('登陆状态：' + _this.$store.state.option.loginState)
               _this.$router.push('/')
+            } else {
+              let message = '登陆失败,密码错误!'
+              let obj = {
+                message: message
+              }
+              _this.alertNow.push(obj)
             }
           })
       }
