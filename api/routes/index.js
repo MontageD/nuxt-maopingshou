@@ -39,14 +39,16 @@ router.get('/list', function (req, res, next) {
   pool.getConnection((err, connection) => {
     let param = req.query
     // let sql = "select id,title,time,content,score,type,author,img,order_id,types from w_news where img <> ''  order by id  desc limit " + param.start + " ";
-    let sql = 'select id,title,time,content,score,type,author,img,order_id,types from w_news where img <> \'\'  order by id  desc limit ' + param.start + ' '
+    // let sql = 'select id,title,time,content,score,type,author,img,order_id,types,theme,theme_avator from w_news where img <> \'\'  order by id  desc limit ' + param.start + ' '
+    let sql = 'select a.title,a.id,a.time,a.content,a.score,a.type,a.author,a.img,a.order_id,a.types,a.like,a.theme,b.c_title,b.c_content,b.c_img,b.c_mark,b.c_focus_num,b.c_type  ' +
+      ' from w_news as a' +
+      ' left join w_theme as b' +
+      ' on b.c_type = a.theme' +
+      ' where a.img <> \'\' and  a.id >= (select floor(RAND() * (SELECT MAX(id) FROM `w_news`)))' +
+      ' ORDER BY RAND() ' +
+      ' limit ' + param.start
+
     connection.query(sql, (err, result) => {
-      // if (result) {
-      //   result = {
-      //     code: 200,
-      //     msg: '增加成功'
-      //   };
-      // }
       responseJSON(res, result)
     })
     connection.release()
@@ -85,6 +87,27 @@ router.get('/recommend', (req, res, next) => {
     let sql = 'select * from w_news where id =' + param
     connection.query(sql, (err, result) => {
       let sql = 'select * from w_comment where order_id=\'' + result[0].title + '\''
+      result = JSON.parse(JSON.stringify(result))
+      connection.query(sql, (err, res2) => {
+        result[0].aList = []
+        res2 = JSON.parse(JSON.stringify(res2))
+        res2.forEach((currentValue, index, arr) => {
+          result[0].aList[index] = {}
+          result[0].aList[index] = currentValue
+        })
+        responseJSON(res, result)
+      })
+    })
+    connection.release()
+  })
+})
+// 跳转主题详细的接口
+router.get('/theme', (req, res, next) => {
+  let param = req.query.uid
+  pool.getConnection((err, connection) => {
+    let sql = 'select * from w_theme where id =' + param
+    connection.query(sql, (err, result) => {
+      let sql = 'select * from w_news where theme=\'' + result[0].type + '\''
       result = JSON.parse(JSON.stringify(result))
       connection.query(sql, (err, res2) => {
         result[0].aList = []
@@ -319,19 +342,32 @@ router.get('/loginState', (req, res) => {
   pool.getConnection((err, connection) => {
     let sql = 'select * from w_user where username= "' + param.username + '" and password="' + param.password + '"'
     connection.query(sql, (err, result) => {
-      // if (result.length === 0) {
-      //   console.log('失败')
-      //   responseJSON(res, result)
-      //   res.status(401).json({message: 'Bad credentials'})
-      // } else {
-      //   console.log('成功')
-      //   let res = JSON.parse(JSON.stringify(result))
-      //   // req.session.authUser = {username: res[0].username}
-      //   req.session.authUser = {username: 'demo'}
-      //   return res.json({username: 'demo'})
-      //   // responseJSON(res, result)
-      // }
-      responseJSON(res, result)
+
+      let idArr = result[0].theme.split('|')
+      let sqltext = ''
+      for (let i = 0; i < idArr.length; i++) {
+        if (i === 0) {
+          sqltext = sqltext + ' id =' + idArr[i]
+        } else {
+          sqltext = sqltext + ' or id=' + idArr[i]
+        }
+      }
+
+      result = JSON.parse(JSON.stringify(result))
+
+      let sql = 'select * from w_theme where ' + sqltext
+      console.log(sql)
+
+      connection.query(sql, (err, res2) => {
+        result[0].aList = []
+        console.log(res2)
+        res2 = JSON.parse(JSON.stringify(res2))
+        res2.forEach((currentValue, index, arr) => {
+          result[0].aList[index] = {}
+          result[0].aList[index] = currentValue
+        })
+        responseJSON(res, result)
+      })
     })
     connection.release()
   })
@@ -344,6 +380,38 @@ router.get('/getUserData', (req, res) => {
     let sql = 'select * from w_user where username= "' + param.username + '"'
     connection.query(sql, (err, result) => {
       responseJSON(res, result)
+    })
+    connection.release()
+  })
+})
+router.get('/getAlist', (req, res) => {
+  let param = req.query
+  pool.getConnection((err, connection) => {
+    let sql = 'select * from w_user where username= "' + param.username + '"'
+    connection.query(sql, (err, result) => {
+
+      let idArr = result[0].theme.split('|')
+      let sqltext = ''
+      for (let i = 0; i < idArr.length; i++) {
+        if (i === 0) {
+          sqltext = sqltext + ' id =' + idArr[i]
+        } else {
+          sqltext = sqltext + ' or id=' + idArr[i]
+        }
+      }
+
+      result = JSON.parse(JSON.stringify(result))
+
+      let sql = 'select * from w_theme where ' + sqltext
+      connection.query(sql, (err, res2) => {
+        result[0].aList = []
+        console.log(res2)
+        res2 = JSON.parse(JSON.stringify(res2))
+        res2.forEach((currentValue, index, arr) => {
+          result[0].aList[index] = Object.assign({}, currentValue)
+        })
+        responseJSON(res, result)
+      })
     })
     connection.release()
   })

@@ -1,6 +1,6 @@
 <template>
   <main class="container main-container">
-    <search></search>
+    <Search></Search>
     <div class="view timeline-index-view">
       <div class="timeline-entry-list">
 
@@ -8,105 +8,35 @@
         <header class="list-header">
           <nav class="list-nav">
             <ul class="nav-list left">
-              <li class="nav-item " @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
+              <li  @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
                 <a href="javaScript:void(0);">{{ item.name }}</a>
+                <div class="bottom-item"></div>
               </li>
             </ul>
           </nav>
 
 
+          <!--<div class="all-list">-->
+          <!--<Weather></Weather>-->
           <!--主题导航-->
-          <div class="list-theme">
-            <ul class="setting-list"
-                v-touch:tap="tapHandler"
-                v-touch:longtap="longtapHandler"
-                v-touch:swipe.left="swipeLeftHandler"
-                v-touch:swipe.right="swipeRightHandler">
 
-
-              <li v-for="(value,key) in theme"
-                  :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+value.img+')'}">
-                <p class="list-title">
-                  {{value.title}}
-                </p>
-                <p class="list-btn">+</p>
-                <div class="grey"></div>
-              </li>
-
-
-            </ul>
-
-          </div>
           <!--主题导航-->
+          <!--<cross></cross>-->
+          <!--</div>-->
 
 
         </header>
 
 
-        <transition
-          name="custom-classes-transition"
-          enter-active-class="animated tada">
-          <ul class="entry-list" v-if="listInfo">
-            <li v-for="item in listInfo">
-              <div class="content-box">
-
-
-                <div class="info-box">
-                  <div class="info-row meta-row">
-                    <ul class="meta-list">
-                      <li class="item post">{{ item.type }}</li>
-                      <li class="item username clickable">{{ item.author }}</li>
-                      <li class="item ">{{ item.age }}</li>
-                      <li class="item tag">{{ item.types }}</li>
-                    </ul>
-                  </div>
-                  <router-link :to="`/detail/${item.id}`" class="info-row title-row"><!----><!---->
-                    <span class="title">
-                    {{ item.title }}
-                  </span>
-                  </router-link>
-                  <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
-                    {{ item.content }}
-                  </router-link>
-                </div>
-                <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-                  <i :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}"></i>
-                </router-link>
-                <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
-                             :style="{'background-image': 'url(http://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
-                </router-link>
-                <!--<div class="lazy thumb thumb loaded"-->
-                <!--:style="{'background-im.age': 'url(http://maopingshou.com:3002/images/'+ item.img+')'}"></div>-->
-                <!--<div class="lazy thumb thumb loaded">-->
-                <!--<img v-bind:src="'http://maopingshou.com:3000/images/'+item.comment_img"/>-->
-                <!--</div>-->
-
-
-                <!--<div class="user-action">-->
-                <!--<div class="zan">-->
-
-                <!--<img src="~assets/img/on.png"/>-->
-                <!--</div>-->
-                <!--<div class="cai">-->
-                <!--<img src="~assets/img/up.png"/>-->
-                <!--</div>-->
-                <!--<div class="comment">-->
-
-                <!--</div>-->
-                <!--</div>-->
-
-              </div>
-
-
-              <!--</nuxt-link>-->
-            </li>
-          </ul>
-        </transition>
-
-        <div class="entry-loading" @click="loadingData">
-          <img src="~assets/img/Rolling.gif" v-show="showLoading">
-          <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
-
+        <div v-if="menuSelected === 1">
+          <Focus></Focus>
+        </div>
+        <div v-else-if="menuSelected === 2">
+          <MenuList></MenuList>
+          <Recommend></Recommend>
+        </div>
+        <div v-else-if=" menuSelected===3">
+          <Hoted></Hoted>
         </div>
 
 
@@ -190,24 +120,18 @@
   </main>
 </template>
 <script>
-  import search from '~/components/search/search'
+  import Search from '~/components/search/search'
+  import Recommend from '~/components/pc-main/recommend'
+  import Focus from '~/components/pc-main/focus'
+  import Hoted from '~/components/pc-main/hot'
+  import Cross from '~/components/pc-main/detail/cross'
+  import Weather from '~/components/pc-main/detail/weather'
+  import MenuList from '~/components/pc-main/detail/menu'
   import axios from 'axios'
   import { mapGetters } from 'vuex'
 
   export default {
     created () {
-    },
-    mounted () {
-      axios.get(`http://data.maopingshou.com/mainSide?start=5`)
-        .then((res) => {
-          this.sideList = res.data
-        })
-      // 右侧滚动图片样式
-      //      let _this = this
-      //      setInterval(() => {
-      //        let num = parseInt(Math.random() * 4) + 1
-      //        _this.everyImg = 'http://maopingshou.com:3002/images/extra/every_' + num + '.jpg'
-      //      }, 6000)
     },
     computed: mapGetters({
       listInfo: 'option/getListInfo',
@@ -217,10 +141,12 @@
     data () {
       return {
         menu: [
-          {name: '关注', active: 'nav-item '},
-          {name: '推荐', active: 'nav-item active'},
-          {name: '热门', active: 'nav-item'}
+          {name: '关注', active: 'nav-item ', model: 1},
+          {name: '推荐', active: 'nav-item active', model: 2},
+          {name: '热门', active: 'nav-item', model: 3}
         ],
+        mainSelect: true,
+        menuSelected: 2,
         showLoading: false,
         list: {},
         sideList: {},
@@ -235,32 +161,9 @@
       }
     },
     methods: {
-      tapHandler () {
-        console.log('tapHandler')
-      },
-      longtapHandler () {
-        console.log('longtapHandler')
-      },
-      swipeLeftHandler () {
-        console.log('swipeLeftHandler')
-      },
-      swipeRightHandler () {
-        console.log('swipeRightHandler')
-      },
       detail (e) {
         let uid = e.toElement.dataset.id
         this.$router.push({path: `/detail/${uid}`})
-      },
-      getIndex (index) {
-        let _this = this
-        _this.show = index
-        this.menu.forEach((v, k) => {
-          if (index === k) {
-            _this.menu[k].active = 'nav-item active'
-          } else {
-            _this.menu[k].active = 'nav-item'
-          }
-        })
       },
       loadingData () {
         this.showLoading = !this.showLoading
@@ -273,14 +176,43 @@
       },
       shuffle () {
         this.$store.commit('option/SET_CELLS', window._.shuffle(this.celles))
+      },
+      getIndex (index) {
+        let _this = this
+        _this.show = index
+        this.menuSelected = index + 1
+        this.menu.forEach((v, k) => {
+          if (index === k) {
+            _this.menu[k].active = 'nav-item active'
+          } else {
+            _this.menu[k].active = 'nav-item'
+          }
+        })
       }
     },
+    mounted () {
+      axios.get(`http://data.maopingshou.com/mainSide?start=5`)
+        .then((res) => {
+          this.sideList = res.data
+        })
+    },
     components: {
-      search
+      Search,
+      Recommend,
+      Focus,
+      Hoted,
+      Cross,
+      Weather,
+      MenuList
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .all-list
+    position relative
+    width 100%
+    overflow hidden
+
   .user-action
     position absolute
     bottom 1rem
@@ -350,7 +282,6 @@
 
   .view-nav
     .nav-list
-      .active
         a
           color: #007fff
 
@@ -362,13 +293,7 @@
         padding: 0 1rem
         font-weight: 800
 
-  .nav-item
-    &:hover
-      transition all .5s
-      color #007fff
-      border-bottom 1px solid #007fff
-      a
-        color #007fff
+
 
   .main-container
     > .view.thumb
@@ -412,31 +337,10 @@
     margin-right: 15.667rem
     border-radius: 2px
     margin-bottom 3rem
-    .entry-list
-      background-color #ffffff
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
-    .entry-loading
-      padding 1rem
-      width 100%
-      min-height 2rem
-      margin-top 1rem
-      box-shadow 0 1px 2px 0 rgba(0, 0, 0, .05)
-      background-color #fff
-      display flex
-      align-items center
-      text-align center
-      font-size 1rem
-      justify-content center
-      font-weight 800
-      cursor pointer
-      font-weight 800
-      img
-        height 1rem
-        width 1rem
 
   .list-header
     /*padding: 1.3rem 0*/
-    height 9.6rem
+    height 2.6rem
     border-bottom: 1px solid hsla(0, 0%, 59%, .1)
     background-color #ffffff
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
@@ -447,7 +351,16 @@
       height 2.6rem
       .active
         color #007fff
-        border-bottom 1px solid #007fff
+        border-bottom 1px solid transparent
+        position relative
+        .bottom-item
+          position absolute
+          width 100%
+          bottom 0
+          left 0
+          background-color  #007fff
+          height 1px
+          animation smallbig .5s
         a
           color #007fff
     .left
@@ -484,41 +397,6 @@
     padding-bottom 3rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
-
-  .info-box
-    -webkit-box-flex: 1
-    flex: 1 1 auto
-    -webkit-box-orient: vertical
-    justify-content center
-    min-width: 0
-
-  .meta-row
-    font-size: .7rem
-    color: #b2bac2
-    .post
-      color: #00ccad
-      font-weight: 500
-
-  .title-row
-    margin: .5rem 0 .4rem
-    wihte-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
-
-  .title
-    font-size: 1.2rem
-    font-weight: 600
-    line-height: 1.4rem
-    color: #2e3135
-
-  .meta-list
-    display: flex
-    -webkit-box-align: baseline
-    align-items: baseline
-    white-space: nowrap
-    .item
-      content: "\B7"
-      margin: 0 .4em
 
   /*color: #b2bac2*/
 
@@ -593,41 +471,6 @@
       width: 100%
       height: 100%
 
-  .content
-    font-size .9rem
-    font-weight: 400
-    display block
-    line-height 1.2rem
-    margin-top 3px
-    cursor pointer
-    max-height 2.3rem
-    overflow: hidden
-
-  .thumb
-    flex: 0 0 auto
-    width: 5rem
-    height: 5rem
-    margin-left: 2rem
-    background-color: transparent
-    background-size: cover
-    background-position: 50%
-    background-repeat: no-repeat
-    cursor pointer
-    box-shadow 0px 10px 60px 4px rgba(0, 64, 128, .2)
-    border-radius 8px
-    i
-      transition: all .5s;
-      display block
-      height 100%
-      width 100%
-      background-size: cover
-      background-position: 50%
-      background-repeat: no-repeat
-
-  .thumb
-    i:hover
-      transform rotate(10deg);
-
   @media (max-width: 480px)
     .thumb
       width 100%
@@ -677,58 +520,6 @@
 
   .cell-move
     transition: transform 2s;
-
-  .setting-list
-    min-width 1000px
-    li
-      background-size cover
-      background-repeat no-repeat
-      background-position center
-      border-radius 15px
-      height 5rem
-      width 5rem
-      float left
-      margin-right .3rem
-      margin-left .3rem
-      margin-top .7rem
-      display inline-block
-      border 1px solid #f1f1f1
-      padding .5rem
-      position relative
-      margin-bottom 1rem
-      .grey
-        height 100%
-        width 100%
-        background-color rgba(0, 0, 0, .4)
-        border-radius 15px
-        position absolute
-        left 0
-        top 0
-        z-index 1
-      .list-title
-        font-weight 600
-        color #fff
-        height 1rem
-        position relative
-        z-index 10
-      .list-btn
-        position absolute
-        width 2.8rem
-        left 50%
-        transform translate(-50%, 0)
-        height 1rem
-        background-color #007fff
-        color #fff
-        bottom .3rem
-        text-align center
-        font-size 14px
-        display flex
-        align-items center
-        justify-content center
-        z-index 8
-        border-radius 3px
-        font-weight 600
-        cursor pointer
 
   /*background-position: 3% 8%*/
   /*background-repeat: no-repeat*/

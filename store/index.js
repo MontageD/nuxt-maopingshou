@@ -35,7 +35,7 @@ export const actions = {
   },
   // 加载主页的新闻数据
   loadListInfo ({commit}, params = {}) {
-    return Service.get(`http://data.maopingshou.com/list?start=${params.num}`)
+    return Service.get(`/api/list?start=${params.num}`)
       .then(res => {
         res.data.forEach((currentValue, index, array) => {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
@@ -79,6 +79,14 @@ export const actions = {
       }, err => {
         commit('article/SET_DETAILLIST', err)
         return Promise.reject(err)
+      })
+  },
+  // 加载主题信息
+  loadThemeDetail ({commit}, params = {}) {
+    return Service.get(`/api/theme?uid= ${params.theme_id} `)
+      .then(res => {
+        commit('option/SET_THEMELIST', res.data[0])
+        return Promise.resolve(res.data)
       })
   },
   loadLoginState ({commit}, params) {

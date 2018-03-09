@@ -5,6 +5,8 @@
 */
 export const state = () => {
   return {
+    // 打开的主题
+    themelist: {},
     // 登陆状态
     authUser: null,
     // 主页新闻数据
@@ -48,12 +50,16 @@ export const getters = {
   mobileLayout: state => state.mobileLayout,
   getListInfo: (state) => state.listInfo,
   getCells: (state) => state.celles,
-  getTheme: (state) => state.theme
+  getTheme: (state) => state.theme,
+  getThemelist: (state) => state.themelist
 }
 
 export const mutations = {
   SET_THEME (state, action) {
     state.theme = action
+  },
+  SET_THEMELIST (state, action) {
+    state.themelist = action
   },
   SET_USER (state, action) {
     state.authUser = action
@@ -62,7 +68,7 @@ export const mutations = {
     state.listInfo = action
   },
   SET_USERDATA (state, action) {
-    state.userData = action
+    state.userData = JSON.parse(JSON.stringify(action))
   },
   SET_LOGINSTATE (state, action) {
     state.loginState = action

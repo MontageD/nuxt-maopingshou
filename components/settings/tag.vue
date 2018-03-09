@@ -1,13 +1,36 @@
 <template>
 
   <div class="major-part">
-    <p class="one-mark">标签管理</p>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <div v-show="show" class="major-part-li">
+        <p class="one-mark">
+          欢迎猫评
+        </p>
+        <p class="one-mark"> ꒰๑´•.̫ • `๑꒱</p>
+      </div>
+
+    </transition>
   </div>
 
 
 </template>
 <script>
-  export default {}
+  export default {
+    data () {
+      return {
+        show: false
+      }
+    },
+    mounted () {
+      this.$nextTick(function () {
+        this.show = !this.show
+      })
+    }
+  }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .edit-btn span
@@ -21,6 +44,7 @@
       font-size .9rem
 
   .one-mark
+    text-align center
     font-size 1.5rem
     margin 1rem 0
     font-weight 800
@@ -126,9 +150,11 @@
 
   .major-part
     background-color #fff
-    min-height 10rem
+    min-height 16rem
     width 100%
-    padding 2.7rem 4rem 7rem
+    padding 2.7rem 0 3rem !important
+    .major-part-li
+      height 100%
 
   .minor-area
     box-shadow 0 1px 2px 0 rgba(0, 0, 0, .05)

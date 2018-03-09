@@ -10,7 +10,8 @@
           <div class="avatar loaded"
                :style="{'background-image': 'url('+ portrait+')'}"></div>
           <div class="info-box">
-            <h1 class="username">{{username}}</h1>
+            <h1 class="username">{{$store.state.option.userData.nickname}}</h1>
+            <h2 class="email">{{$store.state.option.userData.email}}</h2>
             <div class="position">
               <span></span>
               <!--<span class="content">-->
@@ -36,26 +37,54 @@
           </ul>
           <div class="major-content"></div>
         </div>
-
-
-        <div v-if="show===1">
-          <User></User>
+        <div v-if="show===0">
+          <Tag></Tag>
         </div>
 
-        <div v-if="show===0">
+        <div v-if="show===1">
           <Articles></Articles>
         </div>
 
         <div v-if="show===2">
-          <Tag></Tag>
+          <User></User>
         </div>
 
 
       </div>
 
-      <div class="minor-area"></div>
-    </div>
+      <div class="minor-area aside">
 
+
+        <section class="follow-section">
+          <header>关注我们</header>
+          <ul class="account-list">
+            <li class="item weibo">
+              <a>
+                <img src="~assets/img/bottom_weibo.png" alt="微博" class="icon">
+              </a>
+            </li>
+            <li class="item wechat">
+              <a>
+                <img src="~assets/img/bottom_weixin.png" alt="微信" class="icon">
+              </a>
+            </li>
+            <!--<li class="item zhihu"><a ><img src="https://gold-cdn.xitu.io/v3/static/img/zhuanlan.18265c6.png" alt="知乎" class="icon"></a>-->
+            <!--</li>-->
+            <!--<li class="item jianshu"><a ><img src="https://gold-cdn.xitu.io/v3/static/img/jianshu.80c1fdd.png" alt="简书" class="icon"></a>-->
+            <!--</li>-->
+          </ul>
+          <ul class="more-list">
+            <li class="item">
+              <a target="_blank">关于</a>
+              <a target="_blank">友情链接</a>
+            </li>
+            <li class="item"><a target="_blank">粤ICP备15044136号-2</a>
+            </li>
+          </ul>
+        </section>
+        <div class="clear"></div>
+      </div>
+    </div>
 
     <div class="alert-show">
       <ul>
@@ -69,6 +98,8 @@
         <!--<li>请输入密码</li>-->
       </ul>
     </div>
+
+
   </div>
 </template>
 <script>
@@ -76,6 +107,7 @@
   import User from '~/components/settings/user.vue'
   import Tag from '~/components/settings/tag.vue'
   import Articles from '~/components/settings/article.vue'
+  import axios from 'axios'
 
   export default {
     created () {
@@ -84,18 +116,25 @@
       return {
         alertNow: [],
         menu: [
-          {name: '内容定制', active: 'active'},
+          {name: '通知推送', active: 'active'},
+          {name: '内容定制', active: ''},
           {name: '个人资料', active: ''}
           //          {name: '文章管理', active: ''},
           //          {name: '标签管理', active: ''}
         ],
-        show: 0,
-        username: ''
+        show: 0
       }
     },
-    mounted () {
+    beforeMount () {
       if (!this.$cookie.get('username')) {
         this.$router.push('/logined')
+      } else {
+        let username = this.$cookie.get('username')
+        let _this = this
+        axios.get(`/api/getAlist?username=${username}`)
+          .then((res) => {
+            _this.$store.commit('option/SET_USERDATA', res.data[0])
+          })
       }
     },
     computed: {
@@ -163,10 +202,12 @@
     display flex
     align-items flex-start
     .username
+      color #007fff
       font-size 1.3rem
       display block
       width 100%
       line-height 1.2
+      margin-bottom 5px
     .position
       display block
       width 100%
@@ -186,6 +227,7 @@
     display block
     border-radius 50%
     margin-right 1rem
+    box-shadow 3px 6px 31px 4px rgba(0, 64, 128, .2)
 
   .settings-main
     max-width 960px
@@ -223,7 +265,7 @@
       align-items center
       li
         width 5.5rem
-        flex 0 0 auto
+        flex 1
         display flex
         height 100%
         align-items center
@@ -238,7 +280,7 @@
           justify-content center
           cursor pointer
         a.active
-          box-shadow inset 0 -2px 0 #3780f7
+          border-bottom 1px solid #3780f7
           color #3780f7
 
   .major-part
@@ -254,7 +296,42 @@
     margin-bottom 6rem
     width 15rem
     max-height 3rem
-    background-color #fff
+
+  .follow-section
+    background transparent
+    text-align center
+    color #909090
+    box-shadow none
+    overflow visible
+    header
+      font-size 1.1em
+    .more-list
+      margin .5rem 0
+      li
+        margin .5rem 0
+    .account-list
+      display flex
+      justify-content center
+      margin 1rem 0
+      li
+        margin 0 .3rem
+        a
+          height 24px
+          width 24px
+          display block
+          img
+            height 100%
+            width 100%
+
+  @media (max-width: 480px)
+    .aside
+      display none
+
+    .major-part
+      padding .7rem 1rem 7rem !important
+
+    .user-info
+      width 100%
 
 
 </style>

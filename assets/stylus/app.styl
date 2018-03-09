@@ -12,7 +12,7 @@
   }
 
   .content-box {
-    padding: 1.5rem 1rem !important;
+    padding: .8rem .7rem !important;
   }
 }
 
@@ -113,6 +113,15 @@
   }
 }
 
+@keyframes smallbig {
+  0% {
+    transform scale(0)
+  }
+  100% {
+    transform scale(1)
+  }
+}
+
 .heartAnimation {
   display: inline-block;
   animation-name: heartBlast;
@@ -179,6 +188,15 @@
   }
 }
 
+@keyframes miss {
+  0% {
+    transform scale(1)
+  }
+  100% {
+    transform scale(0)
+  }
+}
+
 .lds-rolling {
   position: relative;
 }
@@ -219,3 +237,5 @@
   height 100%;
   width 100%;
 }
+
+

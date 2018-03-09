@@ -1,159 +1,107 @@
 <template>
+  <div>
+    <div class="major-part">
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animated fadeInUp"
+        leave-active-class="animated fadeOutDown"
+      >
 
-  <div class="major-part">
-    <p class="one-mark">我关注的主题</p>
-    <div class="open1">
-      <div class="open2" @click="changeClass"></div>
+
+        <div v-show="show" class="major-part-li">
+          <p class="one-mark">我关注的主题</p>
+          <div class="open1">
+            <div class="open2" @click="changeClass"></div>
+          </div>
+
+
+          <ul class="setting-list">
+
+            <li v-for="(item,key) in aList"
+                :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+item.c_img+')'}">
+              <p class="list-title">
+                {{item.c_title}}
+              </p>
+              <p :data="key" :data-id="item.c_type" @click="deleteTheme" class="list-btn false">x</p>
+              <div class="grey"></div>
+            </li>
+
+
+          </ul>
+        </div>
+      </transition>
     </div>
-
-
-    <ul class="setting-list">
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-      <li
-        :style="{'background-image': 'url(http://data.maopingshou.com/images/TxEgmgB4gqxGRKp8woYimt9Qu1ClhxnkhBoFLwfMq0hKx1517731476102.jpg)'}">
-        <p class="list-title">
-          这道题我不会做
-        </p>
-        <p class="list-btn">+</p>
-        <div class="grey"></div>
-      </li>
-
-
-
-    </ul>
-
-
   </div>
 </template>
 <script>
+  import axios from 'axios'
+
   export default {
+    data () {
+      return {
+        aList: this.$store.state.option.userData.aList,
+        show: false
+      }
+    },
+    created () {
+    },
     mounted () {
+      this.show = !this.show
     },
     methods: {
       changeClass () {
-        console.log('hello')
         let div2 = document.getElementsByClassName('open1')[0]
         let div1 = document.getElementsByClassName('open2')[0]
         div1.className = (div1.className === 'close1') ? 'open1' : 'close1'
         div2.className = (div2.className === 'close2') ? 'open2' : 'close2'
+      },
+      deleteTheme (e) {
+        let el = e.currentTarget
+        let parent = el.parentNode
+        let _this = this
+        let tag = parseInt(e.currentTarget.getAttribute('data')) + 1
+        let id = parseInt(e.currentTarget.getAttribute('data-id'))
+        console.log(id)
+        parent.className = el.className + ' miss'
+        setTimeout(() => {
+          let arr = ''
+          let cur = (_this.$store.state.option.userData.theme).split('|')
+          for (let i = 0; i < cur.length; i++) {
+            if (parseInt(cur[i]) !== tag) {
+              arr = arr + cur[i] + '|'
+            }
+          }
+          arr = arr.substring(0, arr.length - 1)
+
+          // 改变存储状态的theme
+
+          let obj = {}
+          obj = Object.assign({}, _this.$store.state.option.userData)
+          obj.theme = arr
+
+          for (let i = 0; i < obj.aList.length; i++) {
+            if (obj.aList[i].id === id) {
+              obj.aList[i] = []
+            }
+          }
+
+          let arrl = []
+          for (let i = 0; i < obj.aList.length; i++) {
+            if (obj.aList[i].length !== 0) {
+              arrl.push(obj.aList[i])
+            }
+          }
+          obj.aList = arrl
+          _this.$store.commit('option/SET_USERDATA', obj)
+
+          console.log(_this.$store.state.option.userData)
+          parent.parentNode.removeChild(parent)
+
+          axios.get(`/deal/updateTheme?theme=${arr}&id=${_this.$store.state.option.userData.id}`)
+            .then((res) => {
+              console.log(res.data)
+            })
+        }, 500)
       }
     }
   }
@@ -183,7 +131,13 @@
   .setting-list:after
     clear both
 
+  .miss
+    animation miss .5s
+
   .setting-list
+    li:hover
+
+      box-shadow 0 10px 60px 4px rgba(0, 64, 128, .2)
     li
       background-size cover
       background-repeat no-repeat
@@ -219,7 +173,6 @@
         left 50%
         transform translate(-50%, 0)
         height 1rem
-        background-color #007fff
         color #fff
         bottom .3rem
         text-align center
@@ -231,6 +184,9 @@
         border-radius 3px
         font-weight 600
         cursor pointer
+      .false
+        opacity .8
+        background grey
 
   .items
     display flex
@@ -330,7 +286,9 @@
     background-color #fff
     min-height 10rem
     width 100%
-    padding .7rem 4rem 7rem
+    padding .7rem 1rem 7rem
+    .major-part-li
+      height 100%
 
   .minor-area
     box-shadow 0 1px 2px 0 rgba(0, 0, 0, .05)
@@ -341,4 +299,8 @@
     max-height 3rem
     background-color #fff
 
+  @media (max-width: 480px)
+    .setting-list
+      li
+        margin-right 5px
 </style>

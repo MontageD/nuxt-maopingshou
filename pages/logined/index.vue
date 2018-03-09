@@ -65,6 +65,7 @@
         let _this = this
         axios.get(`/api/loginState?username=${username}&&password=${password}`)
           .then(function (res) {
+            console.log(res.data)
             if (res.data[0]) {
               let expireDays = 1000 * 60 * 60 * 24 * 15
               _this.$cookie.set('username', username, expireDays)
