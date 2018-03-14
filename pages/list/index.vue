@@ -189,7 +189,6 @@
         this.$router.push({path: `/detail/${uid}`})
       },
       add_news (e) {
-        console.log(e.target.getAttribute('data-id'))
         if (e.target.getAttribute('data-id')) {
           let name = e.target.getAttribute('data-id')
           let num = 10

@@ -54,15 +54,15 @@
 
 
               <div v-show="showed">
-                <div class="user-action" v-if="!$store.state.option.authUser">
+                <div class="user-action" v-if="!showUser">
                   <!--辨别是否为登陆状态-->
                   <!--<a class="user-comment">写文章</a>-->
                   <router-link to="/logined" class="user-login">登陆</router-link>
                   <router-link to="/register" class="user-register">注册</router-link>
                 </div>
                 <div class="user-action" v-else>
-                  <router-link to="/settings" class="user-comment">{{ uname }}</router-link>
-                  <i class="avatar user-register" :style="{'background-image': 'url('+ portrait+')'}"></i>
+                  <router-link to="/settings" class="user-comment">{{ username }}</router-link>
+                  <!--<i class="avatar user-register" :style="{'background-image': 'url('+ portrait+')'}"></i>-->
                   <a class="user-register" @click="logout">退出</a>
                 </div>
               </div>
@@ -108,63 +108,70 @@
   </div>
 </template>
 <script>
-  import axios from 'axios'
+  // import axios from 'axios'
 
   export default {
     data () {
       return {
         menu: false,
         bugs: 1,
-        showed: false
+        showed: false,
+        showUser: false,
+        username: ''
       }
     },
     created () {
-
     },
     computed: {
-      user () {
-        const gravatar = this.$store.state.option.loginState
-        return gravatar
-      },
-      uname () {
-        const username = this.$store.state.option.username
-        return username
-      },
-      portrait () {
-        const avator = this.$store.state.option.avator
-        return avator
-      }
+      //      user () {
+      //        const gravatar = this.$store.state.option.loginState
+      //        return gravatar
+      //      },
+      //      uname () {
+      //        const username = this.$store.state.option.username
+      //        return username
+      //      },
+      //      portrait () {
+      //        const avator = this.$store.state.option.avator
+      //        return avator
+      //      }
     },
     mounted () {
       window.addEventListener('scroll', this.handleScroll)
       if (this.$cookie.get('username')) {
-        let _this = this
-        let username = this.$cookie.get('username')
-
-        axios.get(`/api/getUserData?username=${username}`)
-          .then(function (res) {
-            let state = 1
-            _this.$store.dispatch('logining', res.data[0])
-            _this.$store.dispatch('loadLoginState', state)
-            _this.$store.dispatch('loadUsername', username)
-            _this.$store.dispatch('loadUserData', res.data[0])
-            if (res.data[0].avator === null) {
-              //  默认头像
-              _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
-            } else {
-              _this.$store.dispatch('loadAvator', res.data[0].avator)
-            }
-
-            _this.showed = true
-          })
-      } else {
-        this.showed = true
+        this.showUser = true
+        this.username = this.$cookie.get('username')
       }
+      this.showed = true
+      //      if (this.$cookie.get('username')) {
+      //        let _this = this
+      //        let username = this.$cookie.get('username')
+      //
+      //        axios.get(`/api/getUserData?username=${username}`)
+      //          .then(function (res) {
+      //            let state = 1
+      //            _this.$store.dispatch('logining', res.data[0])
+      //            _this.$store.dispatch('loadLoginState', state)
+      //            _this.$store.dispatch('loadUsername', username)
+      //            _this.$store.dispatch('loadUserData', res.data[0])
+      //            if (res.data[0].avator === null) {
+      //              //  默认头像
+      //              _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
+      //            } else {
+      //              _this.$store.dispatch('loadAvator', res.data[0].avator)
+      //            }
+      //
+      //            _this.showed = true
+      //          })
+      //      } else {
+      //        this.showed = true
+      //      }
     },
     methods: {
       logout () {
         this.$cookie.delete('username')
         this.$cookie.delete('password')
+        this.$cookie.delete('uid')
         this.$router.go(0)
       },
       changeMenu (e) {

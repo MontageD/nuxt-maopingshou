@@ -70,6 +70,7 @@
               let expireDays = 1000 * 60 * 60 * 24 * 15
               _this.$cookie.set('username', username, expireDays)
               _this.$cookie.set('password', password, expireDays)
+              _this.$cookie.set('uid', res.data[0].id, expireDays)
               _this.$store.dispatch('logining', res.data[0])
 
               let message = '登陆成功'

@@ -5,38 +5,42 @@
       <div class="timeline-entry-list">
 
 
-        <header class="list-header">
-          <nav class="list-nav">
-            <ul class="nav-list left">
-              <li  @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
-                <a href="javaScript:void(0);">{{ item.name }}</a>
-                <div class="bottom-item"></div>
-              </li>
-            </ul>
-          </nav>
+        <div v-if="menuSelected!==4">
+          <header class="list-header">
+            <nav class="list-nav">
+              <ul class="nav-list left">
+                <li @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
+                  <a href="javaScript:void(0);">{{ item.name }}</a>
+                  <div class="bottom-item"></div>
+                </li>
+              </ul>
+            </nav>
+          </header>
+        </div>
 
-
-          <!--<div class="all-list">-->
-          <!--<Weather></Weather>-->
-          <!--主题导航-->
-
-          <!--主题导航-->
-          <!--<cross></cross>-->
-          <!--</div>-->
-
-
-        </header>
-
-
+        <!--我的关注-->
         <div v-if="menuSelected === 1">
-          <Focus></Focus>
+          <Focus v-on:increment="changeTatol"></Focus>
         </div>
+        <!--系统推荐-->
         <div v-else-if="menuSelected === 2">
-          <MenuList></MenuList>
-          <Recommend></Recommend>
+          <!--<MenuList></MenuList>-->
+          <!--<div class="show-time">-->
+          <!--<div class="show-time-text" v-html="show_time_text"></div>-->
+          <!--</div>-->
+          <Recommend v-on:increment="changeTatol"></Recommend>
         </div>
+
+        <!--热门信息-->
         <div v-else-if=" menuSelected===3">
-          <Hoted></Hoted>
+          <Hoted v-on:increment="changeTatol"></Hoted>
+        </div>
+
+
+        <div v-else-if="menuSelected===4">
+          <!--子元素响应时间-->
+          <Comment :message="prosId" v-on:increment="changeBack" v-on:alert="alert"></Comment>
+
         </div>
 
 
@@ -116,7 +120,7 @@
       </aside>
     </div>
 
-
+    <Alert v-show="Pshow" v-on:changePop="changePop"></Alert>
   </main>
 </template>
 <script>
@@ -127,6 +131,8 @@
   import Cross from '~/components/pc-main/detail/cross'
   import Weather from '~/components/pc-main/detail/weather'
   import MenuList from '~/components/pc-main/detail/menu'
+  import Comment from '~/components/pc-main/detail/comment'
+  import Alert from '~/base/alert'
   import axios from 'axios'
   import { mapGetters } from 'vuex'
 
@@ -157,10 +163,39 @@
         },
         tagList: {},
         everyImg: 'http://data.maopingshou.com/images/extra/every_1.jpg',
-        pageNum: 10
+        pageNum: 10,
+        prosId: 0,
+        show_time_text: '',
+        day: [
+          '疲倦的星期一，又来了',
+          '继续耕耘的星期二。。',
+          '这周过了一半，你好星期三',
+          '星期四',
+          '注意，今天就是星期五了',
+          '假期你好，星期六',
+          '很好，下周你好，星期日'],
+        Pshow: false
       }
     },
     methods: {
+      changeTatol (id) {
+        this.prosId = id
+        this.menuSelected = 4
+      },
+      changePop () {
+        this.Pshow = false
+      },
+      alert (id) {
+        console.log(id)
+        if (id === 1) {
+          this.Pshow = true
+        } else {
+          this.Pshow = false
+        }
+      },
+      changeBack () {
+        this.menuSelected = 2
+      },
       detail (e) {
         let uid = e.toElement.dataset.id
         this.$router.push({path: `/detail/${uid}`})
@@ -191,6 +226,8 @@
       }
     },
     mounted () {
+      // 初始化日期
+      this.show_time_text = this.day[new Date().getDay()]
       axios.get(`http://data.maopingshou.com/mainSide?start=5`)
         .then((res) => {
           this.sideList = res.data
@@ -203,11 +240,29 @@
       Hoted,
       Cross,
       Weather,
-      MenuList
+      MenuList,
+      Comment,
+      Alert
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .show-time
+    width 100%
+    height 3rem
+    padding 1rem
+    text-align left
+    background-color #fff
+    border-top 1px solid rgba(178, 186, 194, .15)
+    border-bottom 1px solid rgba(178, 186, 194, .15)
+    display flex
+    align-items center
+    .show-time-text
+      display flex
+      align-items center
+      font-size 15px
+      font-weight 600
+
   .all-list
     position relative
     width 100%
@@ -282,8 +337,8 @@
 
   .view-nav
     .nav-list
-        a
-          color: #007fff
+      a
+        color: #007fff
 
   .view-nav
     .nav-list
@@ -292,8 +347,6 @@
         font-size: .9rem
         padding: 0 1rem
         font-weight: 800
-
-
 
   .main-container
     > .view.thumb
@@ -356,9 +409,9 @@
         .bottom-item
           position absolute
           width 100%
-          bottom 0
+          bottom -1px
           left 0
-          background-color  #007fff
+          background-color #007fff
           height 1px
           animation smallbig .5s
         a

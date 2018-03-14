@@ -15,6 +15,7 @@ let responseJSON = function (res, ret) {
   }
 }
 
+// 处理表单或者特殊数据处理
 router.get('/updateUser', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')

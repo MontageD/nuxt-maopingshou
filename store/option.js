@@ -9,8 +9,12 @@ export const state = () => {
     themelist: {},
     // 登陆状态
     authUser: null,
-    // 主页新闻数据
+    // 主页推荐新闻数据
     listInfo: {},
+    // 主页关注新闻数据
+    focusInfo: {},
+    // 主页热门数据
+    hotInfo: {},
     // 主页标签数据
     celles: {},
     // 登陆状态
@@ -51,10 +55,18 @@ export const getters = {
   getListInfo: (state) => state.listInfo,
   getCells: (state) => state.celles,
   getTheme: (state) => state.theme,
-  getThemelist: (state) => state.themelist
+  getThemelist: (state) => state.themelist,
+  getFocuslist: (state) => state.focusInfo,
+  gethotlist: (state) => state.hotInfo
 }
 
 export const mutations = {
+  SET_FOCUSINFO (state, action) {
+    state.focusInfo = action
+  },
+  SET_HOTINFO (state, action) {
+    state.hotInfo = action
+  },
   SET_THEME (state, action) {
     state.theme = action
   },

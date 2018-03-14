@@ -15,10 +15,7 @@ let responseJSON = function (res, ret) {
   }
 }
 
-/* GET home page. */
-// router.get('/', (req, res, next) => {
-//   res.render('index', {title: 'Express'})
-// })
+// 处理基本数据
 router.get('/api', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
@@ -40,12 +37,19 @@ router.get('/list', function (req, res, next) {
     let param = req.query
     // let sql = "select id,title,time,content,score,type,author,img,order_id,types from w_news where img <> ''  order by id  desc limit " + param.start + " ";
     // let sql = 'select id,title,time,content,score,type,author,img,order_id,types,theme,theme_avator from w_news where img <> \'\'  order by id  desc limit ' + param.start + ' '
-    let sql = 'select a.title,a.id,a.time,a.content,a.score,a.type,a.author,a.img,a.order_id,a.types,a.like,a.theme,b.c_title,b.c_content,b.c_img,b.c_mark,b.c_focus_num,b.c_type  ' +
+    // let sql = 'select *  ' +
+    //   ' from w_news as a' +
+    //   ' left join w_theme as b' +
+    //   ' on b.c_type = a.theme' +
+    //   ' where a.img <> \'\' and  a.id >= (select floor(RAND() * (SELECT MAX(id) FROM `w_news`)))' +
+    //   ' ORDER BY RAND() ' +
+    //   ' limit ' + param.start
+    let sql = 'select *  ' +
       ' from w_news as a' +
       ' left join w_theme as b' +
       ' on b.c_type = a.theme' +
       ' where a.img <> \'\' and  a.id >= (select floor(RAND() * (SELECT MAX(id) FROM `w_news`)))' +
-      ' ORDER BY RAND() ' +
+      ' order by a.id,a.like ' +
       ' limit ' + param.start
 
     connection.query(sql, (err, result) => {
@@ -105,7 +109,7 @@ router.get('/recommend', (req, res, next) => {
 router.get('/theme', (req, res, next) => {
   let param = req.query.uid
   pool.getConnection((err, connection) => {
-    let sql = 'select * from w_theme where id =' + param
+    let sql = 'select * from w_theme where uid =' + param
     connection.query(sql, (err, result) => {
       let sql = 'select * from w_news where theme=\'' + result[0].type + '\''
       result = JSON.parse(JSON.stringify(result))
@@ -347,9 +351,9 @@ router.get('/loginState', (req, res) => {
       let sqltext = ''
       for (let i = 0; i < idArr.length; i++) {
         if (i === 0) {
-          sqltext = sqltext + ' id =' + idArr[i]
+          sqltext = sqltext + ' uid =' + idArr[i]
         } else {
-          sqltext = sqltext + ' or id=' + idArr[i]
+          sqltext = sqltext + ' or uid=' + idArr[i]
         }
       }
 
@@ -394,9 +398,9 @@ router.get('/getAlist', (req, res) => {
       let sqltext = ''
       for (let i = 0; i < idArr.length; i++) {
         if (i === 0) {
-          sqltext = sqltext + ' id =' + idArr[i]
+          sqltext = sqltext + ' uid =' + idArr[i]
         } else {
-          sqltext = sqltext + ' or id=' + idArr[i]
+          sqltext = sqltext + ' or uid=' + idArr[i]
         }
       }
 

@@ -2,6 +2,7 @@ import Service from '~/plugins/axios'
 import UaParse from '~/utils/ua-parse'
 import axios from 'axios'
 
+export const strict = false
 export const actions = {
   nuxtServerInit (store, {params, route, req}) {
     if (req.session && req.session.authUser) {
@@ -17,11 +18,16 @@ export const actions = {
     let start = {
       'num': 10
     }
+    let startheme = {
+      'num': 100
+    }
     const initAppData = [
       //   // 配置数据
       store.dispatch('loadListInfo', start),
+      // store.dispatch('loadFocusInfo', start),
+      // store.dispatch('loadHotInfo', start),
       store.dispatch('loadTag'),
-      store.dispatch('loadListTheme', start)
+      store.dispatch('loadListTheme', startheme)
       //   store.dispatch('loadGlobalOption'),
       //   // 内容数据
       //   store.dispatch('loadTagList'),
@@ -33,7 +39,7 @@ export const actions = {
     }
     return Promise.all(initAppData)
   },
-  // 加载主页的新闻数据
+  // 加载主页的推荐新闻数据
   loadListInfo ({commit}, params = {}) {
     return Service.get(`/api/list?start=${params.num}`)
       .then(res => {
@@ -43,6 +49,30 @@ export const actions = {
           res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
         })
         commit('option/SET_LISTINFO', res.data)
+      })
+  },
+  // 加载主页的关注新闻数据
+  loadFocusInfo ({commit}, params = {}) {
+    return Service.get(`/news/focus?start=${params.num}`)
+      .then(res => {
+        res.data.forEach((currentValue, index, array) => {
+          res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+          res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+          res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+        })
+        commit('option/SET_FOCUSINFO', res.data)
+      })
+  },
+  // 加载主页的热门新闻数据
+  loadHotInfo ({commit}, params = {}) {
+    return Service.get(`/news/hot?start=${params.num}`)
+      .then(res => {
+        res.data.forEach((currentValue, index, array) => {
+          res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+          res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+          res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+        })
+        commit('option/SET_HOTINFO', res.data)
       })
   },
   // 加载主页主题图片和数据

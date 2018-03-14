@@ -1,8 +1,8 @@
 <template>
   <div style="background-color: #fff;">
     <div ref="wrapper" class="list-wrapper">
-      <div class="setting-list" ref="setting" :style="'width:'+ theme.length * 5.8 +'rem;'">
-        <div class="setting-list-li" v-for="(value,key) in theme"
+      <div class="setting-list"  :style="'width:'+ themeLength * 5.8 +'rem;'">
+        <div class="setting-list-li" v-for="(value,key) in theme" v-if="value.c_show===1"
              :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+value.c_img+')'}">
           <router-link :to="`/theme/${value.c_type}`" @click.native="change" class="item">
             <p class="list-title">
@@ -21,6 +21,13 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    created () {
+      for (let i = 0; i < this.theme.length; i++) {
+        if (this.theme[i].c_show === 1) {
+          this.themeLength += 1
+        }
+      }
+    },
     data () {
       return {
         menu: [
@@ -29,7 +36,8 @@
           {name: '热门', active: 'nav-item', model: 3}
         ],
         mainSelect: true,
-        menuSelected: 2
+        menuSelected: 2,
+        themeLength: 0
       }
     },
     computed: mapGetters({
@@ -43,11 +51,10 @@
             scrollX: true,
             click: true,
             taps: true,
-            bounce: true,
-            momentum: true
+            bounce: true
           }
           this.scroll = new BScroll(this.$refs.wrapper, options)
-        }, 20)
+        }, 60)
       })
     },
     methods: {

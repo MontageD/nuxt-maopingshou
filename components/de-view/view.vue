@@ -112,26 +112,29 @@
     >
       <div class="view-comm" v-show="showBottom">
         <p class="view-comm-title">猜你喜欢</p>
-        <div class="view-comm-ul after-in view-ul" ref="view_ul">
-          <div class="view-comm-li" v-for="like in likeInfo">
-            <router-link :to="{path: '/detail/' + like.id}"  >
-              <div class="view-comm-ul-img" @click='detail_link'
-                   :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + like.img + ')' }">
-              </div>
-              <div class="view-comm-content">
+        <div class="" ref="wrapper">
+          <div class="view-comm-ul after-in view-ul" ref="view_ul">
+            <div class="view-comm-li" v-for="like in likeInfo">
+              <router-link :to="{path: '/detail/' + like.id}">
+                <div class="view-comm-ul-img" @click='detail_link'
+                     :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + like.img + ')' }">
+                </div>
+                <div class="view-comm-content">
               <span class="view-comm-content-detail after-in">
                 <span class="view-comm-content-detail-title">{{ like.title }}</span>
                 <!--<span class="view-comm-content-detail-details">详情</span>-->
                 </span>
-              </div>
-            </router-link>
+                </div>
+              </router-link>
+            </div>
           </div>
         </div>
-        <div class="view-navigation">
-          <div class="view-navigation-left" @click="nav_left"><i class="material-icons">&#xE5CB;</i></div>
-          <div class="view-navigation-center" @click="nav_center"><i class="material-icons">&#xE5D3;</i></div>
-          <div class="view-navigation-right" @click="nav_right"><i class="material-icons">&#xE5CC;</i></div>
-        </div>
+
+        <!--<div class="view-navigation">-->
+        <!--<div class="view-navigation-left" @click="nav_left"><i class="material-icons">&#xE5CB;</i></div>-->
+        <!--<div class="view-navigation-center" @click="nav_center"><i class="material-icons">&#xE5D3;</i></div>-->
+        <!--<div class="view-navigation-right" @click="nav_right"><i class="material-icons">&#xE5CC;</i></div>-->
+        <!--</div>-->
         <!--<p class>热点文章</p>-->
 
         <div class="clear"></div>
@@ -146,6 +149,7 @@
   import axios from 'axios'
   import backgroundUrl from '~/assets/img/web_heart_animation.png'
   import 'swiper/dist/css/swiper.css'
+  import BScroll from 'better-scroll'
 
   export default {
     created () {
@@ -162,48 +166,59 @@
         })
     },
     mounted () {
-      console.log(this.$store.state.article.detailList[0])
-      let viewUl = document.getElementsByClassName('view-ul')[0]
-      let startX, startY
-      viewUl.addEventListener('touchstart', function (ev) {
-        startX = ev.touches[0].pageX
-        startY = ev.touches[0].pageY
-      }, false)
-      // 底部推荐新闻滑动
-      let _this = this
-      viewUl.addEventListener('touchend', function (ev) {
-        let endX, endY
-        endX = ev.changedTouches[0].pageX
-        endY = ev.changedTouches[0].pageY
-        let direction = window.utils.getSlide(startX, startY, endX, endY)
-        switch (direction) {
-          case 0:
-            // alert('没滑动')
-            break
-          case 1:
-            // alert('向上')
-            break
-          case 2:
-            // alert('向下')
-            break
-          case 3:
-            // alert('向左')
-            if (_this.$refs.view_ul.style.transform === '') {
-              _this.$refs.view_ul.style.transform = `translate(-5rem)`
-            } else {
-
-            }
-            break
-          case 4:
-            if (_this.$refs.view_ul.style.transform) {
-            } else {
-              //              _this.$refs.view_ul.style.transform = _this.$refs.view_ul.style.transform - 1 + 'rem'
-            }
-            // alert('向右')
-            break
-          default:
+      //      console.log(this.$store.state.article.detailList[0])
+      //      let viewUl = document.getElementsByClassName('view-ul')[0]
+      //      let startX, startY
+      //      viewUl.addEventListener('touchstart', function (ev) {
+      //        startX = ev.touches[0].pageX
+      //        startY = ev.touches[0].pageY
+      //      }, false)
+      //      // 底部推荐新闻滑动
+      //      let _this = this
+      //      viewUl.addEventListener('touchend', function (ev) {
+      //        let endX, endY
+      //        endX = ev.changedTouches[0].pageX
+      //        endY = ev.changedTouches[0].pageY
+      //        let direction = window.utils.getSlide(startX, startY, endX, endY)
+      //        switch (direction) {
+      //          case 0:
+      //            // alert('没滑动')
+      //            break
+      //          case 1:
+      //            // alert('向上')
+      //            break
+      //          case 2:
+      //            // alert('向下')
+      //            break
+      //          case 3:
+      //            // alert('向左')
+      //            if (_this.$refs.view_ul.style.transform === '') {
+      //              _this.$refs.view_ul.style.transform = `translate(-5rem)`
+      //            } else {
+      //
+      //            }
+      //            break
+      //          case 4:
+      //            if (_this.$refs.view_ul.style.transform) {
+      //            } else {
+      //              //              _this.$refs.view_ul.style.transform = _this.$refs.view_ul.style.transform - 1 + 'rem'
+      //            }
+      //            // alert('向右')
+      //            break
+      //          default:
+      //        }
+      //      }, false)
+      setTimeout(() => {
+        const options = {
+          scrollY: false, // 因为scrollY默认为true，其实可以省略
+          scrollX: true,
+          click: true,
+          taps: true,
+          bounce: true,
+          momentum: true
         }
-      }, false)
+        this.scroll = new BScroll(this.$refs.wrapper, options)
+      }, 20)
     },
     data () {
       return {

@@ -5,6 +5,7 @@ const app = require('express')()
 const index = require('./api/routes/index')
 const deal = require('./api/routes/deal')
 const theme = require('./api/routes/theme')
+const news = require('./api/routes/news')
 // Body parser，用来封装 req.body
 
 app.use(bodyParser.json())
@@ -20,6 +21,7 @@ app.use(session({
 app.use('/api', index)
 app.use('/deal', deal)
 app.use('/theme', theme)
+app.use('/news', news)
 // app.get('/good', function (req, res) {
 //   res.send('goosjj')
 // })

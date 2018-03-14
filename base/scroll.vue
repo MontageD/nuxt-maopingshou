@@ -18,10 +18,6 @@
         type: Boolean,
         default: true
       },
-      scrollX: {
-        type: Boolean,
-        default: true
-      },
       listenScroll: {
         type: Boolean,
         default: false
@@ -82,6 +78,9 @@
     },
     watch: {
       data () {
+        setTimeout(() => {
+          this.refresh()
+        }, this.refreshDelay)
       }
     }
   }

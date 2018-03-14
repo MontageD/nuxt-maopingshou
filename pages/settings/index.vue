@@ -8,7 +8,7 @@
       <div class="user-info">
         <div class="major-area">
           <div class="avatar loaded"
-               :style="{'background-image': 'url('+ portrait+')'}"></div>
+               :style="{'background-image': 'url('+ $store.state.option.userData.avator+')'}"></div>
           <div class="info-box">
             <h1 class="username">{{$store.state.option.userData.nickname}}</h1>
             <h2 class="email">{{$store.state.option.userData.email}}</h2>
@@ -228,6 +228,7 @@
     border-radius 50%
     margin-right 1rem
     box-shadow 3px 6px 31px 4px rgba(0, 64, 128, .2)
+    background-size cover
 
   .settings-main
     max-width 960px
