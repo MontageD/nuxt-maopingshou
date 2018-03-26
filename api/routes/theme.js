@@ -77,4 +77,67 @@ router.get('/addTheme', (req, res, next) => {
   })
 })
 
+router.get('/add', (req, res, next) => {
+  pool.getConnection((err, connection) => {
+    let param = req.query
+    let sql = 'select * from w_user where id =' + param.id
+    connection.query(sql, (err, result) => {
+      let theme = ''
+      // 检测是否有这个主题
+      let arr = result[0].theme.split('|')
+      let p = 0
+      arr.forEach((value, key) => {
+        if (parseInt(value) === parseInt(param.theme)) {
+          p = p + 1
+        }
+      })
+      if (p === 0) {
+        if (result[0].theme.length === 0) {
+          theme = param.theme
+        } else {
+          console.log(result[0].theme)
+          if (result[0].theme === '') {
+            theme = result[0].theme + param.theme
+          } else {
+            theme = result[0].theme + '|' + param.theme
+          }
+        }
+        let sql = 'update w_user as a set a.theme="' + theme + '" where a.id = ' + param.id
+        console.log(sql)
+        connection.query(sql, (err, res2) => {
+          responseJSON(res, res2)
+        })
+      } else {
+        responseJSON(res, result)
+      }
+    })
+    connection.release()
+  })
+})
+
+router.get('/remove', (req, res, next) => {
+  pool.getConnection((err, connection) => {
+    let param = req.query
+    let sql = 'select * from w_user where id =' + param.id
+    connection.query(sql, (err, result) => {
+      let arr = result[0].theme.split('|')
+      let newArr = ''
+      arr.forEach((value, key) => {
+        if (parseInt(value) === parseInt(param.theme)) {
+        } else {
+          newArr = newArr + value + '|'
+        }
+      })
+      if (newArr.length !== 1) {
+        newArr = newArr.substr(0, newArr.length - 1)
+      }
+      let sql = 'update w_user set theme="' + newArr + '" where id = ' + param.id
+      connection.query(sql, (err, res2) => {
+        responseJSON(res, res2)
+      })
+    })
+    connection.release()
+  })
+})
+
 module.exports = router

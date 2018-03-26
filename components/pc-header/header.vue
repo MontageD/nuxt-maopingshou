@@ -77,8 +77,8 @@
 
     <transition
       name="custom-classes-transition"
-      enter-active-class="animated fadeInUp"
-      leave-active-class="animated fadeOutDown"
+      enter-active-class="animated slideInLeft"
+      leave-active-class="animated slideOutRight"
     >
       <ul class="phone-item" v-show="menu">
         <li class="active">

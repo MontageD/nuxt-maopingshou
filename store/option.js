@@ -10,11 +10,11 @@ export const state = () => {
     // 登陆状态
     authUser: null,
     // 主页推荐新闻数据
-    listInfo: {},
+    listInfo: [],
     // 主页关注新闻数据
-    focusInfo: {},
+    focusInfo: [],
     // 主页热门数据
-    hotInfo: {},
+    hotInfo: [],
     // 主页标签数据
     celles: {},
     // 登陆状态

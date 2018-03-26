@@ -10,44 +10,89 @@
       </div>
 
 
-      <ul class="entry-list">
-        <li v-for="item in news">
-          <div class="content-box">
-            <div class="info-box">
-              <div class="info-row meta-row">
-                <div class="meta-list">
-                  <div class="item theme">
-                    <router-link :to="`/theme/${item.c_type}`"
-                                 :style="{'background-image':'url(http://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+      <div v-if="type==='1'">
+        <ul class="entry-list">
+          <li v-for="item in news">
+            <div class="content-box">
+              <div class="info-box">
+                <div class="info-row meta-row">
+                  <div class="meta-list">
+                    <div class="item theme">
+                      <router-link :to="`/theme/${item.c_type}`"
+                                   :style="{'background-image':'url(http://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                    </div>
+                    <div class="item ctv">
+                      <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
+                      <div class="item username clickable">{{ item.author }}</div>
+                    </div>
+                    <div class="item ">{{ item.age }}</div>
+                    <!--<li class="item tag">{{ item.types }}</li>-->
                   </div>
-                  <div class="item ctv">
-                    <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
-                    <div class="item username clickable">{{ item.author }}</div>
-                  </div>
-                  <div class="item ">{{ item.age }}</div>
-                  <!--<li class="item tag">{{ item.types }}</li>-->
+
+
                 </div>
-
-
-              </div>
-              <router-link :to="`/detail/${item.id}`" class="info-row title-row"><!----><!---->
-                <span class="title">
+                <router-link :to="`/detail/${item.id}`" class="info-row title-row"><!----><!---->
+                  <span class="title">
                 {{ item.title }}
                 </span>
+                </router-link>
+                <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
+                  {{ item.content }}
+                </router-link>
+              </div>
+              <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
+                <i :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}"></i>
               </router-link>
-              <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
-                {{ item.content }}
+              <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
+                           :style="{'background-image': 'url(http://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
               </router-link>
             </div>
-            <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-              <i :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}"></i>
-            </router-link>
-            <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
-                         :style="{'background-image': 'url(http://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
-            </router-link>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+
+      </div>
+      <div v-else>
+        <ul class="entry-list">
+          <li v-for="item in news">
+
+            <div class="content-box2">
+              <div class="info-box2">
+                <div class="info-row meta-row">
+                  <div class="meta-list">
+                    <div class="item theme">
+                      <router-link :to="`/theme/${item.c_type}`"
+                                   :style="{'background-image':'url(http://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                    </div>
+                    <div class="item ctv">
+                      <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
+                      <div class="item username clickable">{{ item.author }}</div>
+                    </div>
+                    <div class="item ">{{ item.age }}</div>
+                  </div>
+                </div>
+
+                <a :href="`http://${item.href}`" class="content2" target="_blank" v-bind:data-id="item.id">
+                  {{ item.title }}
+                </a>
+              </div>
+
+
+              <a :href="`${item.href}`" v-if="item.imgArr.length>1" class="lazy loaded2"
+                 v-for="(v,k) in item.imgArr"
+                 :style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">
+                <div class="detail_img"
+                     :style="{'background-image': 'url(http://data.maopingshou.com/images/news/'+v.img+')'}"></div>
+              </a>
+              <a :href="`${item.href}`" v-if="item.imgArr.length==1" class="lazy loaded2"
+                 v-for="(v,k) in item.imgArr"
+                 style="max-width: 60%;height: 8rem;">
+                <img :src="`http://data.maopingshou.com/images/news/${v.img}`"/>
+              </a>
+            </div>
+          </li>
+        </ul>
+
+      </div>
 
 
       <!--</li>-->
@@ -74,10 +119,9 @@
         热门评论
       </div>
 
-
       <div class="comment-item" v-if="comment.length>0" v-for="(value,key) in comment">
         <div class="comment-item-img">
-          <div class="comment-img">
+          <div class="comment-img" :style="{'background-image': 'url('+value.avator+')'}">
           </div>
         </div>
         <div class="comment-item-con">
@@ -87,12 +131,12 @@
               <p class="comment-item-time">
                 {{value.comment_time.substring(0, 10)}} {{value.comment_time.substring(11, 16)}}</p>
             </div>
-            <div class="comment-item-zan" v-if="value.avator!==null">
-              <span :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/'+value.avator+'.png)'}">
-              </span>
-              <b>{{value.comment_zan}}</b>
-            </div>
-            <div class="comment-item-zan" v-if="value.avator===null">
+            <!--<div class="comment-item-zan" v-if="value.avator!==null">-->
+            <!--<span :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/'+value.avator+'.png)'}">-->
+            <!--</span>-->
+            <!--<b>{{value.comment_zan}}</b>-->
+            <!--</div>-->
+            <div class="comment-item-zan">
               <span :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/like_1.png)'}">
               </span>
               <b>{{value.comment_zan}}</b>
@@ -116,9 +160,13 @@
 </template>
 <script>
   import axios from 'axios'
+  import Zan from '~/base/zan'
 
   export default {
-    props: ['message'],
+    props: [
+      'message',
+      'type'
+    ],
     data () {
       return {
         comment: [],
@@ -128,25 +176,39 @@
       }
     },
     created () {
-      axios.get(`/news/comment?id=${this.message}`)
-        .then((res) => {
-          this.comment = res.data
-        })
-      console.log(this.message)
-      axios.get(`/news/commentNews?id=${this.message}`)
-        .then((res) => {
-          res.data.forEach((currentValue, index, array) => {
-            res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
-            res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-            res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+      if (this.type === '1') {
+        axios.get(`/news/comment?id=${this.message}`)
+          .then((res) => {
+            this.comment = res.data
           })
-          this.news = res.data
-        })
+        axios.get(`/news/commentNews?id=${this.message}`)
+          .then((res) => {
+            res.data.forEach((currentValue, index, array) => {
+              res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+              res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+              res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+            })
+            this.news = res.data
+          })
+      } else {
+        axios.get(`/news/comment?id=${this.message}`)
+          .then((res) => {
+            this.comment = res.data
+          })
+        axios.get(`/news/commentNews2?id=${this.message}`)
+          .then((res) => {
+            res.data.forEach((currentValue, index, array) => {
+              res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
+              res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
+              res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+            })
+            this.news = res.data
+          })
+      }
     },
     methods: {
       changeVshow () {
         //  点开评论 需要判断是否登陆
-        console.log(this.$cookie.get('uid'))
         if (this.$cookie.get('uid')) {
           this.vshow = !this.vshow
           this.$emit('alert', 0)
@@ -163,14 +225,26 @@
         let userid = this.$cookie.get('uid')
         axios.get(`/news/commentinsert?id=${id}&content=${content}&userid=${userid}`)
           .then((res) => {
-            console.log(res)
             this.comment = res.data
           })
       }
+    },
+    components: {
+      Zan
     }
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .content2
+    color #14171a
+    margin-top 10px
+    margin-bottom 10px
+    font-size 16px
+    font-weight 800
+    float left
+    width 100%
+    text-align left
+
   .comment-add
     position relative
     margin-top 10px
@@ -192,6 +266,7 @@
       overflow: hidden
       height 40px
     .comment-submits
+      cursor pointer
       height 40px
       display flex
       flex 1
@@ -298,13 +373,17 @@
     .comment-item-img
       flex 1
       display flex
-      align-items flex-start
+      align-items center
       justify-content center
       .comment-img
         height 2.5rem
         width 2.5rem
         background-color #47494e
         border-radius 50%
+        background-size cover
+        background-repeat no-repeat
+        border 1px solid #f7f8fb
+        box-shadow 2px 2px 9px 1px #47494e
     .comment-item-con
       flex 5
       .comment-item-title
@@ -376,7 +455,6 @@
     -webkit-box-align: center
     align-item: center
     padding: 1.5rem 1rem
-    padding-bottom 3rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
     li
@@ -433,6 +511,45 @@
         position relative
         margin .8rem 0
         background #fff
+
+  .info-box2:after, .info-box2:before, .content-box2:after, .content-box2:before
+    content: " "
+    display table
+
+  .info-box2:after, .content-box2:after
+    clear both
+
+  .content-box2
+    .loaded2:first-child
+      border-left 0
+
+  .content-box2
+    position relative
+    display block
+    padding: 1.5rem 1rem
+    border-bottom 1px solid rgba(178, 186, 194, .15)
+    align-items center
+    .info-box2
+      width 100%
+    .loaded2
+      border 5px solid #fff
+      width 100%
+      height 8rem
+      min-height 10rem
+      max-height 12rem
+      display inline-block
+      float left
+      img
+        height 100%
+        float left
+        border-radius 5px
+      i
+        display block
+        height 100%
+        width 100%
+        background-repeat no-repeat
+        background-size cover
+        background-position center
 
   @media (max-width: 480px)
     .comment-item-zan

@@ -39,6 +39,7 @@
     "vue-directive-touch": "^1.0.10",
     "vue-fancybox": "^1.0.3",
     "vue-lazyload": "^1.1.4",
+    "vue-social-share": "0.0.3",
     "vue-style-loader": "^3.0.3",
     "vue-swiper": "^0.5.0",
     "vue-touch": "^1.1.0",

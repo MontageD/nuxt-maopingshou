@@ -23,38 +23,54 @@
             <div class="intro">
               <!--<span class="content">web</span>-->
             </div>
+            <!--<div class="send" @click="send">-->
+              <!--{{send_text}}-->
+            <!--</div>-->
+          </div>
+
+
+        </div>
+
+
+        <div v-if="show_send">
+
+          <div class="major-options">
+            <ul class="major-menu">
+              <li v-for="(value,key) in menu">
+                <a :data="key" :class="value.active" @click="changeMenu">
+                  {{value.name}}
+                </a>
+              </li>
+            </ul>
+            <div class="major-content"></div>
+          </div>
+          <div v-if="show===0">
+            <Tag></Tag>
+          </div>
+
+          <div v-if="show===1">
+            <Articles></Articles>
+          </div>
+
+          <div v-if="show===2">
+            <User></User>
+          </div>
+
+        </div>
+
+
+        <div v-else>
+
+
+          <div class="major-options">
+            <div class="major-content">
+                <input type="text" />
+            </div>
           </div>
         </div>
-
-
-        <div class="major-options">
-          <ul class="major-menu">
-            <li v-for="(value,key) in menu">
-              <a :data="key" :class="value.active" @click="changeMenu">
-                {{value.name}}
-              </a>
-            </li>
-          </ul>
-          <div class="major-content"></div>
-        </div>
-        <div v-if="show===0">
-          <Tag></Tag>
-        </div>
-
-        <div v-if="show===1">
-          <Articles></Articles>
-        </div>
-
-        <div v-if="show===2">
-          <User></User>
-        </div>
-
-
       </div>
 
       <div class="minor-area aside">
-
-
         <section class="follow-section">
           <header>关注我们</header>
           <ul class="account-list">
@@ -122,7 +138,9 @@
           //          {name: '文章管理', active: ''},
           //          {name: '标签管理', active: ''}
         ],
-        show: 0
+        show: 0,
+        send_text: '发表新闻',
+        show_send: true
       }
     },
     beforeMount () {
@@ -144,6 +162,15 @@
       }
     },
     methods: {
+      send () {
+        if (this.send_text === '发表新闻') {
+          this.send_text = '取消操作'
+          this.show_send = false
+        } else {
+          this.send_text = '发表新闻'
+          this.show_send = true
+        }
+      },
       changeMenu (e) {
         let tag = parseInt(e.currentTarget.getAttribute('data'))
         let _this = this
@@ -166,7 +193,12 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
+  .send
+    background-color #007fff
+    color #fff
+    border-radius 3px
+    padding 8px
+    cursor pointer
 
   .profile-input
     input
@@ -291,7 +323,7 @@
     padding 2.7rem 4rem 7rem
 
   .minor-area
-    box-shadow 0 1px 2px 0 rgba(0, 0, 0, .05)
+    padding-top 1rem
     margin-left 1rem
     flex 0 0 auto
     margin-bottom 6rem

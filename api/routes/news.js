@@ -28,10 +28,30 @@ router.get('/focus', (req, res, next) => {
       ' left join w_theme as b' +
       ' on b.c_type = a.theme' +
       ' where a.img <> \'\' and  a.id >= (select floor(RAND() * (SELECT MAX(id) FROM `w_news`)))' +
-      ' order by a.id ' +
+      ' group by a.id ' +
       ' limit ' + param.start
     connection.query(sql, (err, result) => {
-      responseJSON(res, result)
+      let sql = 'select *  ' +
+        ' from w_news2 as a' +
+        ' left join w_theme as b' +
+        ' on b.c_type = a.theme' +
+        ' where a.img <> \'\' and  a.id >= (select floor(RAND() * (SELECT MAX(id) FROM `w_news2`)))' +
+        ' group by a.id ' +
+        ' limit ' + param.start
+      connection.query(sql, (err, res2) => {
+        res2.forEach((currentValue, index, arr) => {
+          let arrArr = currentValue.img.split('|')
+          currentValue.imgArr = []
+          arrArr.forEach((v, k) => {
+            currentValue.imgArr.push({
+              'img': v,
+              'len': 1 / arrArr.length
+            })
+          })
+          result.push(currentValue)
+        })
+        responseJSON(res, result)
+      })
     })
     connection.release()
   })
@@ -49,7 +69,27 @@ router.get('/hot', (req, res, next) => {
       ' order by a.like  ' +
       ' limit ' + param.start
     connection.query(sql, (err, result) => {
-      responseJSON(res, result)
+      let sql = 'select *  ' +
+        ' from w_news2 as a' +
+        ' left join w_theme as b' +
+        ' on b.c_type = a.theme' +
+        ' where a.img <> \'\' and  a.id >= (select floor(RAND() * (SELECT MAX(id) FROM `w_news2`)))' +
+        ' group by a.like ' +
+        ' limit ' + param.start
+      connection.query(sql, (err, res2) => {
+        res2.forEach((currentValue, index, arr) => {
+          let arrArr = currentValue.img.split('|')
+          currentValue.imgArr = []
+          arrArr.forEach((v, k) => {
+            currentValue.imgArr.push({
+              'img': v,
+              'len': 1 / arrArr.length
+            })
+          })
+          result.push(currentValue)
+        })
+        responseJSON(res, result)
+      })
     })
     connection.release()
   })
@@ -70,15 +110,28 @@ router.get('/zan', (req, res, next) => {
     })
   })
 })
-
+router.get('/zan2', (req, res, next) => {
+  pool.getConnection((err, connection) => {
+    let param = req.query
+    let sql = 'update w_news2 as t set t.like= ' + param.like + ' where t.id =' + param.id
+    connection.query(sql, (err, result) => {
+      let sql = 'select * from w_news2 where id=' + param.id
+      connection.query(sql, (err, res2) => {
+        // res2 = JSON.parse(JSON.stringify(res2))
+        responseJSON(res, res2)
+      })
+      connection.release()
+    })
+  })
+})
 // 打开评论列表根据文章id
 router.get('/comment', (req, res, next) => {
   pool.getConnection((err, connection) => {
     let param = req.query
-    let sql = 'select * from w_evaluation as a\n' +
-      'left join w_user as b ' +
-      'on b.id = a.id ' +
-      'where  a.comment_id =' + param.id
+    let sql = 'select * from w_evaluation as a ' +
+      ' left join w_user as b ' +
+      ' on b.id = a.userid ' +
+      ' where  a.comment_id =' + param.id
     connection.query(sql, (err, result) => {
       responseJSON(res, result)
     })
@@ -93,6 +146,30 @@ router.get('/commentNews', (req, res, next) => {
     let sql = 'select * from w_news as a left join w_theme as b on b.c_type = a.theme where a.id=' + param.id
     connection.query(sql, (err, result) => {
       responseJSON(res, result)
+    })
+    connection.release()
+  })
+})
+
+router.get('/commentNews2', (req, res, next) => {
+  let param = req.query
+  pool.getConnection((err, connection) => {
+    let sql = 'select * from w_news2 as a left join w_theme as b on b.c_type = a.theme where a.id=' + param.id
+    connection.query(sql, (err, result) => {
+      result = JSON.parse(JSON.stringify(result))
+      let rest = []
+      result.forEach((currentValue, index, arr) => {
+        let arrArr = currentValue.img.split('|')
+        currentValue.imgArr = []
+        arrArr.forEach((v, k) => {
+          currentValue.imgArr.push({
+            'img': v,
+            'len': 1 / arrArr.length
+          })
+        })
+        rest.push(currentValue)
+      })
+      responseJSON(res, rest)
     })
     connection.release()
   })

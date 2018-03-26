@@ -72,14 +72,14 @@
               <p>喜欢 <i class="view-like-num"></i></p>
             </div>
           </div>
-          <div class="view-like-right">
-            <div class="view-like-list">
-              <p class="share_list" @click="ask_friend">
-                <i class="material-icons">&#xE80D;</i>
-              </p>
-              <p>告诉朋友</p>
-            </div>
-          </div>
+          <!--<div class="view-like-right">-->
+            <!--<div class="view-like-list">-->
+              <!--<p class="share_list" @click="ask_friend">-->
+                <!--<i class="material-icons">&#xE80D;</i>-->
+              <!--</p>-->
+              <!--<p>评论</p>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
 
 
@@ -100,6 +100,9 @@
                 <img src="~assets/img/weixin_links.png"/>
               </a>
             </div>
+
+
+
           </div>
         </transition>
       </div>
@@ -142,6 +145,15 @@
       </div>
 
     </transition>
+
+
+
+
+
+
+
+
+
   </div>
 </template>
 <script>
@@ -152,6 +164,20 @@
   import BScroll from 'better-scroll'
 
   export default {
+    data () {
+      return {
+        info: {},
+        likeInfo: {},
+        backgroundUrl,
+        menu_show: true,
+        zanClassName: 'view-like-icon heart',
+        askF: 'none',
+        show: false,
+        showBottom: false
+      }
+    },
+    components: {
+    },
     created () {
       /// 推荐你喜欢的文章
       axios.get(`http://data.maopingshou.com/likeInfo?start=5`)
@@ -166,48 +192,6 @@
         })
     },
     mounted () {
-      //      console.log(this.$store.state.article.detailList[0])
-      //      let viewUl = document.getElementsByClassName('view-ul')[0]
-      //      let startX, startY
-      //      viewUl.addEventListener('touchstart', function (ev) {
-      //        startX = ev.touches[0].pageX
-      //        startY = ev.touches[0].pageY
-      //      }, false)
-      //      // 底部推荐新闻滑动
-      //      let _this = this
-      //      viewUl.addEventListener('touchend', function (ev) {
-      //        let endX, endY
-      //        endX = ev.changedTouches[0].pageX
-      //        endY = ev.changedTouches[0].pageY
-      //        let direction = window.utils.getSlide(startX, startY, endX, endY)
-      //        switch (direction) {
-      //          case 0:
-      //            // alert('没滑动')
-      //            break
-      //          case 1:
-      //            // alert('向上')
-      //            break
-      //          case 2:
-      //            // alert('向下')
-      //            break
-      //          case 3:
-      //            // alert('向左')
-      //            if (_this.$refs.view_ul.style.transform === '') {
-      //              _this.$refs.view_ul.style.transform = `translate(-5rem)`
-      //            } else {
-      //
-      //            }
-      //            break
-      //          case 4:
-      //            if (_this.$refs.view_ul.style.transform) {
-      //            } else {
-      //              //              _this.$refs.view_ul.style.transform = _this.$refs.view_ul.style.transform - 1 + 'rem'
-      //            }
-      //            // alert('向右')
-      //            break
-      //          default:
-      //        }
-      //      }, false)
       setTimeout(() => {
         const options = {
           scrollY: false, // 因为scrollY默认为true，其实可以省略
@@ -219,18 +203,6 @@
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
       }, 20)
-    },
-    data () {
-      return {
-        info: {},
-        likeInfo: {},
-        backgroundUrl,
-        menu_show: true,
-        zanClassName: 'view-like-icon heart',
-        askF: 'none',
-        show: false,
-        showBottom: false
-      }
     },
     computed: {
       ...mapGetters({
@@ -249,7 +221,7 @@
     },
     methods: {
       ask_friend () {
-        this.show = !this.show
+        //        this.show = !this.show
         //        if (!this.$refs.askF[0].style.left || this.$refs.askF[0].style.display === 'none') {
         //          this.askF = 'flex'
         //          this.$refs.askF[0].style.display = 'flex'
@@ -337,7 +309,8 @@
     border-top 1px solid #eeeeee
     border-bottom 1px solid #eeeeee
     display flex
-    align-content space-between
+    align-items center
+    justify-content center
     > div
       display flex
       justify-content center
@@ -357,9 +330,10 @@
       height 100%
 
     .view-like-left
-      border-right 1px solid #eeeeee
-      margin-right -1px
-      width 50%
+      display flex
+      align-items center
+      justify-content center
+      margin 0 auto
       height 100%
 
   .view-navigation

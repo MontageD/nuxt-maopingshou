@@ -39,8 +39,7 @@
 
         <div v-else-if="menuSelected===4">
           <!--子元素响应时间-->
-          <Comment :message="prosId" v-on:increment="changeBack" v-on:alert="alert"></Comment>
-
+          <Comment :message="prosId" :type="type" v-on:increment="changeBack" v-on:alert="alert"></Comment>
         </div>
 
 
@@ -158,6 +157,7 @@
         sideList: {},
         recommend: {},
         title: 'title',
+        type: 1,
         userimg: {
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
         },
@@ -178,7 +178,8 @@
       }
     },
     methods: {
-      changeTatol (id) {
+      changeTatol (id, type) {
+        this.type = type
         this.prosId = id
         this.menuSelected = 4
       },
@@ -186,7 +187,6 @@
         this.Pshow = false
       },
       alert (id) {
-        console.log(id)
         if (id === 1) {
           this.Pshow = true
         } else {
@@ -228,6 +228,7 @@
     mounted () {
       // 初始化日期
       this.show_time_text = this.day[new Date().getDay()]
+      console.log(this.show_time_text)
       axios.get(`http://data.maopingshou.com/mainSide?start=5`)
         .then((res) => {
           this.sideList = res.data

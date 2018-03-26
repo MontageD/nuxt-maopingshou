@@ -12,65 +12,78 @@ export const actions = {
     const userAgent = process.server ? req.headers['user-agent'] : navigator.userAgent
     const {isMobile, isIE, isSafari, isEdge, isFF, isBB, isMaxthon, isIos} = UaParse(userAgent)
     const mustJpg = (isIos || isFF || isMaxthon || isSafari || isBB || isIE || isEdge)
-    store.commit('option/SET_IMG_EXT', mustJpg ? 'jpeg' : 'webp')
-    store.commit('option/SET_MOBILE_LAYOUT', isMobile)
-    store.commit('option/SET_USER_AGENT', userAgent)
     let start = {
-      'num': 10
+      'num': 20
     }
     let startheme = {
       'num': 100
     }
-    const initAppData = [
-      //   // 配置数据
-      store.dispatch('loadListInfo', start),
-      // store.dispatch('loadFocusInfo', start),
-      // store.dispatch('loadHotInfo', start),
-      store.dispatch('loadTag'),
-      store.dispatch('loadListTheme', startheme)
-      //   store.dispatch('loadGlobalOption'),
-      //   // 内容数据
-      //   store.dispatch('loadTagList'),
-      //   store.dispatch('loadCategories')
-    ]
-    // // 如果不是移动端的话，则请求热门文章
+    let initAppData = []
     if (!isMobile) {
-      // console.log('这不是移动端....')
+      initAppData = [
+        //   // 配置数据
+        store.dispatch('loadListInfo', start),
+        // store.dispatch('loadFocusInfo', start),
+        // store.dispatch('loadHotInfo', start),
+        store.dispatch('loadTag'),
+        store.dispatch('loadListTheme', startheme)
+        //   store.dispatch('loadGlobalOption'),
+        //   // 内容数据
+        //   store.dispatch('loadTagList'),
+        //   store.dispatch('loadCategories')
+      ]
+    } else {
+      initAppData = [
+        //   // 配置数据
+        store.dispatch('loadListInfo', start),
+        store.dispatch('loadListTheme', startheme)
+        // store.dispatch('loadFocusInfo', start),
+        // store.dispatch('loadHotInfo', start),
+      ]
     }
+    store.commit('option/SET_IMG_EXT', mustJpg ? 'jpeg' : 'webp')
+    store.commit('option/SET_MOBILE_LAYOUT', isMobile)
+    store.commit('option/SET_USER_AGENT', userAgent)
+
+    // // 如果不是移动端的话，则请求热门文章
     return Promise.all(initAppData)
   },
   // 加载主页的推荐新闻数据
-  loadListInfo ({commit}, params = {}) {
+  async loadListInfo ({commit}, params = {}) {
     return Service.get(`/api/list?start=${params.num}`)
       .then(res => {
         res.data.forEach((currentValue, index, array) => {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
           res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-          res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+          res.data[index].content = res.data[index].content === null ? res.data[index].content : res.data[index].content.replace(/<.*?>/ig, '')
         })
         commit('option/SET_LISTINFO', res.data)
+        return Promise.resolve(res.data)
+      }, err => {
+        commit('article/SET_LISTINFO', err)
+        return Promise.reject(err)
       })
   },
   // 加载主页的关注新闻数据
-  loadFocusInfo ({commit}, params = {}) {
+  async loadFocusInfo ({commit}, params = {}) {
     return Service.get(`/news/focus?start=${params.num}`)
       .then(res => {
         res.data.forEach((currentValue, index, array) => {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
           res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-          res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+          res.data[index].content = res.data[index].content === null ? res.data[index].content : res.data[index].content.replace(/<.*?>/ig, '')
         })
         commit('option/SET_FOCUSINFO', res.data)
       })
   },
   // 加载主页的热门新闻数据
-  loadHotInfo ({commit}, params = {}) {
+  async loadHotInfo ({commit}, params = {}) {
     return Service.get(`/news/hot?start=${params.num}`)
       .then(res => {
         res.data.forEach((currentValue, index, array) => {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
           res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
-          res.data[index].content = res.data[index].content.replace(/<.*?>/ig, '')
+          res.data[index].content = res.data[index].content === null ? res.data[index].content : res.data[index].content.replace(/<.*?>/ig, '')
         })
         commit('option/SET_HOTINFO', res.data)
       })
@@ -84,19 +97,19 @@ export const actions = {
   },
   //  加载主页标签数据
   loadTag ({commit}) {
-    return Service.get(`http://data.maopingshou.com/oftenTag?num=13`)
+    return Service.get(`/api/oftenTag?num=13`)
       .then(res => {
         let tagList = {}
         for (let key in res.data) {
           tagList[key] = {}
-          tagList[key].number = res.data[key].type
+          tagList[key].number = res.data[key].types
           tagList[key].id = key
           tagList[key].ids = res.data[key].id
         }
         commit('option/SET_CELLS', tagList)
       })
   },
-  loadArticleDetail ({commit}, params = {}) {
+  async loadArticleDetail ({commit}, params = {}) {
     return Service.get(`/api/recommend?uid= ${params.detail_id} `)
       .then(res => {
         res.data[0].img = 'http://data.maopingshou.com/images/' + res.data[0].img
@@ -112,8 +125,15 @@ export const actions = {
       })
   },
   // 加载主题信息
-  loadThemeDetail ({commit}, params = {}) {
+  async loadThemeDetail ({commit}, params = {}) {
     return Service.get(`/api/theme?uid= ${params.theme_id} `)
+      .then(res => {
+        commit('option/SET_THEMELIST', res.data[0])
+        return Promise.resolve(res.data)
+      })
+  },
+  async loadThemeDetail2 ({commit}, params = {}) {
+    return Service.get(`/api/theme2?uid= ${params.theme_id}&&limit=${params.limit} `)
       .then(res => {
         commit('option/SET_THEMELIST', res.data[0])
         return Promise.resolve(res.data)
@@ -131,11 +151,11 @@ export const actions = {
   loadUserData ({commit}, userData) {
     commit('option/SET_USERDATA', userData)
   },
-  logining ({commit}, data) {
+  async logining ({commit}, data) {
     commit('option/SET_USER', data)
   },
   // 登陆 //退出
-  login ({commit}, {username, password}) {
+  async login ({commit}, {username, password}) {
     try {
       axios.get(`/api/login?username=${username}&&password=${password}`)
         .then((res) => {

@@ -43,7 +43,8 @@ module.exports = {
     {src: '~plugins/input_filter.js', ssr: false},
     {src: '~plugins/ga.js', ssr: false},
     {src: '~plugins/cookie.js', ssr: false},
-    {src: '~plugins/autosize.js', ssr: false}
+    {src: '~plugins/autosize.js', ssr: false},
+    {src: '~plugins/share.js', ssc: true}
   ],
   dev: isProdMode,
   env: {

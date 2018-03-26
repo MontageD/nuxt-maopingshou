@@ -16,15 +16,20 @@
              :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+ themelist.c_img+')'}"></div>
         <div class="header-title">{{themelist.c_title}}</div>
         <div class="header-content">{{themelist.c_content}}</div>
-        <a href='javaScript:void(0);' class="header-focus" @click="add_theme">+</a>
-        <a href='javaScript:void(0);' class="header-focus" style="display: none">✓</a>
+        <div v-if="userList===1" v-show="addshow">
+          <button class="header-focus" @click="add_theme">✓</button>
+        </div>
+        <div v-if="userList===0" v-show="addshow">
+          <button class="header-selected" @click="add_theme">+</button>
+
+        </div>
+        <!--<a href='javaScript:void(0);' class="header-focus" style="display: none">✓</a>-->
       </div>
     </header>
 
 
     <main class="theme-main">
       <nav class="theme-nav">
-
         <div @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
           <a href="javaScript:void(0);">{{ item.name }}</a>
           <div class="bottom-item"></div>
@@ -41,34 +46,39 @@
         <!--</div>-->
       </nav>
 
+      <div class="theme-wrapper" ref="foodsWrapper">
+        <div class="">
+          <ul class="theme-ul">
+            <li class="theme-li" v-for="(value,key) in themelist.aList">
+              <div class="theme-li-content">{{value.title}}</div>
+              <div class="theme-li-img">
 
-      <div class="theme-wrapper" ref="wrapper">
-        <div class="theme-ul">
-          <div class="theme-li" v-for="(value,key) in themeList">
-            <div class="theme-li-content">{{value.title}}</div>
-            <div class="theme-li-img">
-
-              <img v-if="value.img" :src="`http://data.maopingshou.com/images/${value.img}`" @click="clickImg($event)"/>
-
-
-            </div>
-            <div class="theme-li-bottom">
+                <div v-if="themelist.c_news===1">
+                  <img v-if="value.img" :src="`http://data.maopingshou.com/images/${value.img}`"
+                       @click="clickImg($event)"/>
+                </div>
+                <div v-if="themelist.c_news===2">
+                  <img v-if="value.img" :src="`http://data.maopingshou.com/images/news/${value.img}`"
+                       @click="clickImg($event)"/>
+                </div>
+              </div>
+              <div class="theme-li-bottom">
               <span class="theme-zan"
                     :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/like_1.png)'}">
                   <b>{{value.zan}}</b>
               </span>
-              <span class="theme-comment"
-                    :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/share_message.png)'}">
-                <b>1</b>
+                <span class="theme-comment"
+                      :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/share_message.png)'}">
+                <b></b>
               </span>
-              <!--<span class="theme-collection"></span>-->
+                <!--<span class="theme-collection"></span>-->
 
-              <span class="theme-share" style="float: right"
-                    :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/icon_ty-share.png)'}"></span>
-            </div>
-          </div>
+                <span class="theme-share" style="float: right"
+                      :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/icon_ty-share.png)'}"></span>
+              </div>
+            </li>
+          </ul>
         </div>
-
         <div class="showText" v-show="showText">
           <p>话题暂时还有没有信息</p>
           <p> (°ー°〃)</p>
@@ -76,6 +86,10 @@
       </div>
 
 
+      <div class="entry-loading" @click="loadingData" v-show="!showText">
+        <img src="~assets/img/Rolling.gif" v-show="showLoading">
+        <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
+      </div>
     </main>
   </div>
 </template>
@@ -97,28 +111,63 @@
     data () {
       return {
         menu: [
-          {name: '精选', active: 'nav-item active', model: 2}
-          //          {name: '广场', active: 'nav-item', model: 3}
+          {name: '精选', active: 'nav-item', model: 2}
+          //          {name: '广场', active: 'nav-item active', model: 3}
         ],
         themeList: [],
         selectNUm: 10,
         showImg: false,
         imgSrc: '',
-        showText: false
+        showText: false,
+        disabled: true,
+        headerClass: '',
+        userList: 0,
+        addshow: false,
+        pulldown: true,
+        showLoading: false,
+        goods: [],
+        start: {
+          'num': 1
+        }
       }
+    },
+    created () {
     },
     computed: mapGetters({
       themelist: 'option/getThemelist'
     }),
     methods: {
+      loadingData () {
+        this.showLoading = !this.showLoading
+        this.start.num = this.start.num + 1
+        let obj = {
+          'limit': this.start.num * 10,
+          'theme_id': this.themelist.uid
+        }
+        let _this = this
+        this.$store.dispatch('loadThemeDetail2', obj).then(response => {
+          _this.showLoading = !_this.showLoading
+        })
+      },
       add_theme (e) {
-        console.log()
-        if (e.currentTarget.getAttribute('class') === 'header-focus') {
-          console.log('添加主题')
-          e.currentTarget.setAttribute('class', 'header-selected')
-        } else {
-          console.log('删除主题')
+        let _this = this
+        let id = this.$cookie.get('uid')
+        this.disabled = false
+        if (e.currentTarget.getAttribute('class') === 'header-selected') {
+          axios.get(`/theme/add?id=${id}&theme=${this.themelist.uid}`)
+            .then((res) => {
+              _this.disabled = true
+            })
           e.currentTarget.setAttribute('class', 'header-focus')
+          e.currentTarget.innerText = '✓'
+        } else {
+          axios.get(`/theme/remove?id=${id}&theme=${this.themelist.uid}`)
+            .then((res) => {
+              this.disabled = true
+              //              _e.currentTarget.innerText = '✓'
+            })
+          e.currentTarget.setAttribute('class', 'header-selected')
+          e.currentTarget.innerText = '+'
         }
       },
       getIndex (index) {
@@ -134,7 +183,6 @@
         })
       },
       clickImg (e) {
-        console.log('点击图片')
         this.showImg = true
         // 获取当前图片地址
         this.imgSrc = e.currentTarget.src
@@ -144,31 +192,50 @@
       }
     },
     mounted () {
-      setTimeout(() => {
-        const options = {
-          scrollY: true, // 因为scrollY默认为true，其实可以省略
-          scrollX: false,
-          click: true,
-          taps: true,
-          bounce: true,
-          momentum: true
-        }
-        this.scroll = new BScroll(this.$refs.wrapper, options)
-      }, 20)
+      console.log(this.themelist)
+      if (this.$cookie.get('uid')) {
+        axios.get(`/api/getIdData?id=${this.$cookie.get('uid')}`)
+          .then((res) => {
+            let arr = res.data[0].theme.split('|')
+            let pan = 0
+            arr.forEach((value, key) => {
+              if (parseInt(value) === parseInt(this.themelist.uid)) {
+                pan = 1
+              }
+            })
+            if (pan === 1) {
+              this.userList = 1
+            } else {
+              this.userList = 0
+            }
+            this.addshow = true
+          })
+      }
+      //      setTimeout(() => {
+      //        const options = {
+      //          scrollY: true, // 因为scrollY默认为true，其实可以省略
+      //          scrollX: false,
+      //          click: true,
+      //          taps: true,
+      //          bounce: true,
+      //          momentum: true
+      //        }
+      //        this.scroll = new BScroll(this.$refs.wrapper, options)
+      //      }, 20)
 
       // 请求数据接受详细的新闻内容
-      axios.get(`/theme/themeList?id=${this.$route.params.theme_id}&num=${this.selectNUm}`)
-        .then((res) => {
-          this.themeList = []
-          res.data.forEach((currentValue, index, array) => {
-            this.themeList[index] = Object.assign({}, res.data[index])
-          })
-          // 判断数据是否为空
-          if (this.themeList[0].content === null) {
-            this.themeList = []
-            this.showText = !this.showText
-          }
-        })
+      //      axios.get(`/theme/themeList?id=${this.$route.params.theme_id}&num=${this.selectNUm}`)
+      //        .then((res) => {
+      //          this.themeList = []
+      //          res.data.forEach((currentValue, index, array) => {
+      //            this.themeList[index] = Object.assign({}, res.data[index])
+      //          })
+      //          // 判断数据是否为空
+      //          if (this.themeList[0].content === null) {
+      //            this.themeList = []
+      //            this.showText = !this.showText
+      //          }
+      //        })
     },
     components: {
       pcHeader,
@@ -229,7 +296,7 @@
     background-color transparent
 
     .theme-nav
-      height 2rem
+      height 2.5rem
       display flex
       justify-content center
       border-bottom 1px solid rgba(0, 64, 128, .1)
@@ -245,6 +312,7 @@
         position: relative
         cursor: pointer
         justify-content center
+      a
         font-size 14px
       .active
         color #007fff
@@ -279,7 +347,7 @@
     position relative
     display block
     margin 1rem auto
-    max-width 960px
+    max-width 640px
     min-height 15rem
     .top-header
       background-repeat no-repeat
@@ -293,6 +361,7 @@
     .bottom-header
       background-color #fff
       width 100%
+      min-height 9rem
       position relative
       .header-selected
         font-weight 600
@@ -309,7 +378,7 @@
         margin 0 auto
         margin-bottom 5rem
         color #000
-        box-shadow  0 0 5px rgba(178, 186, 194, .8)
+        box-shadow 0 0 5px rgba(178, 186, 194, .8)
         outline none
       .header-focus
         font-weight 600
@@ -357,5 +426,21 @@
         transform translate(-50%, 0)
         box-shadow 0 1px 40px 4px rgba(0, 64, 128, .2)
 
+  .entry-loading
+    padding 1rem
+    width 100%
+    min-height 2rem
+    box-shadow 0 1px 2px 0 rgba(0, 0, 0, .05)
+    background-color #fff
+    display flex
+    align-items center
+    text-align center
+    font-size 1rem
+    justify-content center
+    font-weight 800
+    cursor pointer
+    img
+      height 2rem
+      width 2rem
 
 </style>

@@ -109,23 +109,19 @@
     margin-top 1rem
     margin-bottom 1rem
     min-height 3rem
-    display flex
-    justify-content space-around
+    input
+      width 100%
+      display block
+      background-color #fff
+      border-radius 5px
+      font-size 16px
+      padding 1rem
+      outline none
     .user-name
-      flex 1
-      background-color #fff
-      margin-right .5rem
-      outline none
-      border-radius 5px
-      padding-left 10px
-      font-size 16px
+      margin-bottom .5rem
     .user-email
-      flex 1
-      background-color #fff
-      outline none
-      border-radius 5px
-      padding-left 10px
-      font-size 16px
+      color #000
+
 
   .div-container
     max-width 800px
@@ -133,6 +129,7 @@
     margin 0 auto
     margin-top 1rem
     min-height 10rem
+    padding 0 1rem
 
   .div-trearea
     height 8rem

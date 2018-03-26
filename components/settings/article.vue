@@ -59,7 +59,7 @@
         let el = e.currentTarget
         let parent = el.parentNode
         let _this = this
-        let tag = parseInt(e.currentTarget.getAttribute('data')) + 1
+        // let tag = parseInt(e.currentTarget.getAttribute('data')) + 1
         let id = parseInt(e.currentTarget.getAttribute('data-id'))
         console.log(id)
         parent.className = el.className + ' miss'
@@ -67,7 +67,7 @@
           let arr = ''
           let cur = (_this.$store.state.option.userData.theme).split('|')
           for (let i = 0; i < cur.length; i++) {
-            if (parseInt(cur[i]) !== tag) {
+            if (parseInt(cur[i]) !== id) {
               arr = arr + cur[i] + '|'
             }
           }
@@ -80,7 +80,7 @@
           obj.theme = arr
 
           for (let i = 0; i < obj.aList.length; i++) {
-            if (obj.aList[i].id === id) {
+            if (parseInt(obj.aList[i].uid) === parseInt(id)) {
               obj.aList[i] = []
             }
           }
@@ -92,6 +92,7 @@
             }
           }
           obj.aList = arrl
+          console.log(arr)
           _this.$store.commit('option/SET_USERDATA', obj)
 
           console.log(_this.$store.state.option.userData)
@@ -99,7 +100,6 @@
 
           axios.get(`/deal/updateTheme?theme=${arr}&id=${_this.$store.state.option.userData.id}`)
             .then((res) => {
-              console.log(res.data)
             })
         }, 500)
       }
