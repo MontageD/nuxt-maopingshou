@@ -12,8 +12,7 @@
 
 ## Mobile
 
-![](http://oj711uhrd.bkt.clouddn.com/6677.png)
-
+![](http://oj711uhrd.bkt.clouddn.com/rpg.png)
 
 ## Todos 更新记录
 - [x] 首页布局 
