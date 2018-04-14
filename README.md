@@ -53,6 +53,10 @@ $ npm start
 # nuxt 部署到pm2 
 $ pm2 start node_modules/nuxt/bin/nuxt-start -i max
 
+
+# 网站采用https协议,部署配置放在 nginx.conf.md
+# 环境为centos6.8 nginx 反向代理
+  
 ```
 
 如果我的项目对您有所帮助，您可以点右上角 "Star" 支持一下 感谢～～！

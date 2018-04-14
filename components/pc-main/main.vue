@@ -228,7 +228,6 @@
     mounted () {
       // 初始化日期
       this.show_time_text = this.day[new Date().getDay()]
-      console.log(this.show_time_text)
       axios.get(`http://data.maopingshou.com/mainSide?start=5`)
         .then((res) => {
           this.sideList = res.data

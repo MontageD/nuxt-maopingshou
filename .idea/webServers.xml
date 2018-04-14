@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="37bfddc5-50f9-440a-a7c1-f3d78a12461e" name="39.108.195.69" url="http://39.108.195.69">
-        <fileTransfer host="39.108.195.69" port="22" rootFolder="/home/chat" accessType="SFTP">
+      <webServer id="37bfddc5-50f9-440a-a7c1-f3d78a12461e" name="39.108.195.69" url="http://120.78.174.192">
+        <fileTransfer host="120.78.174.192" port="22" rootFolder="/home/chat" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
@@ -19,7 +19,7 @@
         </fileTransfer>
       </webServer>
       <webServer id="28e6d8c6-8180-4cd5-a826-69acb6310afe" name="120.78.174.192" url="http://120.78.174.192">
-        <fileTransfer host="120.78.174.192" port="22" rootFolder="/back" accessType="SFTP">
+        <fileTransfer host="120.78.174.192" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
