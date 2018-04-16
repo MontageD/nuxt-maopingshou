@@ -152,9 +152,9 @@
               </div>
             </div>
             <div v-if="item.img" class="lazy thumb thumb loaded"
-                 :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}">
+                 :style="{'background-image': 'url(https://data.maopingshou.com/images/'+ item.img+')'}">
             </div>
-            <!--<div v-else class="lazy thumb thumb loaded default_img" :style="{'background-image': 'url(http://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">-->
+            <!--<div v-else class="lazy thumb thumb loaded default_img" :style="{'background-image': 'url(https://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">-->
             <!--</div>-->
           </div>
           <!--</nuxt-link>-->
@@ -194,7 +194,7 @@
           let num = 10
           let _this = this
           this.showLoading = !this.showLoading
-          axios.get(`http://data.maopingshou.com/news?type=${name}&num=${num}`)
+          axios.get(`https://data.maopingshou.com/news?type=${name}&num=${num}`)
             .then(function (res) {
               res.data.forEach((currentValue, index, array) => {
                 res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'

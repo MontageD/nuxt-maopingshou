@@ -3,7 +3,7 @@
     <div ref="wrapper" class="list-wrapper">
       <div class="setting-list"  :style="'width:'+ themeLength * 5.8 +'rem;'">
         <div class="setting-list-li" v-for="(value,key) in theme" v-if="value.c_show===1"
-             :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+value.c_img+')'}">
+             :style="{'background-image': 'url(https://data.maopingshou.com/images/theme/'+value.c_img+')'}">
           <router-link :to="`/theme/${value.c_type}`" @click.native="change" class="item">
             <p class="list-title">
               {{value.c_title}}

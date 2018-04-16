@@ -19,7 +19,7 @@
                   <div class="meta-list">
                     <div class="item theme">
                       <router-link :to="`/theme/${item.c_type}`"
-                                   :style="{'background-image':'url(http://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                                   :style="{'background-image':'url(https://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
                     </div>
                     <div class="item ctv">
                       <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -41,10 +41,10 @@
                 </router-link>
               </div>
               <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-                <i :style="{'background-image': 'url(http://data.maopingshou.com/images/'+ item.img+')'}"></i>
+                <i :style="{'background-image': 'url(https://data.maopingshou.com/images/'+ item.img+')'}"></i>
               </router-link>
               <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
-                           :style="{'background-image': 'url(http://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
+                           :style="{'background-image': 'url(https://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
               </router-link>
             </div>
           </li>
@@ -61,7 +61,7 @@
                   <div class="meta-list">
                     <div class="item theme">
                       <router-link :to="`/theme/${item.c_type}`"
-                                   :style="{'background-image':'url(http://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                                   :style="{'background-image':'url(https://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
                     </div>
                     <div class="item ctv">
                       <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -71,7 +71,7 @@
                   </div>
                 </div>
 
-                <a :href="`http://${item.href}`" class="content2" target="_blank" v-bind:data-id="item.id">
+                <a :href="`https://${item.href}`" class="content2" target="_blank" v-bind:data-id="item.id">
                   {{ item.title }}
                 </a>
               </div>
@@ -81,12 +81,12 @@
                  v-for="(v,k) in item.imgArr"
                  :style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">
                 <div class="detail_img"
-                     :style="{'background-image': 'url(http://data.maopingshou.com/images/news/'+v.img+')'}"></div>
+                     :style="{'background-image': 'url(https://data.maopingshou.com/images/news/'+v.img+')'}"></div>
               </a>
               <a :href="`${item.href}`" v-if="item.imgArr.length==1" class="lazy loaded2"
                  v-for="(v,k) in item.imgArr"
                  style="max-width: 60%;height: 8rem;">
-                <img :src="`http://data.maopingshou.com/images/news/${v.img}`"/>
+                <img :src="`https://data.maopingshou.com/images/news/${v.img}`"/>
               </a>
             </div>
           </li>
@@ -132,12 +132,12 @@
                 {{value.comment_time.substring(0, 10)}} {{value.comment_time.substring(11, 16)}}</p>
             </div>
             <!--<div class="comment-item-zan" v-if="value.avator!==null">-->
-            <!--<span :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/'+value.avator+'.png)'}">-->
+            <!--<span :style="{'background-image': 'url(https://data.maopingshou.com/images/extra/'+value.avator+'.png)'}">-->
             <!--</span>-->
             <!--<b>{{value.comment_zan}}</b>-->
             <!--</div>-->
             <div class="comment-item-zan">
-              <span :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/like_1.png)'}">
+              <span :style="{'background-image': 'url(https://data.maopingshou.com/images/extra/like_1.png)'}">
               </span>
               <b>{{value.comment_zan}}</b>
             </div>

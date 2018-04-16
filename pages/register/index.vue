@@ -63,7 +63,7 @@
         window.utils.filter.prototype.required(email, '邮箱不能为空', this)
 
         let _this = this
-        axios.get('http://data.maopingshou.com/userPost?username=' + username + '&password=' + password + '&email=' + email)
+        axios.get('https://data.maopingshou.com/userPost?username=' + username + '&password=' + password + '&email=' + email)
           .then(function (response) {
             if (response.status === 200) {
               let message = '注册成功'
@@ -80,7 +80,7 @@
           })
 
         setTimeout(function () {
-          axios.get('http://data.maopingshou.com/loginState?username=' + username + '&password=' + password)
+          axios.get('https://data.maopingshou.com/loginState?username=' + username + '&password=' + password)
             .then(function (res) {
               if (res.data.length > 0) {
                 let message = '登陆成功'
@@ -95,7 +95,7 @@
                 _this.$store.dispatch('loadLoginState', state)
                 _this.$store.dispatch('loadUsername', username)
                 _this.$store.dispatch('loadUserData', res.data[0])
-                _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
+                _this.$store.dispatch('loadAvator', 'https://data.maopingshou.com/images/extra/assistance.png')
                 // console.log('登陆状态：' + _this.$store.state.option.loginState)
                 _this.$router.push('/')
               }

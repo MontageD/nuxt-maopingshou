@@ -46,7 +46,7 @@
             <span class="comment-source">{{s.types}}</span>
           </div>
           <div class="comment-title">
-            <i :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + s.img + ')' }"></i>
+            <i :style="{ 'background-image': 'url(https://data.maopingshou.com/images/' + s.img + ')' }"></i>
             <span class="comment-titleName">{{s.author}}</span>
           </div>
           <div class="comment-tit">{{s.title}}</div>
@@ -101,7 +101,7 @@
         let num = 10
         let _this = this
         _this.showLoading = !_this.showLoading
-        axios.get(`http://data.maopingshou.com/getNews?title=${userText}&num=${num}`)
+        axios.get(`https://data.maopingshou.com/getNews?title=${userText}&num=${num}`)
           .then(function (res) {
             setTimeout(() => {
               _this.showLoading = !_this.showLoading

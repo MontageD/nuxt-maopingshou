@@ -49,7 +49,7 @@
         let email = this.email
         let advice = this.advice
         let _this = this
-        axios.get('http://data.maopingshou.com/postAdvice?username=' + username + '&advice=' + advice + '&email=' + email)
+        axios.get('https://data.maopingshou.com/postAdvice?username=' + username + '&advice=' + advice + '&email=' + email)
           .then(function (response) {
             if (response.status === 200) {
               let message = '提交建议成功,感谢你的支持！'

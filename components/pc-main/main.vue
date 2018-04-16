@@ -45,7 +45,7 @@
 
       </div>
 
-      <aside class="index-aside aside">
+      <aside class="index-aside aside" v-bind:style="asideStyle">
         <section>
 
         </section>
@@ -73,7 +73,7 @@
               <router-link :to="`/detail/${side.id}`" class="link">
                 <div
                   class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(http://data.maopingshou.com/images/'+ side.img+') '}"></div>
+                  :style="{backgroundImage: 'url(https://data.maopingshou.com/images/'+ side.img+') '}"></div>
                 <!--<div class="lazy avatar avatar loaded">-->
 
                 <!--</div>-->
@@ -87,7 +87,7 @@
         </section>
 
 
-        <section class="follow-section">
+        <section class="follow-section"  >
           <header>关注我们</header>
           <ul class="account-list">
             <li class="item weibo">
@@ -117,6 +117,35 @@
 
 
       </aside>
+
+
+      <div class="bottom-record">
+
+        <!--<span>关注我们</span>-->
+        <!--<ul class="account-list">-->
+        <!--<li class="item weibo">-->
+        <!--<a>-->
+        <!--<img src="~assets/img/bottom_weibo.png" alt="微博" class="icon">-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li class="item wechat">-->
+        <!--<a>-->
+        <!--<img src="~assets/img/bottom_weixin.png" alt="微信" class="icon">-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <ul class="more-list">
+          <li class="item">
+            <a target="_blank">关于</a>
+            <a target="_blank">友情链接</a>
+          </li>
+          <li class="item"><a target="_blank">粤ICP备15044136号-2</a>
+          </li>
+        </ul>
+
+
+      </div>
+
     </div>
 
     <Alert v-show="Pshow" v-on:changePop="changePop"></Alert>
@@ -162,7 +191,7 @@
           backgroundImage: 'url(https://avatars.githubusercontent.com/u/19252719?v=3)'
         },
         tagList: {},
-        everyImg: 'http://data.maopingshou.com/images/extra/every_1.jpg',
+        everyImg: 'https://data.maopingshou.com/images/extra/every_1.jpg',
         pageNum: 10,
         prosId: 0,
         show_time_text: '',
@@ -174,7 +203,9 @@
           '注意，今天就是星期五了',
           '假期你好，星期六',
           '很好，下周你好，星期日'],
-        Pshow: false
+        Pshow: false,
+        asideStyle: {
+        }
       }
     },
     methods: {
@@ -228,10 +259,21 @@
     mounted () {
       // 初始化日期
       this.show_time_text = this.day[new Date().getDay()]
-      axios.get(`http://data.maopingshou.com/mainSide?start=5`)
+      axios.get(`https://data.maopingshou.com/mainSide?start=5`)
         .then((res) => {
           this.sideList = res.data
         })
+
+      const that = this
+      window.onresize = () => {
+        if (parseInt(document.body.clientWidth) > 910) {
+          console.log('出现侧边栏')
+          that.asideStyle = Object.assign({},{
+            right: parseInt(document.body.clientWidth) - 480 - 480 + 'px'
+          })
+          console.log(parseInt(document.body.clientWidth) - 480 - 480)
+        }
+      }
     },
     components: {
       Search,
@@ -247,6 +289,18 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .bottom-record
+    display block
+    .more-list
+      display block
+      padding-left 1rem
+      li
+        display block
+        margin-bottom 1rem;
+        a
+          color #000
+          font-size 1rem
+
   .show-time
     width 100%
     height 3rem
@@ -456,10 +510,11 @@
   /*右侧边栏*/
   .index-aside
     width: 15rem
-    position: absolute
-    top: 0
-    right: 0
+    position: fixed  !important
+    top: 5rem  !important
+    left: 50%
     z-index: 1
+    transform translate(100%,0)
 
   .aside
     position: absolute

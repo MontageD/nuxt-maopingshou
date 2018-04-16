@@ -156,7 +156,7 @@
       //            _this.$store.dispatch('loadUserData', res.data[0])
       //            if (res.data[0].avator === null) {
       //              //  默认头像
-      //              _this.$store.dispatch('loadAvator', 'http://data.maopingshou.com/images/extra/assistance.png')
+      //              _this.$store.dispatch('loadAvator', 'https://data.maopingshou.com/images/extra/assistance.png')
       //            } else {
       //              _this.$store.dispatch('loadAvator', res.data[0].avator)
       //            }

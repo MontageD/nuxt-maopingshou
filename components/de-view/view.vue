@@ -67,7 +67,7 @@
           <div class="view-like-left">
             <div class="view-like-list">
               <p><i v-bind:class="zanClassName" ref="zan" @click='zan'
-                    :style="{ 'background-image': 'url(http://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>
+                    :style="{ 'background-image': 'url(https://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>
               </p>
               <p>喜欢 <i class="view-like-num"></i></p>
             </div>
@@ -120,7 +120,7 @@
             <div class="view-comm-li" v-for="like in likeInfo">
               <router-link :to="{path: '/detail/' + like.id}">
                 <div class="view-comm-ul-img" @click='detail_link'
-                     :style="{ 'background-image': 'url(http://data.maopingshou.com/images/' + like.img + ')' }">
+                     :style="{ 'background-image': 'url(https://data.maopingshou.com/images/' + like.img + ')' }">
                 </div>
                 <div class="view-comm-content">
               <span class="view-comm-content-detail after-in">
@@ -180,7 +180,7 @@
     },
     created () {
       /// 推荐你喜欢的文章
-      axios.get(`http://data.maopingshou.com/likeInfo?start=5`)
+      axios.get(`https://data.maopingshou.com/likeInfo?start=5`)
         .then((res) => {
           res.data.forEach((currentValue, index, array) => {
             res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
@@ -239,7 +239,7 @@
           // let _this = this
           let like = this.info[0].like
           let id = this.info[0].id
-          axios.get(`http://data.maopingshou.com/zanLike?like=${like}&id=${id}`)
+          axios.get(`https://data.maopingshou.com/zanLike?like=${like}&id=${id}`)
             .then(function (res) {
             })
         } else {
