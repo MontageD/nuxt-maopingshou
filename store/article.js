@@ -12,7 +12,7 @@ export const state = () => {
 }
 
 export const getters = {
-  getDetailList: state => state.detailList
+  getDetailList: (state) => state.detailList
 }
 
 export const mutations = {

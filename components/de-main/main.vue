@@ -6,8 +6,8 @@
   </div>
 </template>
 <script>
-  import DeView from '~/components/de-view/view'
-  import Side from '~/components/de-side/side'
+  import DeView from '~/components/de-main/de-view/view'
+  import Side from '~/components/de-main/de-side/side'
 
   export default {
     created () {

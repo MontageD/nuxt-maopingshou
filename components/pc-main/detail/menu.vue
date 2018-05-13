@@ -31,7 +31,7 @@
     data () {
       return {
         menu: [
-          {name: '关注', active: 'nav-item ', model: 1},
+          //          {name: '关注', active: 'nav-item ', model: 1},
           {name: '推荐', active: 'nav-item active', model: 2},
           {name: '热门', active: 'nav-item', model: 3}
         ],

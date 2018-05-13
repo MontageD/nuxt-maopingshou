@@ -9,7 +9,7 @@
           <header class="list-header">
             <nav class="list-nav">
               <ul class="nav-list left">
-                <li @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
+                <li @click="getIndex(index)"  :class="item.active" v-for="(item,index) in menu">
                   <a href="javaScript:void(0);">{{ item.name }}</a>
                   <div class="bottom-item"></div>
                 </li>
@@ -66,25 +66,25 @@
           </div>
           <div class="clear"></div>
         </section>
-        <section class="section user-section">
-          <header class="user-section-header">你可能感兴趣的评论</header>
-          <ul class="user-list">
-            <li class="item" v-for="side in sideList">
-              <router-link :to="`/detail/${side.id}`" class="link">
-                <div
-                  class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(https://data.maopingshou.com/images/'+ side.img+') '}"></div>
-                <!--<div class="lazy avatar avatar loaded">-->
+        <!--<section class="section user-section">-->
+          <!--<header class="user-section-header">你可能感兴趣的评论</header>-->
+          <!--<ul class="user-list">-->
+            <!--<li class="item" v-for="side in sideList">-->
+              <!--<router-link :to="`/detail/${side.id}`" class="link">-->
+                <!--<div-->
+                  <!--class="lazy avatar avatar loaded"-->
+                  <!--:style="{backgroundImage: 'url(https://data.maopingshou.com/images/'+ side.img+') '}"></div>-->
+                <!--&lt;!&ndash;<div class="lazy avatar avatar loaded">&ndash;&gt;-->
 
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="user-info">-->
+                  <!--<div class="username">{{side.title}}</div>-->
+                  <!--<div class="position">{{side.content}}</div>-->
                 <!--</div>-->
-                <div class="user-info">
-                  <div class="username">{{side.title}}</div>
-                  <div class="position">{{side.content}}</div>
-                </div>
-              </router-link>
-            </li>
-          </ul>
-        </section>
+              <!--</router-link>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</section>-->
 
 
         <section class="follow-section"  >
@@ -175,9 +175,10 @@
     data () {
       return {
         menu: [
-          {name: '关注', active: 'nav-item ', model: 1},
+          //          {name: '关注', active: 'nav-item ', model: 1},
           {name: '推荐', active: 'nav-item active', model: 2},
           {name: '热门', active: 'nav-item', model: 3}
+
         ],
         mainSelect: true,
         menuSelected: 2,
@@ -209,9 +210,10 @@
       }
     },
     methods: {
-      changeTatol (id, type) {
-        this.type = type
+      changeTatol (id) {
         this.prosId = id
+        console.log('hello')
+        console.log(id)
         this.menuSelected = 4
       },
       changePop () {
@@ -225,6 +227,7 @@
         }
       },
       changeBack () {
+        console.log('hello2')
         this.menuSelected = 2
       },
       detail (e) {
@@ -246,7 +249,10 @@
       getIndex (index) {
         let _this = this
         _this.show = index
-        this.menuSelected = index + 1
+        this.menuSelected = index + 2
+
+        console.log(index)
+
         this.menu.forEach((v, k) => {
           if (index === k) {
             _this.menu[k].active = 'nav-item active'

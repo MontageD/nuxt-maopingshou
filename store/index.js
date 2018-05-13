@@ -20,19 +20,23 @@ export const actions = {
     }
     let initAppData = []
     if (!isMobile) {
+      console.log('000')
       initAppData = [
         //   // 配置数据
         store.dispatch('loadListInfo', start),
-        // store.dispatch('loadFocusInfo', start),
-        // store.dispatch('loadHotInfo', start),
+
         store.dispatch('loadTag'),
         store.dispatch('loadListTheme', startheme)
+        // store.dispatch('loadFocusInfo', start),
+        // store.dispatch('loadHotInfo', start),
+
         //   store.dispatch('loadGlobalOption'),
         //   // 内容数据
         //   store.dispatch('loadTagList'),
         //   store.dispatch('loadCategories')
       ]
     } else {
+      console.log('000')
       initAppData = [
         //   // 配置数据
         store.dispatch('loadListInfo', start),
@@ -41,9 +45,9 @@ export const actions = {
         // store.dispatch('loadHotInfo', start),
       ]
     }
-    store.commit('option/SET_IMG_EXT', mustJpg ? 'jpeg' : 'webp')
-    store.commit('option/SET_MOBILE_LAYOUT', isMobile)
-    store.commit('option/SET_USER_AGENT', userAgent)
+    // store.commit('option/SET_IMG_EXT', mustJpg ? 'jpeg' : 'webp')
+    // store.commit('option/SET_MOBILE_LAYOUT', isMobile)
+    // store.commit('option/SET_USER_AGENT', userAgent)
 
     // // 如果不是移动端的话，则请求热门文章
     return Promise.all(initAppData)

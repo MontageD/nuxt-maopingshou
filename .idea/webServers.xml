@@ -19,7 +19,7 @@
         </fileTransfer>
       </webServer>
       <webServer id="28e6d8c6-8180-4cd5-a826-69acb6310afe" name="120.78.174.192" url="http://120.78.174.192">
-        <fileTransfer host="120.78.174.192" port="22" accessType="SFTP">
+        <fileTransfer host="120.78.174.192" port="22" rootFolder="/etc/nginx" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

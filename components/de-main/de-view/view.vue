@@ -63,15 +63,15 @@
 
 
         </div>
-        <div class="view-like">
-          <div class="view-like-left">
-            <div class="view-like-list">
-              <p><i v-bind:class="zanClassName" ref="zan" @click='zan'
-                    :style="{ 'background-image': 'url(https://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>
-              </p>
-              <p>喜欢 <i class="view-like-num"></i></p>
-            </div>
-          </div>
+        <!--<div class="view-like">-->
+          <!--<div class="view-like-left">-->
+            <!--<div class="view-like-list">-->
+              <!--<p><i v-bind:class="zanClassName" ref="zan" @click='zan'-->
+                    <!--:style="{ 'background-image': 'url(https://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>-->
+              <!--</p>-->
+              <!--<p>喜欢 <i class="view-like-num"></i></p>-->
+            <!--</div>-->
+          <!--</div>-->
           <!--<div class="view-like-right">-->
             <!--<div class="view-like-list">-->
               <!--<p class="share_list" @click="ask_friend">-->
@@ -80,7 +80,7 @@
               <!--<p>评论</p>-->
             <!--</div>-->
           <!--</div>-->
-        </div>
+        <!--</div>-->
 
 
         <transition

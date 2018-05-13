@@ -41,8 +41,8 @@
                 </router-link>
               </div>
 
-              <Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"
-                   v-on:increment="incrementTotal"></Zan>
+              <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
+                   <!--v-on:increment="incrementTotal"></Zan>-->
 
             </div>
             <div v-if="item.showType===2">
@@ -80,8 +80,8 @@
                   <img :src="`https://data.maopingshou.com/images/news/${v.img}`"/>
                 </a>
               </div>
-              <Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"
-                   v-on:increment="incrementTotal"></Zan>
+              <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
+                   <!--v-on:increment="incrementTotal"></Zan>-->
 
             </div>
           </li>
@@ -302,6 +302,9 @@
     text-align left
     line-height 20px
 
+
+  .clickable
+    text-align left
   .content-box2
     .loaded2:first-child
       border-left 0
@@ -407,7 +410,12 @@
       margin-right 5rem
 
   .ctv
+    display flex
     min-width 3rem
+    height 2rem
+    flex-direction column
+    justify-content space-between
+
 
   .theme
     a
@@ -455,7 +463,6 @@
     -webkit-box-align: center
     align-item: center
     padding: 1.5rem 1rem
-    padding-bottom 2rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
     li
@@ -516,7 +523,6 @@
     cursor pointer
     max-height 2.3rem
     overflow: hidden
-    margin-bottom 2.8rem
 
   .thumb
     flex: 0 0 auto

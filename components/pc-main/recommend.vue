@@ -34,7 +34,7 @@
                   </span>
                   </router-link>
                   <router-link :to="`/detail/${item.id}`" class="content" target="_blank" v-bind:data-id="item.id">
-                    {{ item.content }}
+                    {{ item.content | capitalize }}
                   </router-link>
                 </div>
                 <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
@@ -46,9 +46,8 @@
               </div>
 
 
-
-              <Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"
-                   v-on:increment="incrementTotal"></Zan>
+              <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
+              <!--v-on:increment="incrementTotal"></Zan>-->
 
             </div>
             <div v-if="item.showType===2">
@@ -86,8 +85,8 @@
                   <img :src="`https://data.maopingshou.com/images/news/${v.img}`"/>
                 </a>
               </div>
-              <Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"
-                   v-on:increment="incrementTotal"></Zan>
+              <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
+              <!--v-on:increment="incrementTotal"></Zan>-->
 
             </div>
 
@@ -114,6 +113,12 @@
 
   export default {
     created () {
+    },
+    filters: {
+      capitalize: function (value) {
+        value = value.replace(/\s+/g, '')
+        return value
+      }
     },
     data () {
       return {
@@ -234,7 +239,6 @@
         let obj = {
           'num': this.start.num * 20
         }
-        console.log(obj)
         let _this = this
         this.$store.dispatch('loadListInfo', obj).then(response => {
           _this.showLoading = !_this.showLoading
@@ -307,6 +311,9 @@
     text-align left
     line-height 20px
 
+  .clickable
+    text-align left
+
   .content-box2
     .loaded2:first-child
       border-left 0
@@ -315,7 +322,6 @@
     position relative
     display block
     padding: 1.5rem 1rem
-    padding-bottom 3rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
     .info-box2
@@ -329,7 +335,7 @@
       display inline-block
       float left
       img
-        height 10rem
+        height 9rem
         float left
         border-radius 5px
       i
@@ -412,7 +418,11 @@
       margin-right 5rem
 
   .ctv
+    display flex
     min-width 3rem
+    height 2rem
+    flex-direction column
+    justify-content space-between
 
   .theme
     a
@@ -460,7 +470,6 @@
     -webkit-box-align: center
     align-item: center
     padding: 1.5rem 1rem
-    padding-bottom 2rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
     li
@@ -521,7 +530,8 @@
     cursor pointer
     max-height 2.3rem
     overflow: hidden
-    margin-bottom 2.8rem
+    text-overflow: ellipsis
+    white-space: nowrap
 
   .thumb
     flex: 0 0 auto
