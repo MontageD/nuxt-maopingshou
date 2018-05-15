@@ -49,7 +49,8 @@ module.exports = {
   dev: isProdMode,
   env: {
     baseUrl: apiConfig.baseUrl,
-    HOST_URL: apiConfig.socketHost
+    HOST_URL: apiConfig.socketHost,
+    imgUrl: apiConfig.imgUrl
   },
   router: {
     middleware: 'stats'

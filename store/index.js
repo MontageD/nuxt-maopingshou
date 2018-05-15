@@ -71,6 +71,12 @@ export const actions = {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
           res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
           res.data[index].content = res.data[index].content === null ? res.data[index].content : res.data[index].content.replace(/<.*?>/ig, '')
+          if (parseInt(res.data[index].showType) === 2) {
+            res.data[index].imgArr = []
+            let imgList = res.data[index].img.split(',')
+            imgList = cleanArray(imgList)
+            res.data[index].imgArr = imgList
+          }
         })
         commit('option/SET_LISTINFO', res.data)
         return Promise.resolve(res.data)
@@ -99,6 +105,12 @@ export const actions = {
           res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
           res.data[index].img_y = '-' + (31 + parseInt(Math.random() * 4) * 79) + 'px'
           res.data[index].content = res.data[index].content === null ? res.data[index].content : res.data[index].content.replace(/<.*?>/ig, '')
+          if (parseInt(res.data[index].showType) === 2) {
+            res.data[index].imgArr = []
+            let imgList = res.data[index].img.split(',')
+            imgList = cleanArray(imgList)
+            res.data[index].imgArr = imgList
+          }
         })
         commit('option/SET_HOTINFO', res.data)
       })
@@ -190,4 +202,15 @@ export const actions = {
     axios.post(`/api/logout`)
     commit('option/SET_USER', null)
   }
+}
+
+// 清除数组中的空元素
+function cleanArray (actual) {
+  let newArray = []
+  for (let i = 0; i < actual.length; i++) {
+    if (actual[i]) {
+      newArray.push(actual[i])
+    }
+  }
+  return newArray
 }

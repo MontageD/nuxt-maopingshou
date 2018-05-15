@@ -210,6 +210,7 @@
     },
     methods: {
       changeTatol (id) {
+        console.log('参数传活来')
         this.prosId = id
         this.menuSelected = 4
       },
@@ -224,7 +225,6 @@
         }
       },
       changeBack () {
-        console.log('hello2')
         this.menuSelected = 2
       },
       detail (e) {
@@ -247,8 +247,6 @@
         let _this = this
         _this.show = index
         this.menuSelected = index + 2
-
-        console.log(index)
 
         this.menu.forEach((v, k) => {
           if (index === k) {

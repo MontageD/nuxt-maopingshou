@@ -66,16 +66,17 @@
                 </div>
 
 
-                <a :href="`${item.href}`" v-if="item.imgArr.length>1" class="lazy loaded2"
+                <a :href="`${item.href}`" v-if="item.imgArr.length>1&&k<6 " class="lazy loaded2 more-img"
                    v-for="(v,k) in item.imgArr"
-                   :style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">
+                >
+                  <!--:style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">-->
                   <div class="detail_img"
-                       :style="{'background-image': 'url(https://data.maopingshou.com/images/news/'+v.img+')'}"></div>
+                       :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/'+v+')'}"></div>
                 </a>
                 <a :href="`${item.href}`" v-if="item.imgArr.length==1" class="lazy loaded2"
                    v-for="(v,k) in item.imgArr"
-                   style="max-width: 60%;height: 8rem;">
-                  <img :src="`https://data.maopingshou.com/images/news/${v.img}`"/>
+                   style="max-width: 100%;height: 8rem;">
+                  <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/${v}`"/>
                 </a>
               </div>
               <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
@@ -278,6 +279,10 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .more-img
+    /*box-shadow 0 0 5px #c1c1c1*/
+    max-width 14rem
+    height 5rem
   .detail_img
     border-radius 3px
     height 100%

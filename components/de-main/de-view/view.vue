@@ -37,21 +37,20 @@
           </div>
 
 
-          <ul class="view-comment" ref="comment" v-if="item.aList.length !== 0">
+
+            <ul class="view-comment" ref="comment" v-if="item.aList.length !== 0 && view_show">
+              <li v-for="its in item.aList">
+                <span class="author">{{its.author}}</span>
+                <span class="ling">:</span>
+                <span v-html="its.content"></span>
+              </li>
 
 
-            <li v-for="its in item.aList">
-              <span class="author">{{its.author}}</span>
-              <span class="ling">:</span>
-              <span v-html="its.content"></span>
-            </li>
+              <div class="view-open" @click="changeComment">
+                <img src="https://maoping2.oss-cn-shenzhen.aliyuncs.com/icon/narrow.png"/>
+              </div>
+            </ul>
 
-
-            <div class="view-open" @click="changeComment">
-              <img src="https://maoping2.oss-cn-shenzhen.aliyuncs.com/icon/narrow.png"/>
-            </div>
-
-          </ul>
 
           <ul class="view-comment no-data" v-else>
             肥肠抱歉，没有找到你要的评论 T_T
@@ -170,7 +169,8 @@
         zanClassName: 'view-like-icon heart',
         askF: 'none',
         show: false,
-        showBottom: false
+        showBottom: false,
+        view_show: true
       }
     },
     components: {},
@@ -217,12 +217,7 @@
     },
     methods: {
       changeComment () {
-        console.log(this.$refs.comment)
-        if (this.$refs.comment[0].style.height === '3.5rem') {
-          this.$refs.comment[0].style.height = 'auto'
-        } else {
-          this.$refs.comment[0].style.height = '3.5rem'
-        }
+        this.view_show = !this.view_show
       },
       ask_friend () {
         //        this.show = !this.show
@@ -450,9 +445,13 @@
 
   /*.tag:hover*/
   /*transform tr*/
+  .small-comment
+    animation become-small 1s
+  .big-comment
+    animation become-big 1s
 
   .view-comment
-    animation-duration 1s;
+    transition all 1s
     border 1px dashed #909090
     padding 1rem
     position relative

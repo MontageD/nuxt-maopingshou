@@ -3,7 +3,11 @@
     <div ref="wrapper" class="list-wrapper">
       <div class="setting-list"  :style="'width:'+ themeLength * 5.8 +'rem;'">
         <div class="setting-list-li" v-for="(value,key) in theme" v-if="value.c_show===1"
-             :style="{'background-image': 'url(https://data.maopingshou.com/images/theme/'+value.c_img+')'}">
+            >
+
+
+
+          <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/${value.c_img}`"/>
           <router-link :to="`/theme/${value.c_type}`" @click.native="change" class="item">
             <p class="list-title">
               {{value.c_title}}
@@ -84,40 +88,54 @@
       margin-left .3rem
       margin-top .7rem
       display inline-block
-      border 1px solid #f1f1f1
-      padding .5rem
       position relative
       margin-bottom 1rem
-      a
-        display block
-        height 100%
-        width 100%
-      .grey
-        height 100%
-        width 100%
-        background-color rgba(0, 0, 0, .4)
-        border-radius 15px
+      overflow hidden
+
+      img
+
         position absolute
         left 0
         top 0
-        z-index 1
-      .list-title
-        font-weight 600
-        color #fff
-        height 2.8rem
-        position relative
-        z-index 10
-      .list-btn
-        display inline-block
-        position relative
-        padding 3px
-        background-color #007fff
-        color #fff
-        text-align left
-        font-size 12px
-        z-index 8
-        border-radius 3px
-        font-weight 600
-        cursor pointer
+        height 100%
+        width 100%
+      a:hover
+        transform scale(0)
+      a
+        transition all 1s
+        display block
+        height 100%
+        width 100%
+        .grey
+          height 100%
+          width 100%
+          background-color rgba(0, 0, 0, .4)
+          border-radius 15px
+          position absolute
+          left 0
+          top 0
+          z-index 1
+        .list-title
+          font-weight 600
+          color #fff
+          height 2.5rem
+          position relative
+          z-index 10
+          padding-top 10px
+          margin-left 3px
+          margin-right 5px
+          margin-bottom 5px
+        .list-btn
+          display inline-block
+          position relative
+          padding 3px
+          background-color #007fff
+          color #fff
+          text-align left
+          font-size 12px
+          z-index 8
+          border-radius 3px
+          font-weight 600
+          cursor pointer
 
 </style>

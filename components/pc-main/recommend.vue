@@ -73,17 +73,20 @@
                 </div>
 
 
-                <a :href="`${item.href}`" v-if="item.imgArr.length>1" class="lazy loaded2"
+
+                <!--href: item.href-->
+
+                <div  v-if="item.imgArr.length>1&&k<6 " class="lazy loaded2 more-img"
                    v-for="(v,k) in item.imgArr"
-                   :style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">
+                  >
                   <div class="detail_img"
-                       :style="{'background-image': 'urlhttps://maoping2.oss-cn-shenzhen.aliyuncs.com/news/'+v.img+')'}"></div>
-                </a>
-                <a :href="`${item.href}`" v-if="item.imgArr.length==1" class="lazy loaded2"
+                       :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/'+v+')'}"></div>
+                </div>
+                <div  v-if="item.imgArr.length==1" class="lazy loaded2"
                    v-for="(v,k) in item.imgArr"
-                   style="max-width: 60%;height: 8rem;">
-                  <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/${v.img}`"/>
-                </a>
+                   style="max-width: 100%;height: 8rem;">
+                  <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/${v}`"/>
+                </div>
               </div>
               <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
               <!--v-on:increment="incrementTotal"></Zan>-->
@@ -103,6 +106,19 @@
         <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
       </div>
     </div>
+
+
+
+
+
+
+
+    <!--<div class="cover-all">-->
+      <!--<div class="cover-img"></div>-->
+    <!--</div>-->
+
+
+
   </div>
 </template>
 <script>
@@ -294,6 +310,17 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .cover-all
+    position fixed
+    height 100%
+    width 100%
+    background-color rgba(0,0,0,.3)
+    left 0
+    top 0
+  .more-img
+    max-width 14rem
+    height 5rem
+    float left
   .detail_img
     border-radius 3px
     height 100%
@@ -301,7 +328,10 @@
     background-size cover
     background-position center
     background-repeat no-repeat
-
+    cursor pointer
+    transition: all 1s
+  .detail_img:hover
+    transform scale(1.5)
   .info-box2:after, .info-box2:before, .content-box2:after, .content-box2:before
     content: " "
     display table
@@ -319,7 +349,6 @@
     width 100%
     text-align left
     line-height 20px
-
   .clickable
     text-align left
 
@@ -335,6 +364,7 @@
     align-items center
     .info-box2
       width 100%
+
     .loaded2
       border 5px solid #fff
       width 100%
@@ -342,11 +372,13 @@
       min-height 10rem
       max-height 12rem
       display inline-block
-      float left
       img
+        transition: all 1s
         height 9rem
         float left
         border-radius 5px
+      img:hover
+       transform scale(1.5)
       i
         display block
         height 100%
