@@ -9,7 +9,7 @@
           <header class="list-header">
             <nav class="list-nav">
               <ul class="nav-list left">
-                <li @click="getIndex(index)"  :class="item.active" v-for="(item,index) in menu">
+                <li @click="getIndex(index)" :class="item.active" v-for="(item,index) in menu">
                   <a href="javaScript:void(0);">{{ item.name }}</a>
                   <div class="bottom-item"></div>
                 </li>
@@ -66,28 +66,28 @@
           </div>
           <div class="clear"></div>
         </section>
-        <!--<section class="section user-section">-->
-          <!--<header class="user-section-header">你可能感兴趣的评论</header>-->
-          <!--<ul class="user-list">-->
-            <!--<li class="item" v-for="side in sideList">-->
-              <!--<router-link :to="`/detail/${side.id}`" class="link">-->
-                <!--<div-->
-                  <!--class="lazy avatar avatar loaded"-->
-                  <!--:style="{backgroundImage: 'url(https://data.maopingshou.com/images/'+ side.img+') '}"></div>-->
-                <!--&lt;!&ndash;<div class="lazy avatar avatar loaded">&ndash;&gt;-->
+        <section class="section user-section">
+          <header class="user-section-header">你可能感兴趣的评论</header>
+          <ul class="user-list">
+            <li class="item" v-for="side in sideList">
+              <router-link :to="`/detail/${side.id}`" class="link">
+                <div
+                  class="lazy avatar avatar loaded"
+                  :style="{backgroundImage: 'url(https://data.maopingshou.com/images/'+ side.img+') '}"></div>
+                <!--<div class="lazy avatar avatar loaded">-->
 
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--<div class="user-info">-->
-                  <!--<div class="username">{{side.title}}</div>-->
-                  <!--<div class="position">{{side.content}}</div>-->
                 <!--</div>-->
-              <!--</router-link>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</section>-->
+                <div class="user-info">
+                  <div class="username">{{side.title}}</div>
+                  <div class="position">{{side.content}}</div>
+                </div>
+              </router-link>
+            </li>
+          </ul>
+        </section>
 
 
-        <section class="follow-section"  >
+        <section class="follow-section">
           <header>关注我们</header>
           <ul class="account-list">
             <li class="item weibo">
@@ -170,7 +170,8 @@
     computed: mapGetters({
       listInfo: 'option/getListInfo',
       celles: 'option/getCells',
-      theme: 'option/getTheme'
+      theme: 'option/getTheme',
+      sideList: 'option/getsideList'
     }),
     data () {
       return {
@@ -184,7 +185,6 @@
         menuSelected: 2,
         showLoading: false,
         list: {},
-        sideList: {},
         recommend: {},
         title: 'title',
         type: 1,
@@ -205,15 +205,12 @@
           '假期你好，星期六',
           '很好，下周你好，星期日'],
         Pshow: false,
-        asideStyle: {
-        }
+        asideStyle: {}
       }
     },
     methods: {
       changeTatol (id) {
         this.prosId = id
-        console.log('hello')
-        console.log(id)
         this.menuSelected = 4
       },
       changePop () {
@@ -265,19 +262,16 @@
     mounted () {
       // 初始化日期
       this.show_time_text = this.day[new Date().getDay()]
-      axios.get(`https://data.maopingshou.com/mainSide?start=5`)
-        .then((res) => {
-          this.sideList = res.data
-        })
-
+      //      axios.get(`https://data.maopingshou.com/mainSide?start=5`)
+      //        .then((res) => {
+      //          this.sideList = res.data
+      //        })
       const that = this
       window.onresize = () => {
         if (parseInt(document.body.clientWidth) > 910) {
-          console.log('出现侧边栏')
-          that.asideStyle = Object.assign({},{
+          that.asideStyle = Object.assign({}, {
             right: parseInt(document.body.clientWidth) - 480 - 480 + 'px'
           })
-          console.log(parseInt(document.body.clientWidth) - 480 - 480)
         }
       }
     },
@@ -516,11 +510,11 @@
   /*右侧边栏*/
   .index-aside
     width: 15rem
-    position: fixed  !important
-    top: 5rem  !important
+    position: fixed !important
+    top: 5rem !important
     left: 50%
     z-index: 1
-    transform translate(100%,0)
+    transform translate(100%, 0)
 
   .aside
     position: absolute
@@ -574,6 +568,7 @@
           height: 2rem
           border-radius: 50%
           margin-right: .8rem
+          background-size 100% 100%
     .banner
       height: 200px
 

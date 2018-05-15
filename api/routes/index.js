@@ -98,10 +98,15 @@ router.get('/likeInfo', function (req, res, next) {
 
 //  跳转评论详细的接口
 router.get('/recommend', (req, res, next) => {
-  let param = req.query.uid
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  let param = req.query.uid  // 参数
   pool.getConnection((err, connection) => {
-    let sql = 'select * from w_news where id =' + param
+    let sql = 'select id,title,time,content,score,type,author,img,order_id,types from w_news where id =' + param
     connection.query(sql, (err, result) => {
+      console.log(result)
       let sql = 'select * from w_comment where order_id=\'' + result[0].title + '\''
       result = JSON.parse(JSON.stringify(result))
       connection.query(sql, (err, res2) => {
@@ -173,8 +178,9 @@ router.get('/mainSide', (req, res, next) => {
       ' LEFT JOIN w_news as b' +
       ' on a.order_id = b.title' +
       ' where img <> \'\'' +
-      ' GROUP BY b.title' +
-      ' order by b.id ' +
+      // ' GROUP BY b.title' +
+      // ' order by b.id ' +
+      ' order by rand() ' +
       ' limit  ' + param.start + ' '
     connection.query(sql, (err, result) => {
       // if (result) {

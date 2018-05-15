@@ -54,6 +54,23 @@ $ npm start
 $ pm2 start node_modules/nuxt/bin/nuxt-start -i max
 
 
+
+
+
+
+# 配置 后台数据库
+$ 创建 api/db/dbConfig.js
+$ module.exports =
+$    {
+$      mysql: {
+$        host: '88.88.88.88',   // 数据库ip 地址
+$        user: 'root',             // 数据库用户名
+$        password: '*****', // 数据库密码
+$        database: '*****', // 数据库表
+$        port: 3306           // 数据库端口号
+$      }
+$    }
+
 # 网站采用https协议,部署配置放在 nginx.conf.md
 # 环境为centos6.8 nginx 反向代理
   

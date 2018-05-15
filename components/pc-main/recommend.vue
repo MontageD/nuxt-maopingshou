@@ -19,7 +19,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -38,7 +38,7 @@
                   </router-link>
                 </div>
                 <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-                  <i :style="{'background-image': 'url(https://data.maopingshou.com/images/'+ item.img+')'}"></i>
+                  <i :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+ item.img+')'}"></i>
                 </router-link>
                 <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
                              :style="{'background-image': 'url(https://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
@@ -57,7 +57,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -67,7 +67,7 @@
                     </div>
                   </div>
 
-                  <a :href="`https://${item.href}`" class="content2" target="_blank" v-bind:data-id="item.id">
+                  <a :href="`${item.href}`" class="content2" target="_blank" v-bind:data-id="item.id">
                     {{ item.title }}
                   </a>
                 </div>
@@ -77,12 +77,12 @@
                    v-for="(v,k) in item.imgArr"
                    :style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">
                   <div class="detail_img"
-                       :style="{'background-image': 'url(https://data.maopingshou.com/images/news/'+v.img+')'}"></div>
+                       :style="{'background-image': 'urlhttps://maoping2.oss-cn-shenzhen.aliyuncs.com/news/'+v.img+')'}"></div>
                 </a>
                 <a :href="`${item.href}`" v-if="item.imgArr.length==1" class="lazy loaded2"
                    v-for="(v,k) in item.imgArr"
                    style="max-width: 60%;height: 8rem;">
-                  <img :src="`https://data.maopingshou.com/images/news/${v.img}`"/>
+                  <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/${v.img}`"/>
                 </a>
               </div>
               <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
@@ -271,9 +271,18 @@
             this.$store.commit('option/SET_LISTINFO', array)
           }
         }
+      },
+      menuList () {
+        this.scroll = document.documentElement.scrollTop || document.body.scrollTop
+        if ((parseInt(this.scroll) + 800) > (parseInt(document.getElementsByClassName('view-container')[0].scrollHeight))) {
+          if (this.showLoading === false) {
+            this.loadingData()
+          }
+        }
       }
     },
     mounted () {
+      window.addEventListener('scroll', this.menuList)
       this.show_time_text = this.day[(new Date().getDay() - 1) == -1 ? 6 : (new Date().getDay() - 1)]
       // 检查cookie 中被选中的元素
       this.loadCookie()
@@ -518,6 +527,7 @@
     line-height: 1.4rem
     color: #2e3135
     float left
+    margin-top 7px
 
   .content
     text-align left

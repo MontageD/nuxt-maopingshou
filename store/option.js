@@ -5,6 +5,8 @@
 */
 export const state = () => {
   return {
+    // 主页侧边栏数据
+    sideList: [],
     // 打开的主题
     themelist: {},
     // 登陆状态
@@ -57,10 +59,14 @@ export const getters = {
   getTheme: (state) => state.theme,
   getThemelist: (state) => state.themelist,
   getFocuslist: (state) => state.focusInfo,
-  gethotlist: (state) => state.hotInfo
+  gethotlist: (state) => state.hotInfo,
+  getsideList: (state) => state.sideList
 }
 
 export const mutations = {
+  SET_SIDELIST (state, action) {
+    state.sideList = action
+  },
   SET_FOCUSINFO (state, action) {
     state.focusInfo = action
   },

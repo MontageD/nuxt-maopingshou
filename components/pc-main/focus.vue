@@ -302,9 +302,9 @@
     text-align left
     line-height 20px
 
-
   .clickable
     text-align left
+
   .content-box2
     .loaded2:first-child
       border-left 0
@@ -313,7 +313,6 @@
     position relative
     display block
     padding: 1.5rem 1rem
-    padding-bottom 3rem
     border-bottom 1px solid rgba(178, 186, 194, .15)
     align-items center
     .info-box2
@@ -327,7 +326,7 @@
       display inline-block
       float left
       img
-        height 10rem
+        height 9rem
         float left
         border-radius 5px
       i
@@ -415,7 +414,6 @@
     height 2rem
     flex-direction column
     justify-content space-between
-
 
   .theme
     a
@@ -523,6 +521,8 @@
     cursor pointer
     max-height 2.3rem
     overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
 
   .thumb
     flex: 0 0 auto

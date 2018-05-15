@@ -76,9 +76,9 @@
             this.tagList[key].id = key
           }
           this.cells = Object.assign({}, this.tagList)
-          setTimeout(() => {
-            this.cells = window._.shuffle(this.cells)
-          })
+          //          setTimeout(() => {
+          //            this.cells = window._.shuffle(this.cells)
+          //          })
         })
     },
     methods: {

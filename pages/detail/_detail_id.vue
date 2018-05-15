@@ -21,7 +21,7 @@
     },
     head () {
       return {
-        title:   this.$store.state.article.detailList[0].title + ' - ' + '猫评聚合新闻' ,
+        title: this.$store.state.article.detailList[0].title + ' - ' + '猫评聚合新闻' ,
         meta: [
           {charset: 'utf-8'},
           {name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'},

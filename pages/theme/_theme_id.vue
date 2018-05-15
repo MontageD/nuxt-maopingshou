@@ -65,20 +65,20 @@
                          @click="clickImg($event)"/>
                   </div>
                 </div>
-                <div class="theme-li-bottom">
-              <span class="theme-zan"
-                    :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/like_1.png)'}">
-                  <b>{{value.zan}}</b>
-              </span>
-                  <span class="theme-comment"
-                        :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/share_message.png)'}">
-                <b></b>
-              </span>
-                  <!--<span class="theme-collection"></span>-->
-
-                  <span class="theme-share" style="float: right"
-                        :style="{'background-image': 'url(http://data.maopingshou.com/images/extra/icon_ty-share.png)'}"></span>
-                </div>
+                <!--<div class="theme-li-bottom">-->
+                <!--<span class="theme-zan"-->
+                <!--:style="{'background-image': 'url(http://data.maopingshou.com/images/extra/like_1.png)'}">-->
+                <!--<b>{{value.zan}}</b>-->
+                <!--</span>-->
+                <!--<span class="theme-comment"-->
+                <!--:style="{'background-image': 'url(http://data.maopingshou.com/images/extra/share_message.png)'}">-->
+                <!--<b></b>-->
+                <!--</span>-->
+                <!--&lt;!&ndash;<span class="theme-collection"></span>&ndash;&gt;-->
+                <!---->
+                <!--<span class="theme-share" style="float: right"-->
+                <!--:style="{'background-image': 'url(http://data.maopingshou.com/images/extra/icon_ty-share.png)'}"></span>-->
+                <!--</div>-->
               </li>
             </ul>
           </div>
@@ -91,13 +91,13 @@
 
         <div class="entry-loading" @click="loadingData" v-show="!showText">
           <img src="~assets/img/Rolling.gif" v-show="showLoading">
-          <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
+          <span v-show="!showLoading" ref="showLoading">{{loadingText}}</span>
         </div>
 
 
-        <div class="send_article" @click="send_article">
-          <i class="material-icons">&#xE254;</i>
-        </div>
+        <!--<div class="send_article" @click="send_article">-->
+        <!--<i class="material-icons">&#xE254;</i>-->
+        <!--</div>-->
       </main>
     </div>
     <Alert v-show="Pshow" v-on:changePop="changePop"></Alert>
@@ -141,7 +141,8 @@
           'num': 1
         },
         send_art: false,
-        Pshow: false
+        Pshow: false,
+        loadingText: ' 加载更多...'
       }
     },
     computed: mapGetters({
@@ -162,16 +163,25 @@
         }
       },
       loadingData () {
-        this.showLoading = !this.showLoading
-        this.start.num = this.start.num + 1
-        let obj = {
-          'limit': this.start.num * 10,
-          'theme_id': this.themelist.uid
+        if (this.loadingText === '已经到底了') {
+
+        } else {
+          this.showLoading = !this.showLoading
+          this.start.num = this.start.num + 1
+          let obj = {
+            'limit': this.start.num * 10,
+            'theme_id': this.themelist.uid
+          }
+          let _this = this
+          let len = this.themelist.aList.length
+          this.$store.dispatch('loadThemeDetail2', obj).then(response => {
+            console.log(response)
+            if (len === response[0].aList.length) {
+              _this.loadingText = '已经到底了'
+            }
+            _this.showLoading = !_this.showLoading
+          })
         }
-        let _this = this
-        this.$store.dispatch('loadThemeDetail2', obj).then(response => {
-          _this.showLoading = !_this.showLoading
-        })
       },
       add_theme (e) {
         let _this = this
@@ -307,13 +317,13 @@
       .theme-zan
         margin-right 2rem
     .theme-li-content
-      font-size 14px
+      line-height 22px
+      font-size 17px
       margin 11px 0
+      margin-bottom 20px
     .theme-li-img
       width 100%
       padding-bottom 10px
-      margin-bottom 8px
-      border-bottom 1px solid rgba(0, 64, 128, .1)
       img
         height 10rem
         max-width 100%

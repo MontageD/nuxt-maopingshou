@@ -13,7 +13,7 @@
           >
             <div
               class="lazy avatar avatar loaded"
-              :style="{'background-image': 'url('+item.img+')'}"></div>
+              :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+item.img+')'}"></div>
             <div class="author-info float-left">
               <div class="author-name text-pointer">{{item.author}}</div>
               <div class="author-meta">{{item.time}}<!----></div>
@@ -37,7 +37,7 @@
           </div>
 
 
-          <ul class="view-comment" v-if="item.aList.length !== 0">
+          <ul class="view-comment" ref="comment" v-if="item.aList.length !== 0">
 
 
             <li v-for="its in item.aList">
@@ -46,6 +46,11 @@
               <span v-html="its.content"></span>
             </li>
 
+
+            <div class="view-open" @click="changeComment">
+              <img src="https://maoping2.oss-cn-shenzhen.aliyuncs.com/icon/narrow.png"/>
+            </div>
+
           </ul>
 
           <ul class="view-comment no-data" v-else>
@@ -53,7 +58,7 @@
           </ul>
           <div v-if="item.img">
             <div class="view-img">
-              <img :src="item.img">
+              <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/${item.img}`">
             </div>
           </div>
 
@@ -64,22 +69,22 @@
 
         </div>
         <!--<div class="view-like">-->
-          <!--<div class="view-like-left">-->
-            <!--<div class="view-like-list">-->
-              <!--<p><i v-bind:class="zanClassName" ref="zan" @click='zan'-->
-                    <!--:style="{ 'background-image': 'url(https://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>-->
-              <!--</p>-->
-              <!--<p>喜欢 <i class="view-like-num"></i></p>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="view-like-right">-->
-            <!--<div class="view-like-list">-->
-              <!--<p class="share_list" @click="ask_friend">-->
-                <!--<i class="material-icons">&#xE80D;</i>-->
-              <!--</p>-->
-              <!--<p>评论</p>-->
-            <!--</div>-->
-          <!--</div>-->
+        <!--<div class="view-like-left">-->
+        <!--<div class="view-like-list">-->
+        <!--<p><i v-bind:class="zanClassName" ref="zan" @click='zan'-->
+        <!--:style="{ 'background-image': 'url(https://data.maopingshou.com/images/extra/web_heart_animation.png)' }"></i>-->
+        <!--</p>-->
+        <!--<p>喜欢 <i class="view-like-num"></i></p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="view-like-right">-->
+        <!--<div class="view-like-list">-->
+        <!--<p class="share_list" @click="ask_friend">-->
+        <!--<i class="material-icons">&#xE80D;</i>-->
+        <!--</p>-->
+        <!--<p>评论</p>-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</div>-->
 
 
@@ -102,7 +107,6 @@
             </div>
 
 
-
           </div>
         </transition>
       </div>
@@ -120,7 +124,7 @@
             <div class="view-comm-li" v-for="like in likeInfo">
               <router-link :to="{path: '/detail/' + like.id}">
                 <div class="view-comm-ul-img" @click='detail_link'
-                     :style="{ 'background-image': 'url(https://data.maopingshou.com/images/' + like.img + ')' }">
+                     :style="{ 'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/' + like.img + ')' }">
                 </div>
                 <div class="view-comm-content">
               <span class="view-comm-content-detail after-in">
@@ -147,13 +151,6 @@
     </transition>
 
 
-
-
-
-
-
-
-
   </div>
 </template>
 <script>
@@ -176,8 +173,7 @@
         showBottom: false
       }
     },
-    components: {
-    },
+    components: {},
     created () {
       /// 推荐你喜欢的文章
       axios.get(`https://data.maopingshou.com/likeInfo?start=5`)
@@ -220,6 +216,14 @@
       }
     },
     methods: {
+      changeComment () {
+        console.log(this.$refs.comment)
+        if (this.$refs.comment[0].style.height === '3.5rem') {
+          this.$refs.comment[0].style.height = 'auto'
+        } else {
+          this.$refs.comment[0].style.height = '3.5rem'
+        }
+      },
       ask_friend () {
         //        this.show = !this.show
         //        if (!this.$refs.askF[0].style.left || this.$refs.askF[0].style.display === 'none') {
@@ -448,8 +452,26 @@
   /*transform tr*/
 
   .view-comment
+    animation-duration 1s;
     border 1px dashed #909090
     padding 1rem
+    position relative
+    overflow hidden
+    .view-open
+      cursor pointer
+      height 30px
+      width 30px
+      position absolute
+      right 0
+      top 0
+      border-radius 50%
+      display flex
+      align-items center
+      justify-content center
+      background-color #fff
+      img
+        height 60%
+        width 60%
     li
       width 100%
       font-size 1rem

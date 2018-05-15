@@ -20,13 +20,13 @@ export const actions = {
     }
     let initAppData = []
     if (!isMobile) {
-      console.log('000')
       initAppData = [
         //   // 配置数据
         store.dispatch('loadListInfo', start),
 
         store.dispatch('loadTag'),
-        store.dispatch('loadListTheme', startheme)
+        store.dispatch('loadListTheme', startheme),
+        store.dispatch('loadSideList')
         // store.dispatch('loadFocusInfo', start),
         // store.dispatch('loadHotInfo', start),
 
@@ -36,11 +36,11 @@ export const actions = {
         //   store.dispatch('loadCategories')
       ]
     } else {
-      console.log('000')
       initAppData = [
         //   // 配置数据
         store.dispatch('loadListInfo', start),
-        store.dispatch('loadListTheme', startheme)
+        store.dispatch('loadListTheme', startheme),
+        store.dispatch('loadSideList')
         // store.dispatch('loadFocusInfo', start),
         // store.dispatch('loadHotInfo', start),
       ]
@@ -51,6 +51,17 @@ export const actions = {
 
     // // 如果不是移动端的话，则请求热门文章
     return Promise.all(initAppData)
+  },
+  // 加载主页侧边栏文章
+  async loadSideList ({commit}, params = {}) {
+    return Service.get(`/api/mainSide?start=5`)
+      .then(res => {
+        commit('option/SET_SIDELIST', res.data)
+        return Promise.resolve(res.data)
+      }, err => {
+        commit('article/SET_SIDELIST', err)
+        return Promise.reject(err)
+      })
   },
   // 加载主页的推荐新闻数据
   async loadListInfo ({commit}, params = {}) {
@@ -114,9 +125,10 @@ export const actions = {
       })
   },
   async loadArticleDetail ({commit}, params = {}) {
-    return Service.get(`/api/recommend?uid= ${params.detail_id} `)
+    console.log(params)
+    return Service.get(`/api/recommend?uid=${params.detail_id} `)
       .then(res => {
-        res.data[0].img = 'http://data.maopingshou.com/images/' + res.data[0].img
+        // res.data[0].img =  res.data[0].img
         let pathname = (res.data[0].img).split('/')
         if (pathname[pathname.length - 1] === '') {
           res.data[0].img = pathname[pathname.length - 1]
