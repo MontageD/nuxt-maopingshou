@@ -4,9 +4,6 @@
       <div class="setting-list"  :style="'width:'+ themeLength * 5.8 +'rem;'">
         <div class="setting-list-li" v-for="(value,key) in theme" v-if="value.c_show===1"
             >
-
-
-
           <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/${value.c_img}`"/>
           <router-link :to="`/theme/${value.c_type}`" @click.native="change" class="item">
             <p class="list-title">
@@ -91,9 +88,7 @@
       position relative
       margin-bottom 1rem
       overflow hidden
-
       img
-
         position absolute
         left 0
         top 0

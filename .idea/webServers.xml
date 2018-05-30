@@ -34,6 +34,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="5c5b3997-aeee-449b-bdea-d6e2b0d94741" name="193.112.150.203" url="http://193.112.150.203">
+        <fileTransfer host="193.112.150.203" port="22" rootFolder="/usr/share/nginx" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

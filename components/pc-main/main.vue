@@ -73,7 +73,7 @@
               <router-link :to="`/detail/${side.id}`" class="link">
                 <div
                   class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(https://data.maopingshou.com/images/'+ side.img+') '}"></div>
+                  :style="{backgroundImage: 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+ side.img+') '}"></div>
                 <!--<div class="lazy avatar avatar loaded">-->
 
                 <!--</div>-->

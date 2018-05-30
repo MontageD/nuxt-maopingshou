@@ -13,7 +13,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -32,7 +32,7 @@
                   </router-link>
                 </div>
                 <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-                  <i :style="{'background-image': 'url(https://data.maopingshou.com/images/'+ item.img+')'}"></i>
+                  <i :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+ item.img+')'}"></i>
                 </router-link>
                 <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
                              :style="{'background-image': 'url(https://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
