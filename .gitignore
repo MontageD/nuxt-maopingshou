@@ -14,5 +14,5 @@ dist
 # Nuxt db
 api/db
 
-
-.idea 
+#  .idea
+.idea
