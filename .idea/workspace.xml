@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="147dfc13-42a1-4181-9e7b-6464c8fb2be4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/webServers.xml" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api.config.js" afterPath="$PROJECT_DIR$/api.config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/de-main/de-side/side.vue" afterPath="$PROJECT_DIR$/components/de-main/de-side/side.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/de-main/de-view/view.vue" afterPath="$PROJECT_DIR$/components/de-main/de-view/view.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/pc-main/hot.vue" afterPath="$PROJECT_DIR$/components/pc-main/hot.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/pc-main/main.vue" afterPath="$PROJECT_DIR$/components/pc-main/main.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/pc-main/recommend.vue" afterPath="$PROJECT_DIR$/components/pc-main/recommend.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/detail/_detail_id.vue" afterPath="$PROJECT_DIR$/pages/detail/_detail_id.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/feedback/index.vue" afterPath="$PROJECT_DIR$/pages/feedback/index.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,8 +59,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+            <state relative-caret-position="255">
+              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -500,12 +489,12 @@
       <workItem from="1527822271079" duration="1209000" />
       <workItem from="1527823548767" duration="1022000" />
       <workItem from="1527863133395" duration="7085000" />
-      <workItem from="1527942624529" duration="1362000" />
+      <workItem from="1527942624529" duration="1477000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="900928000" />
+    <option name="totallyTimeSpent" value="901043000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="928" y="23" width="1920" height="1004" extended-state="0" />
@@ -935,8 +924,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        <state relative-caret-position="255">
+          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
           <folding />
         </state>
       </provider>
