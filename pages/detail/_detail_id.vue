@@ -49,7 +49,7 @@
     },
     methods: {},
     mounted () {
-      console.log(this.$store.state.article.detailList[0])
+      //      console.log(this.$store.state.article.detailList[0])
       // detailList
     },
     components: {

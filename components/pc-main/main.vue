@@ -73,7 +73,7 @@
               <router-link :to="`/detail/${side.id}`" class="link">
                 <div
                   class="lazy avatar avatar loaded"
-                  :style="{backgroundImage: 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+ side.img+') '}"></div>
+                  :style="{backgroundImage: 'url('+ imgUrl+'/'+ side.img+') '}"></div>
                 <!--<div class="lazy avatar avatar loaded">-->
 
                 <!--</div>-->
@@ -175,6 +175,7 @@
     }),
     data () {
       return {
+        imgUrl: process.env.imgUrl,
         menu: [
           //          {name: '关注', active: 'nav-item ', model: 1},
           {name: '推荐', active: 'nav-item active', model: 2},

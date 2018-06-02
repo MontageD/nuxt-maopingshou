@@ -13,7 +13,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url('+imgUrl+'/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -32,10 +32,10 @@
                   </router-link>
                 </div>
                 <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-                  <i :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+ item.img+')'}"></i>
+                  <i :style="{'background-image': 'url('+imgUrl+'/'+ item.img+')'}"></i>
                 </router-link>
                 <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
-                             :style="{'background-image': 'url(https://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
+                             :style="{'background-image': 'url('+imgUrl+'/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
                 </router-link>
               </div>
 
@@ -50,7 +50,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://data.maopingshou.com/images/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url('+imgUrl+'/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -71,12 +71,12 @@
                 >
                   <!--:style="'width:'+ (v.len*100<33 ? 33 : v.len*100) +'%;'">-->
                   <div class="detail_img"
-                       :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/'+v+')'}"></div>
+                       :style="{'background-image': 'url('+imgUrl+'/news/'+v+')'}"></div>
                 </a>
                 <a :href="`${item.href}`" v-if="item.imgArr.length==1" class="lazy loaded2"
                    v-for="(v,k) in item.imgArr"
                    style="max-width: 100%;height: 8rem;">
-                  <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/${v}`"/>
+                  <img :src="`'${imgUrl}/news/${v}`"/>
                 </a>
               </div>
               <!--<Zan :id="item.id" :like="item.like" :choose="item.choose" :type="item.showType"-->
@@ -108,6 +108,7 @@
   export default {
     data () {
       return {
+        imgUrl: process.env.imgUrl,
         start: {
           'num': 1
         },
@@ -283,6 +284,7 @@
     /*box-shadow 0 0 5px #c1c1c1*/
     max-width 14rem
     height 5rem
+
   .detail_img
     border-radius 3px
     height 100%

@@ -13,7 +13,7 @@
           >
             <div
               class="lazy avatar avatar loaded"
-              :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+item.img+')'}"></div>
+              :style="{'background-image': 'url('+imgUrl+'/'+item.img+')'}"></div>
             <div class="author-info float-left">
               <div class="author-name text-pointer">{{item.author}}</div>
               <div class="author-meta">{{item.time}}<!----></div>
@@ -37,27 +37,29 @@
           </div>
 
 
+          <ul class="view-comment" ref="comment" v-if="item.aList.length !== 0 && view_show">
+            <li v-for="its in item.aList">
+              <span class="author">{{its.author}}</span>
+              <span class="ling">:</span>
+              <span v-html="its.content"></span>
+            </li>
 
-            <ul class="view-comment" ref="comment" v-if="item.aList.length !== 0 && view_show">
-              <li v-for="its in item.aList">
-                <span class="author">{{its.author}}</span>
-                <span class="ling">:</span>
-                <span v-html="its.content"></span>
-              </li>
 
-
-              <div class="view-open" @click="changeComment">
-                <img src="https://maoping2.oss-cn-shenzhen.aliyuncs.com/icon/narrow.png"/>
-              </div>
-            </ul>
+            <div class="view-open" @click="changeComment">
+              <img src="https://maoping2.oss-cn-shenzhen.aliyuncs.com/icon/narrow.png"/>
+            </div>
+          </ul>
 
 
           <ul class="view-comment no-data" v-else>
+            <div class="view-open" @click="changeComment">
+              <img src="https://maoping2.oss-cn-shenzhen.aliyuncs.com/icon/narrow.png"/>
+            </div>
             肥肠抱歉，没有找到你要的评论 T_T
           </ul>
           <div v-if="item.img">
             <div class="view-img">
-              <img :src="`https://maoping2.oss-cn-shenzhen.aliyuncs.com/${item.img}`">
+              <img :src="`${imgUrl}/${item.img}`">
             </div>
           </div>
 
@@ -123,7 +125,7 @@
             <div class="view-comm-li" v-for="like in likeInfo">
               <router-link :to="{path: '/detail/' + like.id}">
                 <div class="view-comm-ul-img" @click='detail_link'
-                     :style="{ 'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/' + like.img + ')' }">
+                     :style="{ 'background-image': 'url('+ imgUrl + '/' + like.img + ')' }">
                 </div>
                 <div class="view-comm-content">
               <span class="view-comm-content-detail after-in">
@@ -160,6 +162,17 @@
   import BScroll from 'better-scroll'
 
   export default {
+    head () {
+      return {
+        title: '帮助中心',
+        meta: [
+          {charset: 'utf-8'},
+          {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+          {hid: 'description', name: 'description', content: '帮助中心'},
+          {hid: 'keyswords', name: 'keyswords', content: '帮助中心'}
+        ]
+      }
+    },
     data () {
       return {
         info: {},
@@ -170,13 +183,14 @@
         askF: 'none',
         show: false,
         showBottom: false,
-        view_show: true
+        view_show: true,
+        imgUrl: process.env.imgUrl,
       }
     },
     components: {},
     created () {
       /// 推荐你喜欢的文章
-      axios.get(`https://data.maopingshou.com/likeInfo?start=5`)
+      axios.get(`/api/likeInfo?start=5`)
         .then((res) => {
           res.data.forEach((currentValue, index, array) => {
             res.data[index].img_x = '-' + (12 + parseInt(Math.random() * 4) * 71) + 'px'
@@ -447,6 +461,7 @@
   /*transform tr*/
   .small-comment
     animation become-small 1s
+
   .big-comment
     animation become-big 1s
 

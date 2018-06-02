@@ -6,6 +6,9 @@
 
 
     <div class="div-container">
+
+
+      <div class="user-title">意见反馈</div>
       <div class="user-data">
         <input type="text" class="user-name" placeholder="name.*" v-model="userName">
         <input type="text" class="user-email" placeholder="email.*" v-model="email">
@@ -49,25 +52,38 @@
         let email = this.email
         let advice = this.advice
         let _this = this
-        axios.get('https://data.maopingshou.com/postAdvice?username=' + username + '&advice=' + advice + '&email=' + email)
-          .then(function (response) {
-            if (response.status === 200) {
-              let message = '提交建议成功,感谢你的支持！'
-              let obj = {
-                message: message
+
+        if (username && email && advice) {
+          axios.get('https://data.maopingshou.com/postAdvice?username=' + username + '&advice=' + advice + '&email=' + email)
+            .then(function (response) {
+              if (response.status === 200) {
+                let message = '提交建议成功,感谢你的支持！'
+                let obj = {
+                  message: message
+                }
+                _this.alertNow.push(obj)
+                setTimeout(() => {
+                  _this.alertNow.splice(_this.alertNow.length - 1, 1)
+                  _this.userName = ''
+                  _this.email = ''
+                  _this.advice = ''
+                }, 2000)
+                //              let state = 1
+                //              _this.$store.dispatch('loadLoginState', state)
               }
-              _this.alertNow.push(obj)
-              setTimeout(() => {
-                _this.alertNow.splice(_this.alertNow.length - 1, 1)
-                _this.userName = ''
-                _this.email = ''
-                _this.advice = ''
-              }, 2000)
-              //              let state = 1
-              //              _this.$store.dispatch('loadLoginState', state)
-            }
-          })
+            })
+        } else {
+          let message = '请填写全信息再提交！'
+          let obj = {
+            message: message
+          }
+          _this.alertNow.push(obj)
+          setTimeout(() => {
+            _this.alertNow.splice(_this.alertNow.length - 1, 1)
+          }, 2000)
+        }
       }
+
     },
     components: {
       Headers
@@ -75,6 +91,15 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .user-title
+    display block
+    margin 0 auto
+    text-align center
+    color #000
+    font-size 20px
+    margin-bottom 10px
+    padding 20px
+
   ul
     position absolute
     right 10px
@@ -122,7 +147,6 @@
     .user-email
       color #000
 
-
   .div-container
     max-width 800px
     display block
@@ -150,4 +174,8 @@
     display block
     margin 0 auto
     width 100%
+    height 50px
+    font-size 16px
+    padding 10px 0
+
 </style>

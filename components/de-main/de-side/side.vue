@@ -66,7 +66,7 @@
 
   export default {
     mounted () {
-      axios.get(`https://data.maopingshou.com/oftenTag?num=13`)
+      axios.get(`/api/oftenTag?num=13`)
         .then((res) => {
           let tagList = Object.assign({}, res.data)
           this.tagList = {}

@@ -1,5 +1,8 @@
 <template>
   <div>
+
+
+
     <div class="foods-wrapper">
       <div style="position: relative;">
         <MenuList></MenuList>
@@ -19,7 +22,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url('+imgUrl+'/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -38,10 +41,10 @@
                   </router-link>
                 </div>
                 <router-link :to="`/detail/${item.id}`" v-if="item.img" class="lazy thumb thumb loaded">
-                  <i :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/'+ item.img+')'}"></i>
+                  <i :style="{'background-image': 'url('+imgUrl+'/'+ item.img+')'}"></i>
                 </router-link>
                 <router-link :to="`/detail/${item.id}`" v-else class="lazy thumb thumb loaded default_img"
-                             :style="{'background-image': 'url(https://data.maopingshou.com/images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
+                             :style="{'background-image': 'url('+imgUrl+'images/default.jpg)',backgroundPosition: (item.img_x+' '+item.img_y)}">
                 </router-link>
               </div>
 
@@ -57,7 +60,7 @@
                     <div class="meta-list">
                       <div class="item theme">
                         <router-link :to="`/theme/${item.c_type}`"
-                                     :style="{'background-image':'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/theme/'+item.c_img+')'}"></router-link>
+                                     :style="{'background-image':'url('+imgUrl+'/theme/'+item.c_img+')'}"></router-link>
                       </div>
                       <div class="item ctv">
                         <router-link :to="`/theme/${item.c_type}`" class="item post">{{ item.c_title }}</router-link>
@@ -106,13 +109,6 @@
         <span v-show="!showLoading" ref="showLoading"> 加载更多...</span>
       </div>
     </div>
-
-
-
-
-
-
-
     <!--<div class="cover-all">-->
       <!--<div class="cover-img"></div>-->
     <!--</div>-->
@@ -138,6 +134,7 @@
     },
     data () {
       return {
+        imgUrl: process.env.imgUrl,
         show_time_text: '',
         start: {
           'num': 1
