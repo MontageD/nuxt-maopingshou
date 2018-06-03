@@ -106,7 +106,6 @@ router.get('/recommend', (req, res, next) => {
   pool.getConnection((err, connection) => {
     let sql = 'select id,title,time,content,score,type,author,img,order_id,types from w_news where id =' + param
     connection.query(sql, (err, result) => {
-      console.log(result)
       let sql = 'select * from w_comment where order_id=\'' + result[0].title + '\''
       result = JSON.parse(JSON.stringify(result))
       connection.query(sql, (err, res2) => {
@@ -205,7 +204,9 @@ router.get('/oftenTag', (req, res, next) => {
 
   pool.getConnection((err, connection) => {
     let param = req.query
-    let sql = 'select * from w_news  group by types order by id desc limit  ' + param.num
+    // let sql = 'select * from w_news  order by rand()  desc limit  ' + param.num
+    //
+    let sql = 'SELECT * FROM w_news WHERE id >= ((SELECT MAX(id) FROM w_news)-(SELECT MIN(id) FROM w_news)) * RAND() + (SELECT MIN(id) FROM w_news)  LIMIT 3 '
     connection.query(sql, (err, result) => {
       responseJSON(res, result)
     })

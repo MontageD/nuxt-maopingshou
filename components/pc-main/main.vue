@@ -36,31 +36,26 @@
           <Hoted v-on:increment="changeTatol"></Hoted>
         </div>
 
-
         <div v-else-if="menuSelected===4">
           <!--子元素响应时间-->
           <Comment :message="prosId" :type="type" v-on:increment="changeBack" v-on:alert="alert"></Comment>
         </div>
-
-
       </div>
 
       <aside class="index-aside aside" v-bind:style="asideStyle">
-        <section>
-
-        </section>
         <!--<section class="side_mood">-->
         <!--<p class="side_title">每日心情</p>-->
         <!--<img :src="everyImg">-->
         <!--<div class="clear"></div>-->
         <!--</section>-->
+        <Dates></Dates>
 
         <section class="side_hoting">
           <p class="side_title">热门标签</p>
           <div @click="shuffle">
             <transition-group name="cell" tag="ul" class="side_tag">
-              <li v-for="cell in celles" :key="cell.id" class="cell">
-                {{ cell.number }}
+              <li v-for="(item, index) in celles" :key="item.id" class="cell">
+                <b>{{index+1}}</b>、{{ item.order_id }}
               </li>
             </transition-group>
           </div>
@@ -88,7 +83,7 @@
 
 
         <section class="follow-section">
-          <header>关注我们</header>
+          <header>关注我们  粤ICP备15044136号-2</header>
           <ul class="account-list">
             <li class="item weibo">
               <a>
@@ -107,11 +102,11 @@
           </ul>
           <ul class="more-list">
             <li class="item">
-              <a target="_blank">关于</a>
-              <a target="_blank">友情链接</a>
+              <!--<a target="_blank">关于  粤ICP备15044136号-2</a>-->
+              <!--<a target="_blank">友情链接</a>-->
             </li>
-            <li class="item"><a target="_blank">粤ICP备15044136号-2</a>
-            </li>
+            <!--<li class="item"><a target="_blank">粤ICP备15044136号-2</a>-->
+            <!--</li>-->
           </ul>
         </section>
 
@@ -160,6 +155,7 @@
   import Weather from '~/components/pc-main/detail/weather'
   import MenuList from '~/components/pc-main/detail/menu'
   import Comment from '~/components/pc-main/detail/comment'
+  import Dates from '~/components/pc-main/detail/date'
   import Alert from '~/base/alert'
   import axios from 'axios'
   import { mapGetters } from 'vuex'
@@ -180,7 +176,6 @@
           //          {name: '关注', active: 'nav-item ', model: 1},
           {name: '推荐', active: 'nav-item active', model: 2},
           {name: '热门', active: 'nav-item', model: 3}
-
         ],
         mainSelect: true,
         menuSelected: 2,
@@ -283,7 +278,8 @@
       Weather,
       MenuList,
       Comment,
-      Alert
+      Alert,
+      Dates
     }
   }
 </script>
@@ -359,7 +355,7 @@
     .account-list
       display flex
       justify-content center
-      margin 1rem 0
+      margin 10px 0
       li
         margin 0 .3rem
         a
@@ -520,6 +516,10 @@
     top: 0
     right: 0
 
+
+  .user-section
+    margin-bottom 10px !important
+
   .section
     background-color: #ffffff
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
@@ -529,7 +529,7 @@
     line-height: 1.29
     color: #333
     .user-section-header
-      padding: 1rem 1.3rem
+      padding: .5rem .8rem
       border-bottom: 1px solid hsla(0, 0%, 59%, .1)
       font-size: 1rem
     .item
@@ -601,7 +601,7 @@
     text-align left
     min-height 2rem
     padding 0 1rem
-    font-size .8rem
+    font-size 1rem
     background-color #fff
     display flex
     align-items center
@@ -609,8 +609,11 @@
 
   .side_hoting
     box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
+    margin-bottom 10px
+  .side_date
+    box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
     margin-bottom 1rem
-
+    background-color #fff
   img
     width 100%
 
@@ -620,11 +623,14 @@
     min-height 5rem
     background-color #fff
     padding .5rem
+    line-height 1.3rem
     li
       font-size .6rem
       display inline-block
       margin .3rem .2rem
       color #7e7e7e
+      b
+        color red
 
   .cell-move
     transition: transform 2s;

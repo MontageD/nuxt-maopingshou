@@ -54,7 +54,7 @@ export const actions = {
   },
   // 加载主页侧边栏文章
   async loadSideList ({commit}, params = {}) {
-    return Service.get(`/api/mainSide?start=5`)
+    return Service.get(`/api/mainSide?start=3`)
       .then(res => {
         commit('option/SET_SIDELIST', res.data)
         return Promise.resolve(res.data)
@@ -124,16 +124,16 @@ export const actions = {
   },
   //  加载主页标签数据
   loadTag ({commit}) {
-    return Service.get(`/api/oftenTag?num=13`)
+    return Service.get(`/api/oftenTag?num=3`)
       .then(res => {
         let tagList = {}
-        for (let key in res.data) {
-          tagList[key] = {}
-          tagList[key].number = res.data[key].types
-          tagList[key].id = key
-          tagList[key].ids = res.data[key].id
-        }
-        commit('option/SET_CELLS', tagList)
+        // for (let key in res.data) {
+        //   tagList[key] = {}
+        //   tagList[key].number = res.data[key].types
+        //   tagList[key].id = key
+        //   tagList[key].ids = res.data[key].id
+        // }
+        commit('option/SET_CELLS', res.data)
       })
   },
   async loadArticleDetail ({commit}, params = {}) {

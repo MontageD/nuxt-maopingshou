@@ -162,17 +162,6 @@
   import BScroll from 'better-scroll'
 
   export default {
-    head () {
-      return {
-        title: '帮助中心',
-        meta: [
-          {charset: 'utf-8'},
-          {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-          {hid: 'description', name: 'description', content: '帮助中心'},
-          {hid: 'keyswords', name: 'keyswords', content: '帮助中心'}
-        ]
-      }
-    },
     data () {
       return {
         info: {},

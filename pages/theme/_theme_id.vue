@@ -14,11 +14,11 @@
       <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
       <header class="header-theme">
         <div class="top-header"
-             :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+ themelist.c_img+')'}">
+             :style="{'background-image': 'url('+imgUrl+'/theme/'+ themelist.c_img+')'}">
         </div>
         <div class="bottom-header">
           <div class="bottom-avator"
-               :style="{'background-image': 'url(http://data.maopingshou.com/images/theme/'+ themelist.c_img+')'}"></div>
+               :style="{'background-image': 'url('+imgUrl+'/theme/'+ themelist.c_img+')'}"></div>
           <div class="header-title">{{themelist.c_title}}</div>
           <div class="header-content">{{themelist.c_content}}</div>
           <div v-if="userList===1" v-show="addshow">
@@ -57,11 +57,13 @@
                 <div class="theme-li-img">
 
                   <div v-if="themelist.c_news===1">
-                    <img v-if="value.img" :src="`http://data.maopingshou.com/images/${value.img}`"
+                    <img v-if="value.img" :src="`${imgUrl}${value.img}`"
                          @click="clickImg($event)"/>
                   </div>
+
+                  {{value.img}}
                   <div v-if="themelist.c_news===2">
-                    <img v-if="value.img" :src="`http://data.maopingshou.com/images/news/${value.img}`"
+                    <img v-if="value.img" :src="`${imgUrl}news/${value.img}`"
                          @click="clickImg($event)"/>
                   </div>
                 </div>
@@ -119,8 +121,14 @@
         error({statusCode: 404, message: '众里寻他 我已不再'})
       })
     },
+    filters: {
+      capitalize: function (value) {
+        return value.replace(',','')
+      }
+    },
     data () {
       return {
+        imgUrl: process.env.imgUrl,
         menu: [
           {name: '精选', active: 'nav-item', model: 2}
           //          {name: '广场', active: 'nav-item active', model: 3}

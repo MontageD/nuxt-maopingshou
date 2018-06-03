@@ -111,26 +111,29 @@
           top 0
           z-index 1
         .list-title
-          font-weight 600
           color #fff
-          height 2.5rem
+          height 3.2rem
           position relative
           z-index 10
           padding-top 10px
           margin-left 3px
           margin-right 5px
           margin-bottom 5px
+          font-weight 800
         .list-btn
           display inline-block
           position relative
+          float left
           padding 3px
-          background-color #007fff
-          color #fff
+          margin-left 10px
+          background: linear-gradient(to bottom right, #ffe013 , #ffe013);
+          color #000
           text-align left
-          font-size 12px
+          font-size 11px
           z-index 8
           border-radius 3px
-          font-weight 600
           cursor pointer
+          font-weight 800
+          font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif
 
 </style>
