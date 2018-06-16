@@ -3,13 +3,7 @@
     <div class="clocks">
 
       <div class="date">
-
-
-        <li>{{year}}</li>
-        <!--<li></li>-->
-        <li>{{month}}</li>
-        <!--<li></li>-->
-        <li>{{day}}</li>
+        <li>{{dates}}</li>
       </div>
       <canvas id="canvas" width="240px" height=" 170px"></canvas>
     </div>
@@ -23,15 +17,22 @@
 <script>
   export default {
     created () {
-      var date = new Date()
-      this.year = date.getFullYear()
-      this.month = date.getMonth()
-      this.day = date.getDate()
-
-      this.date = (this.year + this.month + this.day).split('')
+      let that = this
+      setInterval(() => {
+        var date = new Date()
+        that.hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+        that.minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+        that.second = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+        that.dates = (that.hours + ':' + that.minutes + ':' + that.second)
+      }, 1000)
+      //      this.date = new Date('00:00:00')
     },
     data () {
       return {
+        dates: '',
+        hours: '',
+        minutes: '',
+        second: '',
         date: [],
         year: '',
         month: '',
@@ -64,7 +65,7 @@
         var minute = minutes + seconds / 60
 
         this.ctx.save()
-        this.ctx.translate(120, 100)
+        this.ctx.translate(120, 95)
         this.ctx.beginPath()
         this.drawCircleText(this.ctx, '/////////////', 0, 0, 50, 50, true, '#000')
         // draw numbers
@@ -178,15 +179,21 @@
   .date
     position absolute
     left 50%
-    top 10px
+    top 1rem
+    display flex
+    justify-content center
+    align-items center
     transform translate(-50%, -50%)
     li
-      display inline-block
-      width 2rem
+      padding 3px 10px
+      display flex
+      align-items center
+      justify-content center
       text-align center
-      height 1rem
+      min-height 1rem
       background-color #000
       color #fff
+      border-radius 5px
 
   .side_date
     box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
