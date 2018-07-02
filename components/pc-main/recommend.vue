@@ -85,6 +85,9 @@
                   <div class="detail_img"
                        :style="{'background-image': 'url(https://maoping2.oss-cn-shenzhen.aliyuncs.com/news/'+v+')'}"></div>
                 </div>
+
+
+
                 <div  v-if="item.imgArr.length==1" class="lazy loaded2"
                    v-for="(v,k) in item.imgArr"
                    style="max-width: 100%;height: 8rem;">

@@ -156,6 +156,17 @@ export const actions = {
   async loadThemeDetail ({commit}, params = {}) {
     return Service.get(`/api/theme?uid= ${params.theme_id} `)
       .then(res => {
+        let result = res.data[0].aList
+        result.forEach((currentValue, index, array) => {
+          if (parseInt(result[index].showType) === 2) {
+            result[index].imgArr = []
+            let imgList = result[index].img.split(',')
+            imgList = cleanArray(imgList)
+            result[index].imgArr = imgList
+          }
+        })
+        res.data[0].aList = result
+        console.log(res.data[0])
         commit('option/SET_THEMELIST', res.data[0])
         return Promise.resolve(res.data)
       })

@@ -48,14 +48,14 @@
         <!--<img :src="everyImg">-->
         <!--<div class="clear"></div>-->
         <!--</section>-->
-        <Dates></Dates>
+        <!--<Dates></Dates>-->
 
         <section class="side_hoting">
           <p class="side_title">热门标签</p>
           <div @click="shuffle">
             <transition-group name="cell" tag="ul" class="side_tag">
               <li v-for="(item, index) in celles" :key="item.id" class="cell">
-                <b>{{index+1}}</b>、{{ item.order_id }}
+                <b>{{index + 1}}</b>、{{ item.order_id }}
               </li>
             </transition-group>
           </div>
@@ -83,7 +83,10 @@
 
 
         <section class="follow-section">
-          <header>关注我们  粤ICP备15044136号-2</header>
+          <header>关注我们 </header>
+
+
+          <p>粤ICP备15044136号-2</p>
           <ul class="account-list">
             <li class="item weibo">
               <a>
@@ -347,6 +350,7 @@
     box-shadow none
     overflow visible
     header
+      margin .5rem 0
       font-size 1.1em
     .more-list
       margin .5rem 0
@@ -516,7 +520,6 @@
     top: 0
     right: 0
 
-
   .user-section
     margin-bottom 10px !important
 
@@ -610,10 +613,12 @@
   .side_hoting
     box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
     margin-bottom 10px
+
   .side_date
     box-shadow 0 0px 4px 0 rgba(0, 0, 0, .05)
     margin-bottom 1rem
     background-color #fff
+
   img
     width 100%
 

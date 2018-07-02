@@ -95,7 +95,7 @@
         height 100%
         width 100%
       a:hover
-        transform scale(0)
+        background-color rgba(0, 0, 0, .2)
       a
         transition all 1s
         display block

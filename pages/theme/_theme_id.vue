@@ -56,15 +56,49 @@
                 <div class="theme-li-content">{{value.title}}</div>
                 <div class="theme-li-img">
 
-                  <div v-if="themelist.c_news===1">
+                  <div v-if="value.showType===1">
+
+
+
+
+
                     <img v-if="value.img" :src="`${imgUrl}${value.img}`"
                          @click="clickImg($event)"/>
+
+
+
+
+
                   </div>
 
-                  {{value.img}}
-                  <div v-if="themelist.c_news===2">
-                    <img v-if="value.img" :src="`${imgUrl}news/${value.img}`"
-                         @click="clickImg($event)"/>
+
+
+
+
+
+
+
+                  <div v-if="value.showType===2">
+
+
+
+
+
+
+
+                    <a v-for="(vv,kk) in value.imgArr" class="lazy loaded2 more-img">
+                      <img v-if="vv" :src="`${imgUrl}news/${vv}`" class="detail_img"
+                           @click="clickImg($event)"/>
+
+
+
+                    </a>
+
+
+
+
+
+
                   </div>
                 </div>
                 <!--<div class="theme-li-bottom">-->
@@ -275,6 +309,44 @@
   }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+
+  .more-img
+    max-width 12.8rem
+    height 5rem
+  .detail_img
+    border-radius 3px
+    height 100%
+    width 100%
+    background-size cover
+    background-position center
+    background-repeat no-repeat
+    cursor pointer
+    transition: all 1s
+  .detail_img:hover
+    transform scale(1.5)
+
+
+
+
+
+
+
+
+
+  .loaded2
+    border 5px solid #fff
+    width 100%
+    height 8rem
+    min-height 10rem
+    max-height 12rem
+    display inline-block
+    img
+      transition: all 1s
+      height 9rem
+      float left
+      border-radius 5px
+    img:hover
+      transform scale(1.5)
   .send_article
     height 2.5rem
     width 2.5rem

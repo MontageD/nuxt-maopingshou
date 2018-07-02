@@ -31,7 +31,7 @@
             name: 'description',
             content: this.$store.state.article.detailList[0].types + ' - ' + this.$store.state.article.detailList[0].title
           },
-          {hid: 'description', name: 'keyswords', content: '猫评手,猫评网,数据,评论分析,从评论看新闻,中文,媒体,评论网站,观点,时效,即时新闻,独立社区'}
+          {hid: 'keyswords', name: 'keyswords', content: '猫评手,猫评网,数据,评论分析,从评论看新闻,中文,媒体,评论网站,观点,时效,即时新闻,独立社区'}
         ]
       }
     },
