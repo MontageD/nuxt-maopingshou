@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2018-06-02 23:27:00
+ * @LastEditTime : 2020-01-26 19:44:14
+ * @LastEditors  : Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /nuxt-maopingshou/README.md
+ -->
 ### 猫评手网站 :octocat:  ([maopingshou.com](http://maopingshou.com))
 * 聚合各种网站的评论信息并作筛选和分类,从你最喜欢的角度过滤信息
 * 「人们想要的往往不是真相，而是他们想要看到的真相」
@@ -64,7 +72,7 @@ $ pm2 start node_modules/nuxt/bin/nuxt-start -i max
 
 
 
-
+# 数据库已经共享，有需要可以下载调试(设计较为简单，仅供参考)
 # 配置 后台数据库
 创建 api/db/dbConfig.js
 module.exports =
