@@ -15,7 +15,7 @@
   "dependencies": {
     "aframe": "^0.7.1",
     "autosize": "^4.0.0",
-    "axios": "^0.17.0",
+    "axios": "^0.19.2",
     "better-scroll": "^1.8.3",
     "body-parser": "^1.17.2",
     "browserify": "^14.5.0",
