@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2018-06-02 23:27:00
- * @LastEditTime : 2020-01-26 19:44:14
+ * @LastEditTime : 2020-01-26 19:48:30
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /nuxt-maopingshou/README.md
@@ -73,6 +73,10 @@ $ pm2 start node_modules/nuxt/bin/nuxt-start -i max
 
 
 # 数据库已经共享，有需要可以下载调试(设计较为简单，仅供参考)
+- 文件在  `./db/maoping.sql`
+
+
+
 # 配置 后台数据库
 创建 api/db/dbConfig.js
 module.exports =
