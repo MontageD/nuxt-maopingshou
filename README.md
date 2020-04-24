@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: /nuxt-maopingshou/README.md
  -->
-### 猫评手网站 :octocat:  ([maopingshou.com](http://maopingshou.com))
+### 猫评手网站 :octocat:  ([maopingshou.com](https://www.maopingshou.com))
 * 聚合各种网站的评论信息并作筛选和分类,从你最喜欢的角度过滤信息
 * 「人们想要的往往不是真相，而是他们想要看到的真相」
 
