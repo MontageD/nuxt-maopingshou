@@ -12,7 +12,7 @@
     "ejs": "~2.5.7",
     "express": "~4.15.5",
     "express-session": "^1.15.6",
-    "morgan": "~1.9.0",
+    "morgan": "~1.9.1",
     "mysql": "^2.15.0",
     "serve-favicon": "~2.4.5",
     "session-file-store": "^1.2.0"
