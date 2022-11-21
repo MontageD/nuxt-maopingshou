@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const dbConfig = require('../db/dbConfig')
+const dbConfig = require('../../db/dbConfig')
 const mysql = require('mysql')
 const pool = mysql.createPool(dbConfig.mysql)
 
