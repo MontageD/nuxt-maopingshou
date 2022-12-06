@@ -1,0 +1,32 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657553224484-5e5b3f098710?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name",
+      "release_at": "2022-02-02",
+
+      "tags": [
+      {
+        "id": 1,
+        "name": "Tag #1"
+      }]
+    },
+    {
+      "id": 2,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657486231649-1da6eb163c1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name #2",
+      "release_at": "2022-02-02",
+
+      "tags": [
+      {
+        "id": 1,
+        "name": "Tag #1"
+      }]
+    }
+  ],
+  "message": ""
+}

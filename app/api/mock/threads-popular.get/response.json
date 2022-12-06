@@ -1,0 +1,132 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "title": "This is a thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 8
+    },
+    {
+      "id": 2,
+      "title": "This is the second thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 8
+    },
+    {
+      "id": 1,
+      "title": "This is a thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 4.5
+    },
+    {
+      "id": 2,
+      "title": "This is the second thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 8
+    },
+    {
+      "id": 1,
+      "title": "This is a thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 4.5
+    },
+    {
+      "id": 2,
+      "title": "This is the second thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 8
+    },
+    {
+      "id": 1,
+      "title": "This is a thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 4.5
+    },
+    {
+      "id": 2,
+      "title": "This is the second thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 8
+    },
+    {
+      "id": 1,
+      "title": "This is a thread.",
+      "original_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "original_posted_at": "2022-02-02 00:02:00",
+      "last_posted_by": {
+        "user_detail_xxxx": ""
+      },
+      "last_posted_at": "2022-02-02 00:02:00",
+      "liked": false,
+      "thread_score": 4.5
+    }
+  ],
+  "message": ""
+}

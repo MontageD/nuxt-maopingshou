@@ -1,0 +1,40 @@
+{
+  "status": 1,
+  "data": {
+    "release_status": [
+      {
+        "id": 1,
+        "name": "Released"
+      },
+      {
+        "id": 2,
+        "name": "Beta"
+      },
+      {
+        "id": 3,
+        "name": "Early Access"
+      }
+    ],
+    "p2e_type": [
+      {
+        "id": 4,
+        "name": "Crypto"
+      },
+      {
+        "id": 5,
+        "name": "NFT"
+      }
+    ],
+    "genres": [
+      {
+        "id": 1,
+        "name": "RPG"
+      },
+      {
+        "id": 2,
+        "name": "FPS"
+      }
+    ]
+  },
+  "message": ""
+}

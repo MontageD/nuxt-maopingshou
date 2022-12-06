@@ -1,0 +1,34 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657560145276-f24baf9c5906?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1M3x8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name",
+      "token": {
+        "id": 1,
+        "coin": "LINX",
+        "ticker": "LINX",
+        "price": 2.0,
+        "price_trend": 1.0,
+        "percentage_trend": "100%"
+      }
+    },
+    {
+      "id": 2,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657559220445-4e93906cd43a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1N3x8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name #2",
+      "token": {
+        "id": 1,
+        "coin": "LINX",
+        "ticker": "LINX",
+        "price": 2.0,
+        "price_trend": 1.0,
+        "percentage_trend": "100%"
+      }
+    }
+  ],
+  "message": ""
+}

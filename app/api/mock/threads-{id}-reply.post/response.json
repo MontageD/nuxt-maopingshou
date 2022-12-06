@@ -1,0 +1,17 @@
+{
+  "status": 1,
+  "data": {
+    "id": 1,
+    "reply_id": 1,
+    "content": "",
+    "liked": false,
+    "thread_score": 4.5,
+    "posted_by": {
+      "user_detail_xxx": "xxxxxxxx"
+    },
+    "posted_at": "2022-05-07",
+    "no_of_likes": 20,
+    "quote": null
+  },
+  "message": ""
+}

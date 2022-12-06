@@ -1,0 +1,273 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "action_type": "facebook_login",
+      "title": "Login with Facebook Account",
+      "description": "",
+      "user_state": {
+        "unlocked": true,
+        "done": true
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "google_login",
+      "title": "Login with Google Account",
+      "description": "",
+      "user_state": {
+        "unlocked": true,
+        "done": true
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "add_wallet_address",
+      "title": "Submit your crypto wallet address",
+      "description": "Make sure you enter the correct wallet Address.",
+      "blockchain_type": "",
+      "blockchain_icon_url": "",
+      "user_state": {
+        "unlocked": true,
+        "done": true
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "facebook_share",
+      "title": "Share this event to Facebook",
+      "description": "",
+      "action_url": "https://facebook.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": true
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "visit_facebook_page",
+      "title": "Visit the page on Facebook",
+      "description": "",
+      "action_url": "https://facebook.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": true
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "visit_facebook_post",
+      "title":"Visit the post on Facebook",
+      "description": "",
+      "action_url": "https://facebook.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "visit_instagram_page",
+      "title":"Visit on Instagram",
+      "description": "",
+      "action_url": "https://instagram.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "visit_youtube_page",
+      "title":"Visit a Youtube Channel",
+      "description": "Get the entry for visiting the Youtube Channel",
+      "action_url": "https://youtube.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "visit_twitch_page",
+      "title":"Visit a Twitch Channel",
+      "description": "",
+      "action_url": "https://twitch.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "join_discord_server",
+      "title":"Join our Discord Server",
+      "description": "",
+      "action_url": "https://discord.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "visit_website",
+      "title": "Visit the web page",
+      "description": "",
+      "action_url": "https://google.com/",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "download_file",
+      "title": "Download our games",
+      "description": "",
+      "download_urls": [
+        {
+          "id": 1, 
+          "text": "Windows Store",
+          "url": ""
+        },
+        {
+          "id": 1, 
+          "text": "Apple App Store",
+          "url": ""
+        },
+        {
+          "id": 1, 
+          "text": "Google Play",
+          "url": ""
+        },
+        {
+          "id": 1, 
+          "text": "Mac App Store",
+          "url": ""
+        }
+      ],
+      "action_url": "",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "answer_question",
+      "title": "Answer a question",
+      "description": "",
+      "question": "What is 1 + 1?",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "answer_poll",
+      "title": "Answer a poll",
+      "description": "",
+      "poll": "What color do you like?",
+      "options": [
+        {
+          "id": 1,
+          "text": "red"
+        },
+        
+        {
+          "id": 2,
+          "text": "green"
+        },
+        
+        {
+          "id": 3,
+          "text": "blue"
+        }
+      ],
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "choose_image",
+      "title": "Choose an image",
+      "description": "",
+      "question": "Which logo do you prefer?",
+      "options": [
+        {
+          "id": 1,
+          "image_url": "https://i.picsum.photos/id/1068/200/300.jpg?hmac=ICIwYXRGTpDxBPZAI7V8YxGtBBanV8Dfbe_DLNKtYcE"
+        },
+        
+        {
+          "id": 2,
+          "image_url": "https://i.picsum.photos/id/517/200/300.jpg?hmac=xpkz9Xo5Fd9o6IumOFou6GwHqhMUTxxhyYfNiawb1Qk"
+        },
+        
+        {
+          "id": 3,
+          "image_url": "https://i.picsum.photos/id/701/200/300.jpg?hmac=gVWdD9Rh_J0iGXpXOJAN7MZpGPrpeHX_M5JwGGvTSsI"
+        }
+      ],
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "enter_secret_code",
+      "title": "Enter a secret code",
+      "description": "",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "unlock_after",
+      "title": "More Finished Actions to Unlock",
+      "description": "",
+      "unlock_number": 6,
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    },
+    {
+      "id": 1,
+      "action_type": "complete_all",
+      "title": "Complete All to Unlock",
+      "description": "",
+      "user_state": {
+        "unlocked": true,
+        "done": false
+      },
+      "action_entry_count": 1
+    }
+  ],
+  "message": ""
+}

@@ -1,0 +1,20 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "banner_image_url": "http://lorempics.com/650x150",
+      "action_url": "https://linx.games/",
+      "type": "simple"
+    },
+    {
+      "id": 1,
+      "banner_image_url": "http://lorempics.com/650x150",
+      "type": "complex",
+      "title": "Banner Title",
+      "content": "This is the banner content! This is the banner content! This is the banner content! This is the banner content!",
+      "button_text": "Button Text"
+    }
+  ],
+  "message": ""
+}

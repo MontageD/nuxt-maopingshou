@@ -1,0 +1,246 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://th.bing.com/th/id/OIP.GT-FibllPL7dekHuLZcv2AHaKO?pid=ImgDet&rs=1",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://i.pinimg.com/originals/ec/55/d8/ec55d8660942e61df62e4b89598f5275.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://image.api.playstation.com/vulcan/ap/rnd/202203/2502/2LOStyeYTvSNuS0b4oM1LgTB.png",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://cdn.cloudflare.steamstatic.com/steam/apps/1238810/header.jpg?t=1641312066",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://th.bing.com/th/id/OIP.3sgNuVw8VqfyaUsL8yWq6QHaKf?pid=ImgDet&rs=1",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://images.unsplash.com/photo-1657648098817-0b36eb60c904?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://th.bing.com/th/id/OIP.hCCPhwDumPk6l27vzoHoSgHaLH?pid=ImgDet&w=720&h=1080&rs=1",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://www.pcgamesarchive.com/wp-content/uploads/2020/12/Stellaris-Cover.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://www.pcgamesarchive.com/wp-content/uploads/2020/05/World-of-Warcraft-Wrath-of-the-Lich-King-Cover.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://gamepreorders.com/wp-content/uploads/2019/06/cover-art-13.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://freshcomics.s3.amazonaws.com/issue_covers/DEC171821.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://freshcomics.s3.amazonaws.com/issue_covers/APR161943.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://www.pcgamesarchive.com/wp-content/uploads/2020/10/F.E.A.R.-2-Project-Origin-Cover.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://full-games.org/wp-content/uploads/2019/07/Ancestors-The-Humankind-Odyssey-COVER-PC.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://www.pcgamesarchive.com/wp-content/uploads/2020/06/This-War-of-Mine-Cover.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    }
+  ],
+  "message": ""
+}

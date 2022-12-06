@@ -1,0 +1,185 @@
+{
+  "status": 1,
+  "data": {
+    "id": 1,
+    "name": "Game Name",
+    "release_at": "2022-02-02",
+    "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+    "cover_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+    "user_related": {
+      "last_played": "2022-10-04 00:05:00",
+      "total_play_minute": "129"
+    },
+    "latest_event": {
+      "id": 1,
+      "title": "Event Airdrop #1",
+      "description": "",
+      "cover_image_url": "https://images.unsplash.com/photo-1657543973485-155201fb815b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5NXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "end_at": "2022-10-15 12:00:00",
+      "type": "airdrop",
+      "winners": 78,
+      "total_amount": 10000,
+      "airdrop_coin": {
+        "id": 1,
+        "coin": "Ethereum",
+        "ticker": "ETH"
+      },
+      "airdrop_type": "token"
+    },
+    "tags": [
+      {
+        "id": 1,
+        "name": "Tag #1"
+      },
+      {
+        "id": 1,
+        "name": "Tag #2"
+      }
+    ],
+    "platforms": [
+      {
+        "id": 1,
+        "name": "Windows",
+        "image_url": "https://cdn-icons-png.flaticon.com/512/220/220215.png",
+        "sort_order": 1
+      },
+      {
+        "id": 1,
+        "name": "Mac",
+        "image_url": "https://cdn-icons.flaticon.com/png/128/2175/premium/2175370.png?token=exp=1658905713~hmac=ee6b337434b72187b2e1575cc5c925e3",
+        "sort_order": 2
+      }
+    ],
+    "blockchains": [
+      {
+        "id": 1,
+        "name": "blockchain 1",
+        "image_url": "https://dappimg.com/media/image/chain/636c8ed981c4468f99b46e8a42dd4e13.png",
+        "sort_order": 1
+      },
+      {
+        "id": 1,
+        "name": "blockchain 2",
+        "image_url": "https://research.binance.com/static/images/projects/matic-network/logo.png",
+        "sort_order": 2
+      }
+    ],
+    "videos": [
+      
+      {
+        "id": 2,
+        "video_url": "https://storage.coverr.co/videos/YAznKOqoi5aQIWJRwTZJxjNArZQ91QSI?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjU5MzIwMjQ5fQ.7kjMzAJML0ouE6dto3uhPMJHx1ia_o57RIzg2srVqGM",
+        "image_url": "https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg",
+
+        "sort_order": 1
+      },
+      {
+        "id": 1,
+        "video_url": "https://www.youtube.com/embed/7DjaWzh-EvA",
+        "image_url": "https://s.yimg.com/os/creatr-uploaded-images/2021-03/7bfcf270-7bd4-11eb-bf67-b4c65885b0a5",
+
+        "sort_order": 1
+      }
+    ],
+    "images": [
+      {
+        "id": 1,
+        "image_url": "https://s.yimg.com/os/creatr-uploaded-images/2021-03/7bfcf270-7bd4-11eb-bf67-b4c65885b0a5",
+        "sort_order": 1
+      },
+      {
+        "id": 2,
+        "image_url": "https://www.gtaboom.com/wp-content/uploads/2021/11/gta-5-cheats-pc-scaled.jpg",
+        "sort_order": 2
+      },
+      {
+        "id": 3,
+        "image_url": "https://cdn.prod.www.spiegel.de/images/b384034e-17fc-4136-92ef-bacbcf57e3ae_w948_r1.778_fpx58.49_fpy50.jpg",
+        "sort_order": 3
+      },
+      {
+        "id": 4,
+        "image_url": "https://www.nme.com/wp-content/uploads/2022/02/Grand-Theft-Auto-V-Trevor.jpg",
+        "sort_order": 4
+      },
+      {
+        "id": 5,
+        "image_url": "https://images.pushsquare.com/a4e9a972250dd/gta-5-screenshots-1.large.jpg",
+        "sort_order": 4
+      }
+    ],
+    "thread_cateogories": [
+      {
+        "id": 1,
+        "name": "Trending"
+      },
+      {
+        "id": 2,
+        "name": "Recent"
+      },
+      {
+        "id": 3,
+        "name": "News"
+      },
+      {
+        "id": 4,
+        "name": "Guide"
+      },
+      {
+        "id": 5,
+        "name": "Trade"
+      },
+      {
+        "id": 6,
+        "name": "Developer"
+      },
+      {
+        "id": 7,
+        "name": "Pinned"
+      }
+    ],
+    
+    "description": "Lorem ipsum dolor",
+    "genres": [
+      {
+        "id": 1,
+        "name": "Name abc"
+      },
+      {
+        "id": 2,
+        "name": "Name abc"
+      }
+    ],
+    "developers": [
+      {
+        "id": 1,
+        "name": "Name abc"
+      },
+      {
+        "id": 2,
+        "name": "Name abc"
+      }
+    ],
+    "publishers": [
+      {
+        "id": 1,
+        "name": "Name abc"
+      },
+      {
+        "id": 2,
+        "name": "Name abc"
+      }
+    ],
+    "requirements": [
+      {
+        "key": "System",
+        "value": "Windows 7"
+      },
+      {
+        "key": "Processor",
+        "value": "Intel Core I3 or higher"
+      }
+    ]
+  },
+  "message": ""
+}

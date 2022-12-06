@@ -1,0 +1,15 @@
+{
+  "stauts": "1",
+  "data": {
+    "id": 1,
+    "username": "jacky",
+    "game_id": "1pj23i4p21ji421p4ji21p4",
+    "avatar_image_url": "https://i.pravatar.cc/300?img=9",
+    "access_token": {
+      "token": "aoifjaoweijiwaf",
+      "other_property_1": "xxxxxxxxxx",
+      "other_property_2": "xxxxxxxxxx"
+    }
+  },
+  "message": ""
+}

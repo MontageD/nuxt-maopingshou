@@ -1,0 +1,86 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "title": "Hub of game 1",
+      "cover_image_url": "https://interfaceingame.com/wp-content/uploads/elden-ring/elden-ring-cover-375x500.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 2,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://interfaceingame.com/wp-content/uploads/elden-ring/elden-ring-cover-375x500.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 3,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://interfaceingame.com/wp-content/uploads/elden-ring/elden-ring-cover-375x500.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 4,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://interfaceingame.com/wp-content/uploads/elden-ring/elden-ring-cover-375x500.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    },
+    {
+      "id": 5,
+      "title": "Hub of game 2",
+      "cover_image_url": "https://interfaceingame.com/wp-content/uploads/elden-ring/elden-ring-cover-375x500.jpg",
+      "game": {
+        "id": 1,
+        "name": "asdfg"
+      },
+      "tags": [
+        {
+          "id": 1,
+          "name": "New"
+        }
+      ],
+      "no_of_threads": 20
+    }
+  ],
+  "message": ""
+}

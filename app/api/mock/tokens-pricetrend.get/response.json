@@ -1,0 +1,22 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "coin": "LINX",
+      "ticker": "LINX",
+      "price": 2.0,
+      "price_trend": 1.0,
+      "percentage_trend": "100%"
+    },
+    {
+      "id": 1,
+      "coin": "Ethereum",
+      "ticker": "ETH",
+      "price": 9900,
+      "price_trend": -100,
+      "percentage_trend": "-0.5%"
+    }
+  ],
+  "message": ""
+}

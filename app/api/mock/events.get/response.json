@@ -1,0 +1,31 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "title": "Event Airdrop #1",
+      "description": "",
+      "cover_image_url": "https://images.unsplash.com/photo-1657560144081-fdc071518ad5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+      "end_at": "2022-10-15 12:00:00",
+      "type": "airdrop",
+      "winners": 78,
+      "total_amount": 10000,
+      "airdrop_coin": {
+        "id": 1,
+        "coin": "Ethereum",
+        "ticker": "ETH"
+      },
+      "airdrop_type": "token"
+    },
+    {
+      "id": 1,
+      "title": "Event Beta #1",
+      "description": "",
+      "cover_image_url": "https://images.unsplash.com/photo-1657497850588-95c90b876cdb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+      "end_at": "2021-10-15 12:00:00",
+      "type": "beta",
+      "winners": 78
+    }
+  ],
+  "message": ""
+}

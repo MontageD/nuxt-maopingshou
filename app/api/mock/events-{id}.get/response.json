@@ -1,0 +1,39 @@
+{
+  "status": 1,
+  "data": [{
+    "id": 1,
+    "game": {},
+    "title": "Event Airdrop #1",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quae officia quam veritatis aut vero nesciunt pariatur dolore facere debitis. Necessitatibus porro numquam eligendi corporis odio commodi corrupti assumenda placeat!",
+    "cover_image_url": "https://images.unsplash.com/photo-1657560144081-fdc071518ad5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+    "feature_image_url": "",
+    "feature_video_url": "",
+    "end_at": "2022-10-15 12:00:00",
+    "type": "airdrop",
+    "winners": 78,
+    "total_amount": 10000,
+    "airdrop_coin": {
+      "id": 1,
+      "coin": "Ethereum",
+      "ticker": "ETH"
+    },
+    "basic_action": {
+      "id": 1,
+      "action_type": "facebook_login",
+      "title": "Login with Facebook Account",
+      "description": "",
+      "user_state": {
+        "unlocked": true,
+        "done": true
+      },
+      "action_entry_count": 1
+    },
+    "airdrop_type": "token",
+    "action_type": "mission",
+    "terms_and_condition": "<h1>Header</h1><p>Content</p><p>Content</p><p>Content</p><p>Content</p>",
+    "user_entries": 3,
+    "available_entries": 6,
+    "winner_announced": false
+  }],
+  "message": ""
+}

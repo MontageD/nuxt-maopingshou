@@ -1,0 +1,86 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657486233612-7f0f6b0f9366?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name",
+      "tags": [
+      {
+        "id": 1,
+        "name": "Tag #1"
+      }],
+      "platforms": [
+        {
+          "id": 1,
+          "name": "Windows",
+          "image_url": "",
+          "sort_order": 1
+        },
+        {
+          "id": 1,
+          "name": "Mac",
+          "image_url": "",
+          "sort_order": 2
+        }
+      ],
+      "blockchains": [
+        {
+          "id": 1,
+          "name": "blockchain 1",
+          "image_url": "",
+          "sort_order": 1
+        },
+        {
+          "id": 1,
+          "name": "blockchain 2",
+          "image_url": "",
+          "sort_order": 2
+        }
+      ]
+
+    },
+    {
+      "id": 2,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1654523500175-a816299d6beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMnx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name #2",
+      "tags": [
+      {
+        "id": 1,
+        "name": "Tag #1"
+      }],
+      "platforms": [
+        {
+          "id": 1,
+          "name": "Windows",
+          "image_url": "",
+          "sort_order": 1
+        },
+        {
+          "id": 1,
+          "name": "Mac",
+          "image_url": "",
+          "sort_order": 2
+        }
+      ],
+      "blockchains": [
+        {
+          "id": 1,
+          "name": "blockchain 1",
+          "image_url": "",
+          "sort_order": 1
+        },
+        {
+          "id": 1,
+          "name": "blockchain 2",
+          "image_url": "",
+          "sort_order": 2
+        }
+      ]
+
+    }
+  ],
+  "message": ""
+}

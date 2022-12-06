@@ -1,0 +1,13 @@
+{
+  "status":1,
+  "data": {
+    "completed": 4,
+    "pending": 5,
+    "latest_task": {
+      "other_properties_1": "xxxxxxxxxxxxxxx",
+      "other_properties_2": "xxxxxxxxxxxxxxx"
+    }
+  },
+  "message": ""
+
+}

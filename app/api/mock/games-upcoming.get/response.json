@@ -1,0 +1,28 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "icon_image_url": "https://images.unsplash.com/photo-1657566646985-216350a47377?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657533881660-3416699187a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2N3x8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name",
+      "tags": [
+        {
+          "id": 1,
+          "name": "Tag #1"
+        }]
+    },
+    {
+      "id": 2,
+      "icon_image_url": "https://images.unsplash.com/photo-1657534259309-01618b7b3497?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+      "cover_image_url": "https://images.unsplash.com/photo-1657548728841-5c0fdf9d30b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3NXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60",
+      "name": "Game Name #2",
+      "tags": [
+        {
+          "id": 1,
+          "name": "Tag #1"
+        }]
+    }
+  ],
+  "message": ""
+}

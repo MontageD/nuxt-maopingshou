@@ -1,0 +1,24 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": "1",
+      "game": {
+        "id": "1",
+        "title": "Game Title #1",
+        "short description": "Game short description",
+        "cover_image_url": "https://i.picsum.photos/id/1024/1920/1280.jpg?hmac=-PIpG7j_fRwN8Qtfnsc3M8-kC3yb0XYOBfVzlPSuVII"
+      }
+    },
+    {
+      "id": "1",
+      "game": {
+        "id": "1",
+        "title": "Game Title #2",
+        "short description": "Game short description",
+        "cover_image_url": "https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk"
+      }
+    }
+  ],
+  "message": ""
+}

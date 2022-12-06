@@ -1,0 +1,9 @@
+{
+  "status": [1,2,3],
+  "type": [1,2,3],
+  "genre": [1],
+  "feature": [],
+  "tags": [],
+  "platform": [],
+  "sorting": "alphabetical"
+}

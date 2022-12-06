@@ -1,0 +1,22 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1,
+      "winner": {
+        "display_name": "",
+        "avatar_image_url": ""
+      },
+      "entry_id": 1
+    },
+    {
+      "id": 2,
+      "winner": {
+        "display_name": "",
+        "avatar_image_url": ""
+      },
+      "entry_id": 1
+    }
+  ],
+  "message": ""
+}
